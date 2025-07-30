@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EIY403 - Introducción al Análisis de Datos - Clase 1</title>
+    <title>EIY403 - Clase 1: Fundamentos del Análisis de Datos</title>
     <style>
         * {
             margin: 0;
@@ -129,6 +129,34 @@
             transform: translateX(-50%);
             display: flex;
             gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav-btn {
@@ -310,6 +338,8 @@
     </style>
 </head>
 <body>
+    <a href="../../index.html" class="home-btn">← Volver al Inicio</a>
+    
     <div class="presentation-container">
         <!-- Slide 1: Portada -->
         <div class="slide active intro-slide">
