@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - Introducción al Análisis de Datos - Clase 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .timeline {
+            border-left: 4px solid #a73c3c;
+            padding-left: 35px;
+            margin-left: 25px;
+        }
+
+        .timeline-item {
+            margin-bottom: 35px;
+            position: relative;
+            padding: 20px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -43px;
+            top: 25px;
+            width: 14px;
+            height: 14px;
+            background: #a73c3c;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            box-shadow: 0 0 0 2px #a73c3c;
+        }
+
+        .timeline-year {
+            font-weight: 700;
+            color: #a73c3c;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        }
+
+        .comparison-table tr:hover {
+            background: linear-gradient(145deg, #ecf0f1, #f8f9fa);
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+        .exercise-box {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(167, 60, 60, 0.1);
+        }
+
+        .exercise-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #a73c3c;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .data-set {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+        }
+
+        .formula {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            border: 1px solid #a73c3c;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            text-align: center;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>EIY403</h1>
+            <p class="subtitle">Introducción al Análisis de Datos para Otras Carreras</p>
+            <div class="info"><strong>Clase 1:</strong> Fundamentos y Conceptos Básicos</div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            <div class="info"><strong>Escuela de Informática y Computación</strong></div>
+            <div class="slide-number">1 / 15</div>
+        </div>
+
+        <!-- Slide 2: Agenda de la Clase -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Agenda de la Clase</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Bloque 1 (45 min)</h3>
+                    <ul>
+                        <li>Presentaciones</li>
+                        <li>Carta al Estudiante</li>
+                        <li>Objetivos del curso</li>
+                        <li>Metodología</li>
+                    </ul>
+                    
+                    <h3>Bloque 2 (50 min)</h3>
+                    <ul>
+                        <li>Historia del análisis de datos</li>
+                        <li>Evolución tecnológica</li>
+                        <li>Era actual de datos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Bloque 3 (45 min)</h3>
+                    <ul>
+                        <li>Lenguajes para análisis</li>
+                        <li>Python vs R</li>
+                        <li>Ecosistemas y comunidades</li>
+                    </ul>
+                    
+                    <h3>Bloque 4 (50 min)</h3>
+                    <ul>
+                        <li>Análisis exploratorio</li>
+                        <li>Tipos de datos</li>
+                        <li>Práctica manual de estadísticas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">2 / 15</div>
+        </div>
+
+        <!-- Slide 3: ¿Por qué Análisis de Datos? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Por qué Análisis de Datos en Diferentes Disciplinas?</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Mundo Actual</h3>
+                    <ul>
+                        <li>Explosión de datos en todas las áreas</li>
+                        <li>Necesidad de tomar decisiones basadas en evidencia</li>
+                        <li>Competitividad y eficiencia</li>
+                        <li>Descubrimiento de patrones ocultos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Aplicaciones Interdisciplinarias</h3>
+                    <ul>
+                        <li><strong>Medicina:</strong> Diagnósticos, epidemiología</li>
+                        <li><strong>Educación:</strong> Rendimiento estudiantil</li>
+                        <li><strong>Agricultura:</strong> Optimización de cultivos</li>
+                        <li><strong>Negocios:</strong> Análisis de mercado</li>
+                        <li><strong>Ciencias Sociales:</strong> Comportamiento humano</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">3 / 15</div>
+        </div>
+
+        <!-- Slide 4: Historia del Análisis de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Historia del Análisis de Datos</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1600s-1700s</div>
+                    <p><strong>Estadística Clásica:</strong> Primeros censos y registros demográficos. John Graunt analiza datos de mortalidad en Londres.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1800s</div>
+                    <p><strong>Estadística Moderna:</strong> Gauss, Bayes, y otros desarrollan fundamentos matemáticos. Primeros gráficos estadísticos.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1950s-1960s</div>
+                    <p><strong>Era Computacional:</strong> Primeras computadoras permiten análisis más complejos. Nace la estadística computacional.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1990s-2000s</div>
+                    <p><strong>Internet y Bases de Datos:</strong> Explosión de datos digitales. Desarrollo de herramientas como R (1993) y Python.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">2010s-Presente</div>
+                    <p><strong>Big Data e IA:</strong> Machine Learning, Deep Learning, y análisis de datos masivos en tiempo real.</p>
+                </div>
+            </div>
+            <div class="slide-number">4 / 15</div>
+        </div>
+
+        <!-- Slide 5: Características de la Era Actual -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Características de la Era Actual de Datos</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Volumen y Velocidad</h3>
+                    <ul>
+                        <li>2.5 quintillones de bytes diarios</li>
+                        <li>Datos en tiempo real</li>
+                        <li>Internet de las Cosas (IoT)</li>
+                        <li>Redes sociales y sensores</li>
+                    </ul>
+                    
+                    <h3>Variedad</h3>
+                    <ul>
+                        <li>Datos estructurados y no estructurados</li>
+                        <li>Texto, imágenes, audio, video</li>
+                        <li>Datos geoespaciales</li>
+                        <li>Streams de datos continuos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Democratización</h3>
+                    <ul>
+                        <li>Herramientas accesibles</li>
+                        <li>Cloud computing</li>
+                        <li>Interfaces user-friendly</li>
+                        <li>Comunidades open source</li>
+                    </ul>
+                    
+                    <h3>Aplicaciones Emergentes</h3>
+                    <ul>
+                        <li>Inteligencia Artificial</li>
+                        <li>Análisis predictivo</li>
+                        <li>Personalización masiva</li>
+                        <li>Toma de decisiones automatizada</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">5 / 15</div>
+        </div>
+
+        <!-- Slide 6: Panorama de Lenguajes -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Lenguajes que Favorecen el Análisis de Datos</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Lenguaje</th>
+                        <th>Fortalezas</th>
+                        <th>Casos de Uso Típicos</th>
+                        <th>Curva de Aprendizaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Python</strong></td>
+                        <td>Versatilidad, grandes librerías, integración</td>
+                        <td>ML, AI, web scraping, automatización</td>
+                        <td>Moderada</td>
+                    </tr>
+                    <tr>
+                        <td><strong>R</strong></td>
+                        <td>Estadística avanzada, visualización</td>
+                        <td>Investigación, bioestadística, reportes</td>
+                        <td>Moderada-Alta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SQL</strong></td>
+                        <td>Manejo de bases de datos relacionales</td>
+                        <td>Consultas, ETL, data warehousing</td>
+                        <td>Baja-Moderada</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Java/Scala</strong></td>
+                        <td>Performance, sistemas distribuidos</td>
+                        <td>Big Data, sistemas empresariales</td>
+                        <td>Alta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Julia</strong></td>
+                        <td>Velocidad, computación científica</td>
+                        <td>Investigación, HPC, finanzas</td>
+                        <td>Moderada-Alta</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="slide-number">6 / 15</div>
+        </div>
+
+        <!-- Slide 7: Python vs R - Comparación Detallada -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Python vs R: Comparación Detallada</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Python</h3>
+                    <p><strong>Ventajas:</strong></p>
+                    <ul>
+                        <li>Lenguaje de propósito general</li>
+                        <li>Sintaxis clara y legible</li>
+                        <li>Excelente para machine learning</li>
+                        <li>Gran comunidad y ecosistema</li>
+                        <li>Integración con web y sistemas</li>
+                    </ul>
+                    
+                    <p><strong>Librerías Clave:</strong></p>
+                    <ul>
+                        <li>Pandas, NumPy (manipulación)</li>
+                        <li>Matplotlib, Seaborn (visualización)</li>
+                        <li>Scikit-learn (ML)</li>
+                        <li>TensorFlow, PyTorch (Deep Learning)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>R</h3>
+                    <p><strong>Ventajas:</strong></p>
+                    <ul>
+                        <li>Diseñado específicamente para estadística</li>
+                        <li>Visualizaciones avanzadas (ggplot2)</li>
+                        <li>Análisis estadístico superior</li>
+                        <li>Excelente para investigación</li>
+                        <li>Reportes reproducibles</li>
+                    </ul>
+                    
+                    <p><strong>Librerías Clave:</strong></p>
+                    <ul>
+                        <li>dplyr, tidyr (manipulación)</li>
+                        <li>ggplot2 (visualización)</li>
+                        <li>caret, randomForest (ML)</li>
+                        <li>shiny (aplicaciones web)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">7 / 15</div>
+        </div>
+
+        <!-- Slide 8: ¿Cuál Elegir? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Cuál Elegir Según el Contexto?</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Elige Python si...</h3>
+                    <ul>
+                        <li>Quieres aprender un lenguaje versátil</li>
+                        <li>Planeas trabajar con machine learning</li>
+                        <li>Necesitas integrar con aplicaciones web</li>
+                        <li>Tu background es en programación</li>
+                        <li>Trabajas con datos muy grandes</li>
+                        <li>Quieres automatizar procesos</li>
+                    </ul>
+                    
+                    <h3>Casos de Uso Python</h3>
+                    <ul>
+                        <li>Sistemas de recomendación</li>
+                        <li>Procesamiento de lenguaje natural</li>
+                        <li>Análisis de redes sociales</li>
+                        <li>Computer vision</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Elige R si...</h3>
+                    <ul>
+                        <li>Tu enfoque es principalmente estadístico</li>
+                        <li>Trabajas en investigación académica</li>
+                        <li>Necesitas visualizaciones muy específicas</li>
+                        <li>Tu background es en matemáticas/estadística</li>
+                        <li>Requieres análisis estadísticos avanzados</li>
+                        <li>Produces reportes regulares</li>
+                    </ul>
+                    
+                    <h3>Casos de Uso R</h3>
+                    <ul>
+                        <li>Ensayos clínicos</li>
+                        <li>Investigación en ciencias sociales</li>
+                        <li>Análisis financiero</li>
+                        <li>Bioestadística</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">8 / 15</div>
+        </div>
+
+        <!-- Slide 9: Análisis Exploratorio de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Qué es el Análisis Exploratorio de Datos?</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Definición</h3>
+                    <p>El <strong>Análisis Exploratorio de Datos (EDA)</strong> es el proceso de investigar conjuntos de datos para descubrir patrones, detectar anomalías, probar hipótesis y verificar suposiciones usando estadística descriptiva y representaciones gráficas.</p>
+                    
+                    <h3>Objetivos Principales</h3>
+                    <ul>
+                        <li>Entender la estructura de los datos</li>
+                        <li>Identificar variables importantes</li>
+                        <li>Detectar valores atípicos y errores</li>
+                        <li>Encontrar patrones y relaciones</li>
+                        <li>Generar hipótesis</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Proceso EDA</h3>
+                    <ul>
+                        <li><strong>1. Inspección inicial:</strong> Tamaño, estructura, tipos</li>
+                        <li><strong>2. Limpieza:</strong> Valores faltantes, duplicados</li>
+                        <li><strong>3. Estadística descriptiva:</strong> Medidas centrales y dispersión</li>
+                        <li><strong>4. Visualización:</strong> Gráficos y distribuciones</li>
+                        <li><strong>5. Análisis de relaciones:</strong> Correlaciones</li>
+                        <li><strong>6. Identificación de patrones:</strong> Tendencias, estacionalidad</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">9 / 15</div>
+        </div>
+
+        <!-- Slide 10: Tipos de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Tipos de Datos y Variables</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Datos Cuantitativos (Numéricos)</h3>
+                    <p><strong>Discretos:</strong></p>
+                    <ul>
+                        <li>Valores contables (enteros)</li>
+                        <li>Ejemplo: número de estudiantes, cantidad de productos</li>
+                    </ul>
+                    
+                    <p><strong>Continuos:</strong></p>
+                    <ul>
+                        <li>Valores en cualquier punto de un rango</li>
+                        <li>Ejemplo: altura, peso, temperatura, tiempo</li>
+                    </ul>
+                    
+                    <h3>Datos Cualitativos (Categóricos)</h3>
+                    <p><strong>Nominales:</strong></p>
+                    <ul>
+                        <li>Sin orden natural</li>
+                        <li>Ejemplo: color, género, marca</li>
+                    </ul>
+                    
+                    <p><strong>Ordinales:</strong></p>
+                    <ul>
+                        <li>Con orden natural</li>
+                        <li>Ejemplo: nivel educativo, satisfacción (bajo, medio, alto)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Escalas de Medición</h3>
+                    <p><strong>Nominal:</strong></p>
+                    <ul>
+                        <li>Solo clasificación</li>
+                        <li>Operaciones: igualdad, frecuencia</li>
+                    </ul>
+                    
+                    <p><strong>Ordinal:</strong></p>
+                    <ul>
+                        <li>Clasificación + orden</li>
+                        <li>Operaciones: ranking, mediana</li>
+                    </ul>
+                    
+                    <p><strong>Intervalo:</strong></p>
+                    <ul>
+                        <li>Orden + distancia constante</li>
+                        <li>Operaciones: suma, resta (ej: temperatura °C)</li>
+                    </ul>
+                    
+                    <p><strong>Razón:</strong></p>
+                    <ul>
+                        <li>Intervalo + cero absoluto</li>
+                        <li>Operaciones: todas (ej: altura, peso)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">10 / 15</div>
+        </div>
+
+        <!-- Slide 11: Medidas de Tendencia Central -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Medidas de Tendencia Central</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Media Aritmética (x̄)</h3>
+                    <div class="formula">x̄ = (Σx) / n</div>
+                    <ul>
+                        <li><strong>Uso:</strong> Datos simétricos sin valores extremos</li>
+                        <li><strong>Ventaja:</strong> Usa todos los valores</li>
+                        <li><strong>Desventaja:</strong> Sensible a valores atípicos</li>
+                    </ul>
+                    
+                    <h3>Mediana (Me)</h3>
+                    <p>Valor central en datos ordenados</p>
+                    <ul>
+                        <li><strong>n impar:</strong> valor del medio</li>
+                        <li><strong>n par:</strong> promedio de los dos valores centrales</li>
+                        <li><strong>Ventaja:</strong> Resistente a valores atípicos</li>
+                        <li><strong>Uso:</strong> Datos asimétricos o con outliers</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Moda (Mo)</h3>
+                    <p>Valor(es) que aparece(n) con mayor frecuencia</p>
+                    <ul>
+                        <li><strong>Unimodal:</strong> una moda</li>
+                        <li><strong>Bimodal:</strong> dos modas</li>
+                        <li><strong>Multimodal:</strong> más de dos modas</li>
+                        <li><strong>Uso:</strong> Datos categóricos o identificar patrones</li>
+                    </ul>
+                    
+                    <h3>¿Cuándo usar cada una?</h3>
+                    <ul>
+                        <li><strong>Distribución simétrica:</strong> Media</li>
+                        <li><strong>Distribución asimétrica:</strong> Mediana</li>
+                        <li><strong>Datos categóricos:</strong> Moda</li>
+                        <li><strong>Presencia de outliers:</strong> Mediana</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">11 / 15</div>
+        </div>
+
+        <!-- Slide 12: Medidas de Dispersión -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Medidas de Dispersión</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Rango</h3>
+                    <div class="formula">Rango = Valor máximo - Valor mínimo</div>
+                    <ul>
+                        <li><strong>Ventaja:</strong> Fácil de calcular</li>
+                        <li><strong>Desventaja:</strong> Solo usa valores extremos</li>
+                    </ul>
+                    
+                    <h3>Varianza (σ² o s²)</h3>
+                    <div class="formula">
+                        Poblacional: σ² = Σ(x - μ)² / N<br>
+                        Muestral: s² = Σ(x - x̄)² / (n-1)
+                    </div>
+                    <ul>
+                        <li>Mide dispersión promedio al cuadrado</li>
+                        <li><strong>Unidades:</strong> Al cuadrado de los datos originales</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Desviación Estándar (σ o s)</h3>
+                    <div class="formula">
+                        σ = √σ²  o  s = √s²
+                    </div>
+                    <ul>
+                        <li>Raíz cuadrada de la varianza</li>
+                        <li><strong>Ventaja:</strong> Mismas unidades que los datos</li>
+                        <li>Interpretación más intuitiva</li>
+                    </ul>
+                    
+                    <h3>Coeficiente de Variación (CV)</h3>
+                    <div class="formula">CV = (s / x̄) × 100%</div>
+                    <ul>
+                        <li>Medida relativa de dispersión</li>
+                        <li>Permite comparar conjuntos con diferentes unidades</li>
+                        <li><strong>CV < 15%:</strong> Baja variabilidad</li>
+                        <li><strong>CV > 30%:</strong> Alta variabilidad</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">12 / 15</div>
+        </div>
+
+        <!-- Slide 13: Ejercicio Práctico 1 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ejercicio Práctico 1: Medidas de Tendencia Central</h2>
+            
+            <div class="exercise-box">
+                <div class="exercise-title">Datos: Calificaciones de un Examen</div>
+                <div class="data-set">
+                    Calificaciones (sobre 100): 85, 92, 78, 96, 88, 91, 85, 89, 94, 87
+                </div>
+                
+                <h3>Calculemos paso a paso:</h3>
+                
+                <p><strong>1. Media Aritmética:</strong></p>
+                <div class="formula">
+                    x̄ = (85 + 92 + 78 + 96 + 88 + 91 + 85 + 89 + 94 + 87) ÷ 10<br>
+                    x̄ = 885 ÷ 10 = 88.5
+                </div>
+                
+                <p><strong>2. Mediana:</strong></p>
+                <p>Primero ordenamos: 78, 85, 85, 87, 88, 89, 91, 92, 94, 96</p>
+                <div class="formula">
+                    n = 10 (par), entonces Me = (88 + 89) ÷ 2 = 88.5
+                </div>
+                
+                <p><strong>3. Moda:</strong></p>
+                <div class="formula">
+                    Mo = 85 (aparece 2 veces)
+                </div>
+            </div>
+            <div class="slide-number">13 / 15</div>
+        </div>
+
+        <!-- Slide 14: Ejercicio Práctico 2 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ejercicio Práctico 2: Medidas de Dispersión</h2>
+            
+            <div class="exercise-box">
+                <div class="exercise-title">Usando los mismos datos: 78, 85, 85, 87, 88, 89, 91, 92, 94, 96</div>
+                
+                <p><strong>1. Rango:</strong></p>
+                <div class="formula">
+                    Rango = 96 - 78 = 18 puntos
+                </div>
+                
+                <p><strong>2. Varianza Muestral:</strong></p>
+                <p>Calculamos las desviaciones al cuadrado de la media (88.5):</p>
+                <div class="formula">
+                    (78-88.5)² + (85-88.5)² + (85-88.5)² + ... + (96-88.5)²<br>
+                    = 110.25 + 12.25 + 12.25 + 2.25 + 0.25 + 0.25 + 6.25 + 12.25 + 30.25 + 56.25<br>
+                    = 242.5
+                </div>
+                <div class="formula">
+                    s² = 242.5 ÷ (10-1) = 242.5 ÷ 9 = 26.94
+                </div>
+                
+                <p><strong>3. Desviación Estándar:</strong></p>
+                <div class="formula">
+                    s = √26.94 = 5.19 puntos
+                </div>
+                
+                <p><strong>4. Coeficiente de Variación:</strong></p>
+                <div class="formula">
+                    CV = (5.19 ÷ 88.5) × 100% = 5.86%
+                </div>
+            </div>
+            <div class="slide-number">14 / 15</div>
+        </div>
+
+        <!-- Slide 15: Próxima Clase -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Próxima Clase: ¡Manos a la Obra!</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Lo que haremos:</h3>
+                    <ul>
+                        <li>Configuración del entorno de trabajo</li>
+                        <li>Primeros pasos con el lenguaje seleccionado</li>
+                        <li>Laboratorio #1: Sintaxis básica</li>
+                        <li>Importación y manipulación de datos</li>
+                        <li>Implementar los cálculos que hicimos hoy</li>
+                    </ul>
+                    
+                    <h3>Para la próxima clase:</h3>
+                    <ul>
+                        <li>Revisar instalación del software</li>
+                        <li>Tarea #1 (será asignada al final)</li>
+                        <li>Pensar en datos de su área disciplinaria</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Reflexión Final</h3>
+                    <p>Hoy aprendimos que el análisis de datos es:</p>
+                    <ul>
+                        <li>Una herramienta poderosa para cualquier disciplina</li>
+                        <li>Un proceso sistemático que empieza con exploración</li>
+                        <li>Basado en fundamentos estadísticos sólidos</li>
+                        <li>Accesible con las herramientas adecuadas</li>
+                    </ul>
+                    
+                    <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 5px solid #a73c3c;">
+                        <p><strong>¡Gracias por su atención!</strong></p>
+                        <p>¿Preguntas o comentarios?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">15 / 15</div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
