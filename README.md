@@ -11,7 +11,7 @@
 - **Tipo:** Optativo General
 - **Créditos:** 3
 - **Modalidad:** Presencial
-- **Horario:** Lunes 6:00 PM - 9:20 PM
+- **Horario:** Miércoles 6:00 PM - 9:20 PM
 - **Duración:** 16 semanas
 
 ## 🎯 Objetivo General
@@ -86,7 +86,7 @@ eiy403-introduccion-analisis-datos/
 
 ## 🔗 Acceso a los Materiales
 
-**🌐 Sitio Web del Curso:** [https://tu-usuario.github.io/eiy403-introduccion-analisis-datos](https://tu-usuario.github.io/eiy403-introduccion-analisis-datos)
+**🌐 Sitio Web del Curso:** [https://JordyAB00.github.io/eiy403-introduccion-analisis-datos](https://JordyAB00.github.io/eiy403-introduccion-analisis-datos)
 
 ### Presentaciones por Semana
 
@@ -152,10 +152,10 @@ Este repositorio contiene materiales educativos. Si encuentras errores o tienes 
 
 ## 📧 Contacto
 
-**Profesor:** [Tu Nombre]  
-**Email:** [tu.email@una.ac.cr]  
-**Oficina:** Escuela de Informática y Computación, UNA  
-**Horario de Consulta:** Lunes (horario por definir) - TEAMS o presencial
+**Profesor:** Jordy Jesús Alfaro Brenes  
+**Email:** jordyab00@gmail.com  
+**Oficina:** No aplica 
+**Horario de Consulta:** No aplica por el momento
 
 ## 📄 Licencia
 
@@ -167,7 +167,7 @@ Este material está disponible bajo la [Licencia Creative Commons Attribution 4.
 
 ## 🔄 Actualizaciones
 
-- **Última actualización:** [Fecha actual]
+- **Última actualización:** 29/07/2025
 - **Versión:** 1.0
 - **Estado:** En desarrollo activo
 
