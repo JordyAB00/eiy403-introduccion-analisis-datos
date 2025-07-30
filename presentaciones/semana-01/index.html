@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EIY403 - Clase 1: Fundamentos del Análisis de Datos</title>
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         * {
             margin: 0;
@@ -775,14 +789,9 @@
             <div class="two-column">
                 <div>
                     <h3>Media Aritmética (x̄)</h3>
-                    <div class="formula">
-                        <span style="font-size: 1.3em;">x̄ = </span>
-                        <span style="font-size: 1.6em; vertical-align: middle;">
-                            <span style="border-top: 2px solid #2c3e50; padding-top: 5px; display: inline-block;">Σx</span>
-                        </span>
-                        <span style="font-size: 1.3em; vertical-align: middle; margin: 0 8px;">
-                            <span style="border-bottom: 2px solid #2c3e50; padding-bottom: 5px; display: inline-block;">n</span>
-                        </span>
+<div class="formula">
+    $$\bar{x} = \frac{\sum x}{n}$$
+</div>
                     </div>
                     <ul>
                         <li><strong>Uso:</strong> Datos simétricos sin valores extremos</li>
