@@ -829,126 +829,131 @@
     <div class="slide-number">11 / 15</div>
 </div>
         <!-- Slide 12: Medidas de Dispersión -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Medidas de Dispersión</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Rango</h3>
-                    <div class="formula">Rango = Valor máximo - Valor mínimo</div>
-                    <ul>
-                        <li><strong>Ventaja:</strong> Fácil de calcular</li>
-                        <li><strong>Desventaja:</strong> Solo usa valores extremos</li>
-                    </ul>
-                    
-                    <h3>Varianza (σ² o s²)</h3>
-                    <div class="formula">
-                        Poblacional: σ² = Σ(x - μ)² / N<br>
-                        Muestral: s² = Σ(x - x̄)² / (n-1)
-                    </div>
-                    <ul>
-                        <li>Mide dispersión promedio al cuadrado</li>
-                        <li><strong>Unidades:</strong> Al cuadrado de los datos originales</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Desviación Estándar (σ o s)</h3>
-                    <div class="formula">
-                        σ = √σ²  o  s = √s²
-                    </div>
-                    <ul>
-                        <li>Raíz cuadrada de la varianza</li>
-                        <li><strong>Ventaja:</strong> Mismas unidades que los datos</li>
-                        <li>Interpretación más intuitiva</li>
-                    </ul>
-                    
-                    <h3>Coeficiente de Variación (CV)</h3>
-                    <div class="formula">CV = (s / x̄) × 100%</div>
-                    <ul>
-                        <li>Medida relativa de dispersión</li>
-                        <li>Permite comparar conjuntos con diferentes unidades</li>
-                        <li><strong>CV < 15%:</strong> Baja variabilidad</li>
-                        <li><strong>CV > 30%:</strong> Alta variabilidad</li>
-                    </ul>
-                </div>
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Medidas de Dispersión</h2>
+    <div class="two-column">
+        <div>
+            <h3>Rango</h3>
+            <div class="formula">
+                $$\text{Rango} = \text{Valor máximo} - \text{Valor mínimo}$$
             </div>
-            <div class="slide-number">12 / 15</div>
+            <ul>
+                <li><strong>Ventaja:</strong> Fácil de calcular</li>
+                <li><strong>Desventaja:</strong> Solo usa valores extremos</li>
+            </ul>
+            
+            <h3>Varianza (σ² o s²)</h3>
+            <div class="formula">
+                Poblacional: $$\sigma^2 = \frac{\sum(x - \mu)^2}{N}$$
+                <br><br>
+                Muestral: $$s^2 = \frac{\sum(x - \bar{x})^2}{n-1}$$
+            </div>
+            <ul>
+                <li>Mide dispersión promedio al cuadrado</li>
+                <li><strong>Unidades:</strong> Al cuadrado de los datos originales</li>
+            </ul>
         </div>
+        <div>
+            <h3>Desviación Estándar (σ o s)</h3>
+            <div class="formula">
+                $$\sigma = \sqrt{\sigma^2} \quad \text{o} \quad s = \sqrt{s^2}$$
+            </div>
+            <ul>
+                <li>Raíz cuadrada de la varianza</li>
+                <li><strong>Ventaja:</strong> Mismas unidades que los datos</li>
+                <li>Interpretación más intuitiva</li>
+            </ul>
+            
+            <h3>Coeficiente de Variación (CV)</h3>
+            <div class="formula">
+                $$CV = \frac{s}{\bar{x}} \times 100\%$$
+            </div>
+            <ul>
+                <li>Medida relativa de dispersión</li>
+                <li>Permite comparar conjuntos con diferentes unidades</li>
+                <li><strong>CV < 15%:</strong> Baja variabilidad</li>
+                <li><strong>CV > 30%:</strong> Alta variabilidad</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">12 / 15</div>
+</div>
 
         <!-- Slide 13: Ejercicio Práctico 1 -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Ejercicio Práctico 1: Medidas de Tendencia Central</h2>
-            
-            <div class="exercise-box">
-                <div class="exercise-title">Datos: Calificaciones de un Examen</div>
-                <div class="data-set">
-                    Calificaciones (sobre 100): 85, 92, 78, 96, 88, 91, 85, 89, 94, 87
-                </div>
-                
-                <h3>Calculemos paso a paso:</h3>
-                
-                <p><strong>1. Media Aritmética:</strong></p>
-                <div class="formula">
-                    x̄ = (85 + 92 + 78 + 96 + 88 + 91 + 85 + 89 + 94 + 87) ÷ 10<br>
-                    x̄ = 885 ÷ 10 = 88.5
-                </div>
-                
-                <p><strong>2. Mediana:</strong></p>
-                <p>Primero ordenamos: 78, 85, 85, 87, 88, 89, 91, 92, 94, 96</p>
-                <div class="formula">
-                    n = 10 (par), entonces Me = (88 + 89) ÷ 2 = 88.5
-                </div>
-                
-                <p><strong>3. Moda:</strong></p>
-                <div class="formula">
-                    Mo = 85 (aparece 2 veces)
-                </div>
-            </div>
-            <div class="slide-number">13 / 15</div>
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Ejercicio Práctico 1: Medidas de Tendencia Central</h2>
+    
+    <div class="exercise-box">
+        <div class="exercise-title">Datos: Calificaciones de un Examen</div>
+        <div class="data-set">
+            Calificaciones (sobre 100): 85, 92, 78, 96, 88, 91, 85, 89, 94, 87
         </div>
+        
+        <h3>Calculemos paso a paso:</h3>
+        
+        <p><strong>1. Media Aritmética:</strong></p>
+        <div class="formula">
+            $$\bar{x} = \frac{85 + 92 + 78 + 96 + 88 + 91 + 85 + 89 + 94 + 87}{10}$$
+            $$\bar{x} = \frac{885}{10} = 88.5$$
+        </div>
+        
+        <p><strong>2. Mediana:</strong></p>
+        <p>Primero ordenamos: 78, 85, 85, 87, 88, 89, 91, 92, 94, 96</p>
+        <div class="formula">
+            $$n = 10 \text{ (par)}, \quad \text{entonces} \quad Me = \frac{88 + 89}{2} = 88.5$$
+        </div>
+        
+        <p><strong>3. Moda:</strong></p>
+        <div class="formula">
+            $$Mo = 85 \text{ (aparece 2 veces)}$$
+        </div>
+    </div>
+    <div class="slide-number">13 / 15</div>
+</div>
 
         <!-- Slide 14: Ejercicio Práctico 2 -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Ejercicio Práctico 2: Medidas de Dispersión</h2>
-            
-            <div class="exercise-box">
-                <div class="exercise-title">Usando los mismos datos: 78, 85, 85, 87, 88, 89, 91, 92, 94, 96</div>
-                
-                <p><strong>1. Rango:</strong></p>
-                <div class="formula">
-                    Rango = 96 - 78 = 18 puntos
-                </div>
-                
-                <p><strong>2. Varianza Muestral:</strong></p>
-                <p>Calculamos las desviaciones al cuadrado de la media (88.5):</p>
-                <div class="formula">
-                    (78-88.5)² + (85-88.5)² + (85-88.5)² + ... + (96-88.5)²<br>
-                    = 110.25 + 12.25 + 12.25 + 2.25 + 0.25 + 0.25 + 6.25 + 12.25 + 30.25 + 56.25<br>
-                    = 242.5
-                </div>
-                <div class="formula">
-                    s² = 242.5 ÷ (10-1) = 242.5 ÷ 9 = 26.94
-                </div>
-                
-                <p><strong>3. Desviación Estándar:</strong></p>
-                <div class="formula">
-                    s = √26.94 = 5.19 puntos
-                </div>
-                
-                <p><strong>4. Coeficiente de Variación:</strong></p>
-                <div class="formula">
-                    CV = (5.19 ÷ 88.5) × 100% = 5.86%
-                </div>
-            </div>
-            <div class="slide-number">14 / 15</div>
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Ejercicio Práctico 2: Medidas de Dispersión</h2>
+    
+    <div class="exercise-box">
+        <div class="exercise-title">Usando los mismos datos: 78, 85, 85, 87, 88, 89, 91, 92, 94, 96</div>
+        
+        <p><strong>1. Rango:</strong></p>
+        <div class="formula">
+            $$\text{Rango} = 96 - 78 = 18 \text{ puntos}$$
         </div>
+        
+        <p><strong>2. Varianza Muestral:</strong></p>
+        <p>Calculamos las desviaciones al cuadrado de la media (88.5):</p>
+        <div class="formula">
+            $$(78-88.5)^2 + (85-88.5)^2 + (85-88.5)^2 + \ldots + (96-88.5)^2$$
+            $$= 110.25 + 12.25 + 12.25 + 2.25 + 0.25 + 0.25 + 6.25 + 12.25 + 30.25 + 56.25$$
+            $$= 242.5$$
+        </div>
+        <div class="formula">
+            $$s^2 = \frac{242.5}{10-1} = \frac{242.5}{9} = 26.94$$
+        </div>
+        
+        <p><strong>3. Desviación Estándar:</strong></p>
+        <div class="formula">
+            $$s = \sqrt{26.94} = 5.19 \text{ puntos}$$
+        </div>
+        
+        <p><strong>4. Coeficiente de Variación:</strong></p>
+        <div class="formula">
+            $$CV = \frac{5.19}{88.5} \times 100\% = 5.86\%$$
+        </div>
+    </div>
+    <div class="slide-number">14 / 15</div>
+</div>
 
         <!-- Slide 15: Próxima Clase -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Próxima Clase: ¡Manos a la Obra!</h2>
+            <h2>Próxima Clase: ¡Vamos a la compu!</h2>
             
             <div class="two-column">
                 <div>
