@@ -470,12 +470,12 @@
             <div class="info"><strong>II Semestre 2025</strong></div>
             <div class="info"><strong>Escuela de Informática y Computación</strong></div>
             
-            <!-- Imagen conceptual del EDA -->
+            <!-- Imagen del curso -->
             <div style="margin: 30px 0; display: flex; justify-content: center;">
-                <div style="width: 400px; height: 200px; background: linear-gradient(135deg, #a73c3c, #34495e); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; font-weight: 700; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
-                    📊 EDA: Explorando Datos 📈
-                </div>
-            </div>
+    <img src="../../assets/images/presentaciones/ChatGPT%20Image%205%20ago%202025%2C%2005_47_53%20p.m..png" 
+     alt="Análisis Exploratorio de Datos" 
+     style="max-width: 500px; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+</div>
             
             <div class="slide-number">1 / 18</div>
         </div>
@@ -524,7 +524,7 @@
         <!-- Slide 3: ¿Qué es el EDA? - Definición Profunda -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>¿Qué es el Análisis Exploratorio de Datos?</h2>
+            <h2>¿Qué es el análisis exploratorio de datos?</h2>
             
             <div style="text-align: center; margin: 30px 0;">
                 <div style="background: linear-gradient(145deg, #a73c3c, #8b2f2f); color: white; padding: 30px; border-radius: 15px; font-size: 1.3em; font-weight: 600; box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);">
@@ -579,7 +579,7 @@
         <!-- Slide 4: Proceso EDA Paso a Paso -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Proceso EDA: Los 6 Pasos Fundamentales</h2>
+            <h2>Proceso EDA: Los 6 pasos fundamentales</h2>
             
             <div class="eda-process">
                 <div class="process-step">
@@ -623,64 +623,70 @@
             <div class="slide-number">4 / 18</div>
         </div>
 
-        <!-- Slide 5: Evaluación de Calidad de Datos -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Evaluación de Calidad: ¿Qué Buscar?</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Dimensiones de Calidad</h3>
-                    <ul>
-                        <li><strong>Completitud:</strong> ¿Faltan datos?</li>
-                        <li><strong>Precisión:</strong> ¿Los valores son correctos?</li>
-                        <li><strong>Consistencia:</strong> ¿Formato uniforme?</li>
-                        <li><strong>Validez:</strong> ¿Valores dentro de rangos esperados?</li>
-                        <li><strong>Unicidad:</strong> ¿Hay duplicados?</li>
-                        <li><strong>Actualidad:</strong> ¿Los datos están vigentes?</li>
-                    </ul>
+       <!-- Slide 5: Evaluación de Calidad de Datos -->
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Evaluación de calidad: ¿Qué buscar?</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Dimensiones de Calidad</h3>
+            <ul>
+                <li><strong>Completitud:</strong> ¿Faltan datos?</li>
+                <li><strong>Precisión:</strong> ¿Los valores son correctos?</li>
+                <li><strong>Consistencia:</strong> ¿Formato uniforme?</li>
+                <li><strong>Validez:</strong> ¿Valores dentro de rangos esperados?</li>
+                <li><strong>Unicidad:</strong> ¿Hay duplicados?</li>
+                <li><strong>Actualidad:</strong> ¿Los datos están vigentes?</li>
+            </ul>
 
-                    <h3>Señales de Alerta</h3>
-                    <div class="warning-box">
-                        <ul>
-                            <li>Valores imposibles (edad: -5, 150)</li>
-                            <li>Formatos inconsistentes (fechas, números)</li>
-                            <li>Códigos sin explicación</li>
-                            <li>Distribuciones muy extrañas</li>
-                            <li>Correlaciones perfectas sospechosas</li>
-                        </ul>
-                    </div>
-                </div>
-                <div>
-                    <h3>Herramientas de Evaluación</h3>
-                    <div class="code-snippet">
-# Python - Evaluación rápida
-df.info()           # Tipos y valores no nulos
-df.describe()       # Estadísticas descriptivas  
-df.isnull().sum()   # Conteo de valores faltantes
-df.duplicated().sum() # Filas duplicadas
-df.nunique()        # Valores únicos por columna
-
-# R - Evaluación rápida
-str(df)             # Estructura del dataframe
-summary(df)         # Resumen estadístico
-sum(is.na(df))      # Valores faltantes
-sum(duplicated(df)) # Filas duplicadas
-sapply(df, function(x) length(unique(x)))
-                    </div>
-
-                    <h3>Preguntas Críticas</h3>
-                    <ul>
-                        <li>¿De dónde vienen estos datos?</li>
-                        <li>¿Cómo fueron recolectados?</li>
-                        <li>¿Qué representan realmente las variables?</li>
-                        <li>¿Hay sesgos en la recolección?</li>
-                        <li>¿Los datos son representativos?</li>
-                    </ul>
-                </div>
+            <h3>Señales de Alerta</h3>
+            <div class="warning-box">
+                <ul>
+                    <li>Valores imposibles (edad: -5, 150)</li>
+                    <li>Formatos inconsistentes (fechas, números)</li>
+                    <li>Códigos sin explicación</li>
+                    <li>Distribuciones muy extrañas</li>
+                    <li>Correlaciones perfectas sospechosas</li>
+                </ul>
             </div>
-            <div class="slide-number">5 / 18</div>
         </div>
+        <div>
+            <h3>Herramientas de Evaluación en R</h3>
+            <div class="code-snippet">
+# Evaluación inicial de los datos
+str(datos)              # Estructura del dataframe
+head(datos)             # Primeras 6 filas
+tail(datos)             # Últimas 6 filas
+dim(datos)              # Dimensiones (filas x columnas)
+
+# Resumen estadístico
+summary(datos)          # Estadísticas descriptivas
+
+# Evaluación de calidad
+sum(is.na(datos))       # Total de valores faltantes
+colSums(is.na(datos))   # Valores faltantes por columna
+sum(duplicated(datos))  # Filas completamente duplicadas
+
+# Valores únicos
+sapply(datos, function(x) length(unique(x)))
+
+# Variables categóricas
+table(datos$variable_categorica)  # Frecuencias
+            </div>
+
+            <h3>Preguntas Críticas</h3>
+            <ul>
+                <li>¿De dónde vienen estos datos?</li>
+                <li>¿Cómo fueron recolectados?</li>
+                <li>¿Qué representan realmente las variables?</li>
+                <li>¿Hay sesgos en la recolección?</li>
+                <li>¿Los datos son representativos?</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">5 / 18</div>
+</div>
 
         <!-- Slide 6: Decisiones en Limpieza de Datos -->
         <div class="slide">
