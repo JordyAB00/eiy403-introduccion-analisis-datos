@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - Clase 2: Análisis Exploratorio de Datos</title>
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+        }
+
+        .eda-process {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .process-step {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.2);
+        }
+
+        .step-number {
+            background: #a73c3c;
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .step-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .data-types-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .data-type-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .data-type-card h4 {
+            color: #a73c3c;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .chart-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #a73c3c;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(167, 60, 60, 0.1);
+        }
+
+        .chart-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .best-practices {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
+        }
+
+        .practices-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #ffe6e6, #ffcccc);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .success-box {
+            background: linear-gradient(145deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .code-snippet {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+            overflow-x: auto;
+        }
+
+        .formula {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            border: 1px solid #a73c3c;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            margin: 15px 0;
+            text-align: center;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9em;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        }
+
+        .comparison-table tr:hover {
+            background: linear-gradient(145deg, #ecf0f1, #f8f9fa);
+            transform: scale(1.01);
+            transition: all 0.2s ease;
+        }
+
+        .control-structures {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .structure-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .structure-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="home-btn">← Volver al Inicio</a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>EIY403</h1>
+            <p class="subtitle" style="text-align: center;">Introducción al Análisis de Datos para Otras Carreras</p>
+            <div class="info"><strong>Clase 2:</strong> Análisis Exploratorio de Datos (EDA)</div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            <div class="info"><strong>Escuela de Informática y Computación</strong></div>
+            
+            <!-- Imagen conceptual del EDA -->
+            <div style="margin: 30px 0; display: flex; justify-content: center;">
+                <div style="width: 400px; height: 200px; background: linear-gradient(135deg, #a73c3c, #34495e); border-radius: 15px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; font-weight: 700; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
+                    📊 EDA: Explorando Datos 📈
+                </div>
+            </div>
+            
+            <div class="slide-number">1 / 18</div>
+        </div>
+
+        <!-- Slide 2: Agenda de la Clase -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Agenda de la Clase</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Bloque 1: EDA Profundo</h3>
+                    <ul>
+                        <li>Definición y objetivos del EDA</li>
+                        <li>Proceso completo paso a paso</li>
+                        <li>Buenas prácticas en cada fase</li>
+                        <li>Decisiones críticas en limpieza</li>
+                    </ul>
+                    
+                    <h3>Bloque 2: Tipos de Datos</h3>
+                    <ul>
+                        <li>Clasificación detallada</li>
+                        <li>Implicaciones para el análisis</li>
+                        <li>Transformaciones necesarias</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Bloque 3: Visualización</h3>
+                    <ul>
+                        <li>Cuándo usar cada gráfico</li>
+                        <li>Histogramas vs barras</li>
+                        <li>Pictogramas y polígonos</li>
+                        <li>Errores comunes en visualización</li>
+                    </ul>
+                    
+                    <h3>Bloque 4: Estructuras de Control</h3>
+                    <ul>
+                        <li>If/else para análisis de datos</li>
+                        <li>Bucles en procesamiento</li>
+                        <li>Casos de uso prácticos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">2 / 18</div>
+        </div>
+
+        <!-- Slide 3: ¿Qué es el EDA? - Definición Profunda -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Qué es el Análisis Exploratorio de Datos?</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="background: linear-gradient(145deg, #a73c3c, #8b2f2f); color: white; padding: 30px; border-radius: 15px; font-size: 1.3em; font-weight: 600; box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);">
+                    "El EDA es el proceso de investigar datos para descubrir lo desconocido, cuestionar lo asumido, y revelar patrones ocultos antes de aplicar modelos formales"
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Objetivos Fundamentales</h3>
+                    <ul>
+                        <li><strong>Comprensión:</strong> Entender qué dicen realmente los datos</li>
+                        <li><strong>Validación:</strong> Verificar la calidad e integridad</li>
+                        <li><strong>Descubrimiento:</strong> Encontrar patrones inesperados</li>
+                        <li><strong>Preparación:</strong> Limpiar y preparar para análisis</li>
+                        <li><strong>Comunicación:</strong> Visualizar hallazgos clave</li>
+                    </ul>
+
+                    <h3>Filosofía del EDA</h3>
+                    <ul>
+                        <li>Los datos tienen historias que contar</li>
+                        <li>Nuestras suposiciones pueden estar equivocadas</li>
+                        <li>La visualización revela más que los números</li>
+                        <li>La calidad de los datos determina la calidad del análisis</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Lo que NO es EDA</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>NO</strong> es solo hacer gráficos bonitos</li>
+                            <li><strong>NO</strong> es calcular estadísticas básicas</li>
+                            <li><strong>NO</strong> es un paso opcional</li>
+                            <li><strong>NO</strong> es algo que se hace una sola vez</li>
+                        </ul>
+                    </div>
+
+                    <h3>Importancia Crítica</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li>80% del tiempo en ciencia de datos se gasta en EDA</li>
+                            <li>Previene errores costosos en el análisis</li>
+                            <li>Genera hipótesis para investigación futura</li>
+                            <li>Mejora la comunicación de resultados</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">3 / 18</div>
+        </div>
+
+        <!-- Slide 4: Proceso EDA Paso a Paso -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Proceso EDA: Los 6 Pasos Fundamentales</h2>
+            
+            <div class="eda-process">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Inspección Inicial</div>
+                    <p>Tamaño, estructura, tipos de variables, primeras 10 filas</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Evaluación de Calidad</div>
+                    <p>Valores faltantes, duplicados, outliers, inconsistencias</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Limpieza Inteligente</div>
+                    <p>Decisiones sobre missing data, duplicados, transformaciones</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <div class="step-title">Análisis Univariado</div>
+                    <p>Distribuciones, estadísticas descriptivas por variable</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Análisis Bivariado</div>
+                    <p>Correlaciones, relaciones entre variables</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Síntesis y Hallazgos</div>
+                    <p>Patrones identificados, hipótesis generadas</p>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <div class="practices-title">⚡ Regla de Oro del EDA</div>
+                <p style="text-align: center; font-size: 1.2em; color: #2c3e50; margin: 0;">
+                    <strong>"Siempre visualiza antes de calcular, siempre cuestiona antes de asumir"</strong>
+                </p>
+            </div>
+            <div class="slide-number">4 / 18</div>
+        </div>
+
+        <!-- Slide 5: Evaluación de Calidad de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Evaluación de Calidad: ¿Qué Buscar?</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Dimensiones de Calidad</h3>
+                    <ul>
+                        <li><strong>Completitud:</strong> ¿Faltan datos?</li>
+                        <li><strong>Precisión:</strong> ¿Los valores son correctos?</li>
+                        <li><strong>Consistencia:</strong> ¿Formato uniforme?</li>
+                        <li><strong>Validez:</strong> ¿Valores dentro de rangos esperados?</li>
+                        <li><strong>Unicidad:</strong> ¿Hay duplicados?</li>
+                        <li><strong>Actualidad:</strong> ¿Los datos están vigentes?</li>
+                    </ul>
+
+                    <h3>Señales de Alerta</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li>Valores imposibles (edad: -5, 150)</li>
+                            <li>Formatos inconsistentes (fechas, números)</li>
+                            <li>Códigos sin explicación</li>
+                            <li>Distribuciones muy extrañas</li>
+                            <li>Correlaciones perfectas sospechosas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Herramientas de Evaluación</h3>
+                    <div class="code-snippet">
+# Python - Evaluación rápida
+df.info()           # Tipos y valores no nulos
+df.describe()       # Estadísticas descriptivas  
+df.isnull().sum()   # Conteo de valores faltantes
+df.duplicated().sum() # Filas duplicadas
+df.nunique()        # Valores únicos por columna
+
+# R - Evaluación rápida
+str(df)             # Estructura del dataframe
+summary(df)         # Resumen estadístico
+sum(is.na(df))      # Valores faltantes
+sum(duplicated(df)) # Filas duplicadas
+sapply(df, function(x) length(unique(x)))
+                    </div>
+
+                    <h3>Preguntas Críticas</h3>
+                    <ul>
+                        <li>¿De dónde vienen estos datos?</li>
+                        <li>¿Cómo fueron recolectados?</li>
+                        <li>¿Qué representan realmente las variables?</li>
+                        <li>¿Hay sesgos en la recolección?</li>
+                        <li>¿Los datos son representativos?</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">5 / 18</div>
+        </div>
+
+        <!-- Slide 6: Decisiones en Limpieza de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Decisiones Críticas en Limpieza</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Estrategias para Datos Faltantes</h3>
+                    
+                    <h4 style="color: #a73c3c; margin-top: 25px;">🔴 Eliminar (Listwise Deletion)</h4>
+                    <p><strong>Cuándo usarlo:</strong></p>
+                    <ul>
+                        <li>< 5% de datos faltantes</li>
+                        <li>Datos faltantes completamente aleatorios</li>
+                        <li>Dataset muy grande</li>
+                    </ul>
+                    
+                    <h4 style="color: #a73c3c;">🟡 Imputar con Medidas Centrales</h4>
+                    <p><strong>Media:</strong> Para datos numéricos simétricos</p>
+                    <p><strong>Mediana:</strong> Para datos asimétricos</p>
+                    <p><strong>Moda:</strong> Para datos categóricos</p>
+                    
+                    <h4 style="color: #a73c3c;">🟢 Imputación Avanzada</h4>
+                    <ul>
+                        <li>Regresión lineal</li>
+                        <li>K-nearest neighbors</li>
+                        <li>Métodos basados en modelos</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Estrategias para Duplicados</h3>
+                    
+                    <h4 style="color: #a73c3c; margin-top: 25px;">Identificación</h4>
+                    <ul>
+                        <li><strong>Duplicados exactos:</strong> Todas las columnas iguales</li>
+                        <li><strong>Duplicados parciales:</strong> ID iguales, otros datos diferentes</li>
+                        <li><strong>Duplicados conceptuales:</strong> Misma entidad, diferentes representaciones</li>
+                    </ul>
+
+                    <h4 style="color: #a73c3c;">Decisiones de Acción</h4>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Eliminar automáticamente:</strong> Duplicados exactos</li>
+                            <li><strong>Revisar manualmente:</strong> Duplicados parciales</li>
+                            <li><strong>Crear reglas:</strong> Para duplicados conceptuales</li>
+                            <li><strong>Conservar el más reciente:</strong> Cuando hay timestamps</li>
+                        </ul>
+                    </div>
+
+                    <h3>Outliers: ¿Eliminar o Conservar?</h3>
+                    <div class="warning-box">
+                        <p><strong>⚠️ CUIDADO:</strong> Los outliers pueden ser:</p>
+                        <ul>
+                            <li>Errores de captura (eliminar)</li>
+                            <li>Fenómenos raros pero reales (conservar)</li>
+                            <li>Indicadores de problemas sistémicos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 18</div>
+        </div>
+
+        <!-- Slide 7: Tipos de Datos - Clasificación Detallada -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Tipos de Datos: Clasificación Detallada</h2>
+            
+            <div class="data-types-grid">
+                <div class="data-type-card">
+                    <h4>📊 Datos Cuantitativos</h4>
+                    <p><strong>Discretos (Contables):</strong></p>
+                    <ul>
+                        <li>Número de estudiantes: 25, 30, 45</li>
+                        <li>Cantidad de productos vendidos</li>
+                        <li>Número de errores en código</li>
+                        <li>Frecuencia de eventos</li>
+                    </ul>
+                    
+                    <p><strong>Continuos (Medibles):</strong></p>
+                    <ul>
+                        <li>Altura: 1.75m, 1.82m</li>
+                        <li>Temperatura: 25.6°C</li>
+                        <li>Tiempo de respuesta: 0.234s</li>
+                        <li>Concentraciones químicas</li>
+                    </ul>
+                </div>
+                
+                <div class="data-type-card">
+                    <h4>🏷️ Datos Cualitativos</h4>
+                    <p><strong>Nominales (Sin orden):</strong></p>
+                    <ul>
+                        <li>Color: rojo, azul, verde</li>
+                        <li>Género: masculino, femenino, otro</li>
+                        <li>Marca: Nike, Adidas, Puma</li>
+                        <li>Tipo de reacción química</li>
+                    </ul>
+                    
+                    <p><strong>Ordinales (Con orden):</strong></p>
+                    <ul>
+                        <li>Satisfacción: muy bajo, bajo, medio, alto, muy alto</li>
+                        <li>Nivel educativo: primaria, secundaria, universidad</li>
+                        <li>Grado de pureza: baja, media, alta</li>
+                    </ul>
+                </div>
+                
+                <div class="data-type-card">
+                    <h4>🕒 Datos Temporales</h4>
+                    <ul>
+                        <li><strong>Fechas:</strong> 2025-08-05</li>
+                        <li><strong>Tiempo:</strong> 14:30:25</li>
+                        <li><strong>Duración:</strong> 2h 30min</li>
+                        <li><strong>Series temporales:</strong> Datos con timestamps</li>
+                    </ul>
+                    
+                    <h4>🌍 Datos Geoespaciales</h4>
+                    <ul>
+                        <li><strong>Coordenadas:</strong> Latitud/Longitud</li>
+                        <li><strong>Direcciones:</strong> Texto estructurado</li>
+                        <li><strong>Regiones:</strong> Países, provincias</li>
+                    </ul>
+                </div>
+                
+                <div class="data-type-card">
+                    <h4>🔗 Datos No Estructurados</h4>
+                    <ul>
+                        <li><strong>Texto:</strong> Comentarios, reviews, artículos</li>
+                        <li><strong>Imágenes:</strong> Fotos, gráficos, diagramas</li>
+                        <li><strong>Audio:</strong> Grabaciones, música</li>
+                        <li><strong>Video:</strong> Clips, presentaciones</li>
+                        <li><strong>JSON/XML:</strong> Datos semi-estructurados</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="best-practices">
+                <div class="practices-title">💡 Implicaciones para el Análisis</div>
+                <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <li><strong>Cuantitativos:</strong> Permiten operaciones matemáticas completas</li>
+                    <li><strong>Ordinales:</strong> Permiten ranking, pero no operaciones aritméticas</li>
+                    <li><strong>Nominales:</strong> Solo conteos y proporciones</li>
+                    <li><strong>Temporales:</strong> Permiten análisis de tendencias y estacionalidad</li>
+                </ul>
+            </div>
+            <div class="slide-number">7 / 18</div>
+        </div>
+
+        <!-- Slide 8: Escalas de Medición y sus Implicaciones -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Escalas de Medición: Qué Operaciones Permite Cada Una</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Escala</th>
+                        <th>Características</th>
+                        <th>Operaciones Válidas</th>
+                        <th>Estadísticas Apropiadas</th>
+                        <th>Ejemplos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Nominal</strong></td>
+                        <td>Solo clasificación<br>Sin orden natural</td>
+                        <td>= ≠<br>Conteo<br>Frecuencias</td>
+                        <td>Moda<br>Proporciones<br>Chi-cuadrado</td>
+                        <td>Color, género, marca, tipo de reacción</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ordinal</strong></td>
+                        <td>Clasificación + orden<br>Distancias no iguales</td>
+                        <td>= ≠ < ><br>Ranking<br>Percentiles</td>
+                        <td>Mediana<br>Cuartiles<br>Correlación de Spearman</td>
+                        <td>Satisfacción, nivel educativo, grado de dolor</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Intervalo</strong></td>
+                        <td>Orden + distancias iguales<br>Sin cero absoluto</td>
+                        <td>= ≠ < > + -<br>Diferencias<br>Promedios</td>
+                        <td>Media<br>Desviación estándar<br>Correlación de Pearson</td>
+                        <td>Temperatura en °C, IQ, fechas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Razón</strong></td>
+                        <td>Intervalo + cero absoluto<br>Todas las propiedades</td>
+                        <td>= ≠ < > + - × ÷<br>Ratios<br>Proporciones</td>
+                        <td>Media geométrica<br>Coeficiente de variación<br>Todas las estadísticas</td>
+                        <td>Altura, peso, ingresos, temperatura en Kelvin</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Error Común:</strong> Aplicar estadísticas inapropiadas para el tipo de escala puede llevar a conclusiones incorrectas. Por ejemplo, calcular la media de satisfacción en escala Likert (ordinal) puede ser problemático.</p>
+            </div>
+            
+            <div class="slide-number">8 / 18</div>
+        </div>
+
+        <!-- Slide 9: Visualización - Cuándo Usar Cada Gráfico -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Visualización: ¿Cuándo Usar Cada Gráfico?</h2>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-title">📊 Histogramas</div>
+                    <p><strong>Cuándo usar:</strong></p>
+                    <ul>
+                        <li>Datos cuantitativos continuos</li>
+                        <li>Mostrar distribución de frecuencias</li>
+                        <li>Identificar forma de la distribución</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong> Distribución de edades, alturas, tiempos de respuesta</p>
+                    <div class="success-box">
+                        <p><strong>✅ Buena práctica:</strong> Experimenta con diferentes números de bins (5-30 dependiendo del tamaño de datos)</p>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">📈 Gráficos de Barras</div>
+                    <p><strong>Cuándo usar:</strong></p>
+                    <ul>
+                        <li>Datos categóricos (nominales u ordinales)</li>
+                        <li>Comparar frecuencias entre categorías</li>
+                        <li>Mostrar conteos o proporciones</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong> Ventas por región, número de estudiantes por carrera</p>
+                    <div class="warning-box">
+                        <p><strong>⚠️ Evitar:</strong> Gráficos 3D innecesarios que distorsionan la percepción</p>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">🎯 Pictogramas</div>
+                    <p><strong>Cuándo usar:</strong></p>
+                    <ul>
+                        <li>Presentaciones públicas</li>
+                        <li>Hacer datos más atractivos visualmente</li>
+                        <li>Comunicar a audiencias no técnicas</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong> Población representada con figuras humanas</p>
+                    <div class="warning-box">
+                        <p><strong>⚠️ Cuidado:</strong> Pueden distorsionar proporciones si no se escalan correctamente</p>
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-title">📉 Polígonos de Frecuencia</div>
+                    <p><strong>Cuándo usar:</strong></p>
+                    <ul>
+                        <li>Comparar distribuciones múltiples</li>
+                        <li>Datos ordinales con muchas categorías</li>
+                        <li>Mostrar tendencias en frecuencias</li>
+                    </ul>
+                    <p><strong>Ejemplo:</strong> Comparar distribuciones de calificaciones entre diferentes cursos</p>
+                    <div class="success-box">
+                        <p><strong>✅ Ventaja:</strong> Más claro que múltiples histogramas superpuestos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">9 / 18</div>
+        </div>
+
+        <!-- Slide 10: Errores Comunes en Visualización -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Errores Comunes en Visualización</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🚫 Errores Técnicos</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Ejes que no empiezan en cero:</strong> Exageran diferencias</li>
+                            <li><strong>Escalas inconsistentes:</strong> Entre gráficos comparativos</li>
+                            <li><strong>Bins inadecuados:</strong> Muy pocos o muchos en histogramas</li>
+                            <li><strong>Gráficos 3D innecesarios:</strong> Dificultan la lectura</li>
+                            <li><strong>Colores problemáticos:</strong> No accesibles para daltónicos</li>
+                        </ul>
+                    </div>
+
+                    <h3>📊 Tipo de Gráfico Incorrecto</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Gráfico de líneas para categóricos:</strong> Implica continuidad falsa</li>
+                            <li><strong>Gráfico circular con >7 categorías:</strong> Difícil de leer</li>
+                            <li><strong>Barras para datos continuos:</strong> Pérdida de información</li>
+                            <li><strong>Boxplots para datos categóricos:</strong> Sin sentido estadístico</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>✅ Buenas Prácticas</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Títulos descriptivos:</strong> Que expliquen qué se muestra</li>
+                            <li><strong>Etiquetas claras:</strong> En ejes y leyendas</li>
+                            <li><strong>Colores significativos:</strong> Que refuercen el mensaje</li>
+                            <li><strong>Simplicidad:</strong> Eliminar elementos innecesarios</li>
+                            <li><strong>Contexto:</strong> Incluir información relevante</li>
+                        </ul>
+                    </div>
+
+                    <h3>🎨 Principios de Diseño</h3>
+                    <ul>
+                        <li><strong>Contraste:</strong> Elementos importantes deben destacar</li>
+                        <li><strong>Alineación:</strong> Elementos organizados visualmente</li>
+                        <li><strong>Repetición:</strong> Consistencia en estilo</li>
+                        <li><strong>Proximidad:</strong> Elementos relacionados juntos</li>
+                    </ul>
+
+                    <div class="code-snippet">
+# Colores accesibles recomendados
+# Python: usar paletas como 'viridis', 'Set2'
+# R: usar RColorBrewer, paletas viridis
+# Evitar: rojo-verde juntos (daltonismo)
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">10 / 18</div>
+        </div>
+
+        <!-- Slide 11: Medidas de Tendencia Central - Revisión -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Medidas de Tendencia Central: ¿Cuál Elegir?</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Media Aritmética ($\bar{x}$)</h3>
+                    <div class="formula">
+                        $$\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
+                    </div>
+                    
+                    <p><strong>✅ Usar cuando:</strong></p>
+                    <ul>
+                        <li>Distribución simétrica</li>
+                        <li>Sin valores atípicos extremos</li>
+                        <li>Datos de escala intervalo o razón</li>
+                        <li>Se necesita precisión matemática</li>
+                    </ul>
+                    
+                    <p><strong>❌ Evitar cuando:</strong></p>
+                    <ul>
+                        <li>Distribución muy asimétrica</li>
+                        <li>Presencia de outliers</li>
+                        <li>Datos ordinales</li>
+                        <li>Datos con valores extremos influyentes</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Ejemplo problemático:</strong> Ingresos familiares con algunos millonarios en la muestra → la media será engañosa</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Mediana (Me) y Moda (Mo)</h3>
+                    
+                    <p><strong>Mediana - El valor del medio:</strong></p>
+                    <ul>
+                        <li><strong>✅ Robusta</strong> ante outliers</li>
+                        <li><strong>✅ Apropiada</strong> para datos ordinales</li>
+                        <li><strong>✅ Mejor para</strong> distribuciones asimétricas</li>
+                        <li><strong>✅ Interpretación</strong> clara: 50% por encima/debajo</li>
+                    </ul>
+
+                    <p><strong>Moda - El valor más frecuente:</strong></p>
+                    <ul>
+                        <li><strong>✅ Única medida</strong> para datos nominales</li>
+                        <li><strong>✅ Identifica</strong> valores típicos/populares</li>
+                        <li><strong>✅ Puede tener</strong> múltiples valores</li>
+                        <li><strong>❌ Puede no existir</strong> o ser poco informativa</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>💡 Regla práctica:</strong></p>
+                        <ul>
+                            <li><strong>Simétrica:</strong> Media ≈ Mediana ≈ Moda</li>
+                            <li><strong>Asimétrica positiva:</strong> Media > Mediana > Moda</li>
+                            <li><strong>Asimétrica negativa:</strong> Media < Mediana < Moda</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">11 / 18</div>
+        </div>
+
+        <!-- Slide 12: Medidas de Tendencia No Central -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Medidas de Tendencia No Central</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Cuartiles y Percentiles</h3>
+                    
+                    <div class="formula">
+                        $$Q_1 = P_{25}, \quad Q_2 = P_{50} = Me, \quad Q_3 = P_{75}$$
+                    </div>
+                    
+                    <p><strong>Interpretación:</strong></p>
+                    <ul>
+                        <li><strong>Q1:</strong> 25% de datos por debajo</li>
+                        <li><strong>Q2:</strong> Mediana (50%)</li>
+                        <li><strong>Q3:</strong> 75% de datos por debajo</li>
+                        <li><strong>P90:</strong> 90% de datos por debajo</li>
+                    </ul>
+
+                    <h3>Rango Intercuartílico (IQR)</h3>
+                    <div class="formula">
+                        $$IQR = Q_3 - Q_1$$
+                    </div>
+                    
+                    <p><strong>Ventajas del IQR:</strong></p>
+                    <ul>
+                        <li>Robusto ante outliers</li>
+                        <li>Describe el 50% central de los datos</li>
+                        <li>Base para detectar outliers</li>
+                        <li>Útil para comparar dispersión</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Detección de Outliers con IQR</h3>
+                    
+                    <div class="formula">
+                        $$\text{Outlier inferior} < Q_1 - 1.5 \times IQR$$
+                        $$\text{Outlier superior} > Q_3 + 1.5 \times IQR$$
+                    </div>
+
+                    <div class="code-snippet">
+# Python - Detección de outliers
+Q1 = df['variable'].quantile(0.25)
+Q3 = df['variable'].quantile(0.75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outliers = df[(df['variable'] < lower_bound) | 
+              (df['variable'] > upper_bound)]
+
+# R - Detección de outliers
+Q1 <- quantile(df$variable, 0.25)
+Q3 <- quantile(df$variable, 0.75)
+IQR <- Q3 - Q1
+outliers <- df[df$variable < Q1 - 1.5*IQR | 
+               df$variable > Q3 + 1.5*IQR, ]
+                    </div>
+
+                    <h3>Aplicaciones Prácticas</h3>
+                    <ul>
+                        <li><strong>Educación:</strong> Percentiles en exámenes estandarizados</li>
+                        <li><strong>Medicina:</strong> Percentiles de crecimiento infantil</li>
+                        <li><strong>Finanzas:</strong> VaR (Value at Risk) usando percentiles</li>
+                        <li><strong>Calidad:</strong> Control de procesos con cuartiles</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">12 / 18</div>
+        </div>
+
+        <!-- Slide 13: Medidas de Dispersión - Profundización -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Medidas de Dispersión: ¿Qué Tan Dispersos Están los Datos?</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Varianza y Desviación Estándar</h3>
+                    
+                    <div class="formula">
+                        $$\text{Varianza poblacional: } \sigma^2 = \frac{\sum(x_i - \mu)^2}{N}$$
+                        $$\text{Varianza muestral: } s^2 = \frac{\sum(x_i - \bar{x})^2}{n-1}$$
+                        $$\text{Desviación estándar: } s = \sqrt{s^2}$$
+                    </div>
+
+                    <p><strong>¿Por qué n-1 en la muestra?</strong></p>
+                    <ul>
+                        <li>Corrección de Bessel</li>
+                        <li>Estimador insesgado de σ²</li>
+                        <li>Perdemos 1 grado de libertad al estimar $\bar{x}$</li>
+                    </ul>
+
+                    <h3>Interpretación de la Desviación Estándar</h3>
+                    <div class="success-box">
+                        <p><strong>Regla Empírica (distribución normal):</strong></p>
+                        <ul>
+                            <li>68% de datos en $\bar{x} \pm 1s$</li>
+                            <li>95% de datos en $\bar{x} \pm 2s$</li>
+                            <li>99.7% de datos en $\bar{x} \pm 3s$</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Coeficiente de Variación</h3>
+                    
+                    <div class="formula">
+                        $$CV = \frac{s}{\bar{x}} \times 100\%$$
+                    </div>
+
+                    <p><strong>Interpretación del CV:</strong></p>
+                    <ul>
+                        <li><strong>CV < 15%:</strong> Baja variabilidad</li>
+                        <li><strong>15% ≤ CV ≤ 30%:</strong> Variabilidad moderada</li>
+                        <li><strong>CV > 30%:</strong> Alta variabilidad</li>
+                    </ul>
+
+                    <p><strong>¿Cuándo usar CV?</strong></p>
+                    <ul>
+                        <li>Comparar variabilidad entre datasets con diferentes unidades</li>
+                        <li>Comparar variabilidad cuando las medias son muy diferentes</li>
+                        <li>Evaluar precisión de mediciones</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>⚠️ Limitación:</strong> CV no es apropiado cuando la media es cercana a cero o puede ser negativa</p>
+                    </div>
+
+                    <h3>Otras Medidas de Dispersión</h3>
+                    <ul>
+                        <li><strong>Rango:</strong> Máximo - Mínimo (muy sensible a outliers)</li>
+                        <li><strong>MAD:</strong> Mediana de las desviaciones absolutas</li>
+                        <li><strong>Rango intercuartílico:</strong> Q3 - Q1 (robusto)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">13 / 18</div>
+        </div>
+
+        <!-- Slide 14: Introducción a Estructuras de Control -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Estructuras de Control para Análisis de Datos</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="background: linear-gradient(145deg, #34495e, #2c3e50); color: white; padding: 25px; border-radius: 15px; font-size: 1.2em; font-weight: 600; box-shadow: 0 10px 30px rgba(52, 73, 94, 0.3);">
+                    "Las estructuras de control nos permiten tomar decisiones automáticas sobre nuestros datos y procesar grandes volúmenes de información de manera eficiente"
+                </div>
+            </div>
+
+            <div class="control-structures">
+                <div class="structure-card">
+                    <div class="structure-title">🔀 Estructuras Condicionales</div>
+                    <p><strong>if/else/elif:</strong> Tomar decisiones basadas en condiciones</p>
+                    
+                    <h4>Casos de uso en análisis:</h4>
+                    <ul>
+                        <li>Clasificar datos en categorías</li>
+                        <li>Filtrar outliers</li>
+                        <li>Aplicar transformaciones condicionales</li>
+                        <li>Validar calidad de datos</li>
+                        <li>Crear variables dummy</li>
+                    </ul>
+                </div>
+                
+                <div class="structure-card">
+                    <div class="structure-title">🔄 Estructuras Iterativas</div>
+                    <p><strong>for/while:</strong> Repetir operaciones múltiples veces</p>
+                    
+                    <h4>Casos de uso en análisis:</h4>
+                    <ul>
+                        <li>Procesar múltiples archivos</li>
+                        <li>Aplicar análisis a subgrupos</li>
+                        <li>Generar múltiples gráficos</li>
+                        <li>Calcular estadísticas repetitivas</li>
+                        <li>Imputar datos faltantes</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <div class="practices-title">🎯 ¿Por qué son importantes en análisis de datos?</div>
+                <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <li><strong>Automatización:</strong> Procesar miles de registros sin intervención manual</li>
+                    <li><strong>Consistencia:</strong> Aplicar las mismas reglas a todos los datos</li>
+                    <li><strong>Escalabilidad:</strong> El mismo código funciona para 100 o 100,000 registros</li>
+                    <li><strong>Reproducibilidad:</strong> Los mismos pasos se pueden repetir exactamente</li>
+                </ul>
+            </div>
+            <div class="slide-number">14 / 18</div>
+        </div>
+
+        <!-- Slide 15: if/else en Análisis de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Condicionales if/else: Casos Prácticos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Sintaxis Básica</h3>
+                    <div class="code-snippet">
+# Python
+if condicion:
+    accion1
+elif otra_condicion:
+    accion2
+else:
+    accion3
+
+# R
+if (condicion) {
+    accion1
+} else if (otra_condicion) {
+    accion2
+} else {
+    accion3
+}
+                    </div>
+
+                    <h3>Ejemplo 1: Clasificación de Edades</h3>
+                    <div class="code-snippet">
+# Python - Clasificación de edades
+def clasificar_edad(edad):
+    if edad < 18:
+        return "Menor de edad"
+    elif edad < 65:
+        return "Adulto"
+    else:
+        return "Adulto mayor"
+
+# Aplicar a todo el dataset
+df['categoria_edad'] = df['edad'].apply(clasificar_edad)
+
+# R - Clasificación de edades
+df$categoria_edad <- ifelse(df$edad < 18, "Menor de edad",
+                     ifelse(df$edad < 65, "Adulto", 
+                            "Adulto mayor"))
+                    </div>
+
+                    <h3>Ejemplo 2: Detección de Outliers</h3>
+                    <div class="code-snippet">
+# Python - Marcar outliers
+Q1 = df['variable'].quantile(0.25)
+Q3 = df['variable'].quantile(0.75)
+IQR = Q3 - Q1
+
+def es_outlier(valor):
+    if valor < Q1 - 1.5 * IQR:
+        return "Outlier inferior"
+    elif valor > Q3 + 1.5 * IQR:
+        return "Outlier superior"
+    else:
+        return "Normal"
+
+df['tipo_valor'] = df['variable'].apply(es_outlier)
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplo 3: Validación de Datos</h3>
+                    <div class="code-snippet">
+# Python - Validar datos de temperatura
+def validar_temperatura(temp):
+    if temp < -50 or temp > 60:
+        return "Valor imposible"
+    elif temp < 0:
+        return "Muy frío"
+    elif temp > 40:
+        return "Muy caliente"
+    else:
+        return "Normal"
+
+df['validez_temp'] = df['temperatura'].apply(validar_temperatura)
+
+# R - Mismo ejemplo
+validar_temp <- function(temp) {
+  if (temp < -50 | temp > 60) {
+    return("Valor imposible")
+  } else if (temp < 0) {
+    return("Muy frío")
+  } else if (temp > 40) {
+    return("Muy caliente")
+  } else {
+    return("Normal")
+  }
+}
+                    </div>
+
+                    <h3>Ejemplo 4: Imputación Inteligente</h3>
+                    <div class="code-snippet">
+# Python - Imputación condicional
+def imputar_valor(row):
+    if pd.isna(row['salario']):
+        if row['experiencia'] < 2:
+            return 30000  # Salario junior
+        elif row['experiencia'] < 5:
+            return 45000  # Salario medio
+        else:
+            return 60000  # Salario senior
+    else:
+        return row['salario']
+
+df['salario_imputado'] = df.apply(imputar_valor, axis=1)
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">15 / 18</div>
+        </div>
+
+        <!-- Slide 16: Bucles for/while en Análisis de Datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Bucles for/while: Automatización de Procesos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Bucle for - Iteración Definida</h3>
+                    <div class="code-snippet">
+# Python - Procesar múltiples archivos
+import pandas as pd
+import glob
+
+archivos = glob.glob("datos_*.csv")
+dataframes = []
+
+for archivo in archivos:
+    df = pd.read_csv(archivo)
+    df['fuente'] = archivo
+    dataframes.append(df)
+
+datos_completos = pd.concat(dataframes)
+
+# R - Mismo ejemplo
+archivos <- list.files(pattern = "datos_.*\\.csv")
+lista_df <- list()
+
+for (i in 1:length(archivos)) {
+  df <- read.csv(archivos[i])
+  df$fuente <- archivos[i]
+  lista_df[[i]] <- df
+}
+
+datos_completos <- do.call(rbind, lista_df)
+                    </div>
+
+                    <h3>Análisis por Subgrupos</h3>
+                    <div class="code-snippet">
+# Python - Estadísticas por categoría
+categorias = df['categoria'].unique()
+resultados = {}
+
+for cat in categorias:
+    subset = df[df['categoria'] == cat]
+    resultados[cat] = {
+        'media': subset['valor'].mean(),
+        'mediana': subset['valor'].median(),
+        'std': subset['valor'].std()
+    }
+
+# Convertir a DataFrame
+resultado_df = pd.DataFrame(resultados).T
+                    </div>
+                </div>
+                <div>
+                    <h3>Generación Automática de Gráficos</h3>
+                    <div class="code-snippet">
+# Python - Múltiples gráficos
+import matplotlib.pyplot as plt
+
+variables_numericas = ['edad', 'salario', 'experiencia']
+
+for i, var in enumerate(variables_numericas):
+    plt.figure(figsize=(8, 6))
+    plt.hist(df[var], bins=20, alpha=0.7)
+    plt.title(f'Distribución de {var}')
+    plt.xlabel(var)
+    plt.ylabel('Frecuencia')
+    plt.savefig(f'histograma_{var}.png')
+    plt.close()
+
+# R - Múltiples gráficos
+library(ggplot2)
+
+variables <- c("edad", "salario", "experiencia")
+
+for (var in variables) {
+  p <- ggplot(df, aes_string(x = var)) +
+    geom_histogram(bins = 20, alpha = 0.7) +
+    labs(title = paste("Distribución de", var))
+  
+  ggsave(paste0("histograma_", var, ".png"), p)
+}
+                    </div>
+
+                    <h3>Bucle while - Iteración Condicional</h3>
+                    <div class="code-snippet">
+# Python - Limpieza iterativa
+outliers_detectados = True
+iteracion = 0
+
+while outliers_detectados and iteracion < 10:
+    Q1 = df['variable'].quantile(0.25)
+    Q3 = df['variable'].quantile(0.75)
+    IQR = Q3 - Q1
+    
+    outliers = df[(df['variable'] < Q1 - 1.5*IQR) | 
+                  (df['variable'] > Q3 + 1.5*IQR)]
+    
+    if len(outliers) == 0:
+        outliers_detectados = False
+    else:
+        # Remover outliers extremos
+        df = df[~df.index.isin(outliers.index)]
+        iteracion += 1
+
+print(f"Proceso terminado en {iteracion} iteraciones")
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">16 / 18</div>
+        </div>
+
+        <!-- Slide 17: Mejores Prácticas en Estructuras de Control -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Mejores Prácticas en Estructuras de Control</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>✅ Buenas Prácticas</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Legibilidad:</strong> Usa nombres descriptivos para variables</li>
+                            <li><strong>Documentación:</strong> Comenta el propósito de cada bucle</li>
+                            <li><strong>Validación:</strong> Verifica condiciones antes de procesar</li>
+                            <li><strong>Eficiencia:</strong> Evita bucles innecesarios</li>
+                            <li><strong>Modularidad:</strong> Divide tareas complejas en funciones</li>
+                        </ul>
+                    </div>
+
+                    <h3>🚀 Optimización</h3>
+                    <div class="code-snippet">
+# ❌ Ineficiente
+resultado = []
+for i in range(len(df)):
+    if df.iloc[i]['edad'] > 18:
+        resultado.append(df.iloc[i]['nombre'])
+
+# ✅ Eficiente (Vectorizado)
+resultado = df[df['edad'] > 18]['nombre'].tolist()
+
+# ❌ Lento en R
+resultado <- c()
+for (i in 1:nrow(df)) {
+  if (df$edad[i] > 18) {
+    resultado <- c(resultado, df$nombre[i])
+  }
+}
+
+# ✅ Rápido en R
+resultado <- df$nombre[df$edad > 18]
+                    </div>
+                </div>
+                <div>
+                    <h3>⚠️ Errores Comunes</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Bucles infinitos:</strong> Olvidar actualizar la condición</li>
+                            <li><strong>Índices fuera de rango:</strong> No validar límites</li>
+                            <li><strong>Modificar durante iteración:</strong> Cambiar la estructura que se recorre</li>
+                            <li><strong>No usar vectorización:</strong> Bucles innecesarios</li>
+                            <li><strong>Condiciones mal formuladas:</strong> Lógica booleana incorrecta</li>
+                        </ul>
+                    </div>
+
+                    <h3>🛡️ Validación y Manejo de Errores</h3>
+                    <div class="code-snippet">
+# Python - Manejo robusto
+try:
+    for archivo in lista_archivos:
+        if os.path.exists(archivo):
+            df = pd.read_csv(archivo)
+            # Procesar datos
+        else:
+            print(f"Archivo no encontrado: {archivo}")
+except Exception as e:
+    print(f"Error en procesamiento: {e}")
+
+# R - Validación
+for (archivo in lista_archivos) {
+  if (file.exists(archivo)) {
+    tryCatch({
+      df <- read.csv(archivo)
+      # Procesar datos
+    }, error = function(e) {
+      cat("Error procesando", archivo, ":", e$message, "\n")
+    })
+  } else {
+    cat("Archivo no encontrado:", archivo, "\n")
+  }
+}
+                    </div>
+
+                    <h3>📊 Cuándo NO usar bucles</h3>
+                    <ul>
+                        <li>Operaciones que se pueden vectorizar</li>
+                        <li>Funciones built-in más rápidas (apply, map)</li>
+                        <li>Operaciones de agregación (groupby, summarise)</li>
+                        <li>Transformaciones simples de columnas</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">17 / 18</div>
+        </div>
+
+        <!-- Slide 18: Próxima Clase y Resumen -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Resumen y Próxima Clase</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>🎯 Lo que aprendimos hoy</h3>
+                    <ul>
+                        <li><strong>EDA profundo:</strong> Proceso de 6 pasos sistemático</li>
+                        <li><strong>Calidad de datos:</strong> Cómo evaluarla y mejorarla</li>
+                        <li><strong>Decisiones inteligentes:</strong> En limpieza y preparación</li>
+                        <li><strong>Tipos de datos:</strong> Clasificación y sus implicaciones</li>
+                        <li><strong>Visualización efectiva:</strong> Cuándo usar cada gráfico</li>
+                        <li><strong>Estadísticas descriptivas:</strong> Cuándo usar cada medida</li>
+                        <li><strong>Estructuras de control:</strong> Automatización de análisis</li>
+                    </ul>
+
+                    <h3>🔑 Conceptos Clave</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li>80% del tiempo se invierte en preparar datos</li>
+                            <li>La visualización revela patrones ocultos</li>
+                            <li>No todas las estadísticas son apropiadas para todos los datos</li>
+                            <li>La automatización hace escalable el análisis</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>📚 Próxima Clase: Programación Práctica</h3>
+                    <ul>
+                        <li>Laboratorio #2: Sintaxis avanzada de R/Python</li>
+                        <li>Estructuras de datos: listas, diccionarios, data frames</li>
+                        <li>Importación de datos reales</li>
+                        <li>Implementación práctica del proceso EDA</li>
+                        <li>Primeras visualizaciones con código</li>
+                    </ul>
+
+                    <h3>📝 Para la próxima clase</h3>
+                    <ul>
+                        <li>Tarea #2: Ejercicios de estructuras de control</li>
+                        <li>Instalar/verificar software (Python/R + IDE)</li>
+                        <li>Traer datos de su área disciplinaria (opcional)</li>
+                        <li>Revisar tipos de archivos de datos (.csv, .xlsx)</li>
+                    </ul>
+
+                    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(145deg, #a73c3c, #8b2f2f); border-radius: 15px; color: white; text-align: center;">
+                        <h3 style="color: white; margin-bottom: 15px;">💡 Reflexión Final</h3>
+                        <p style="color: white; margin: 0; font-size: 1.1em;">
+                            "El EDA no es solo una fase previa al análisis, es la conversación inicial con nuestros datos. Entre mejor sea esta conversación, más reveladores serán los insights que obtengamos."
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p><strong>¡Gracias por su atención!</strong></p>
+                        <p>¿Preguntas sobre el proceso EDA o estructuras de control?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">18 / 18</div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
