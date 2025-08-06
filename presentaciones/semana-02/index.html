@@ -691,13 +691,13 @@ table(datos$variable_categorica)  # Frecuencias</pre>
         <!-- Slide 6: Decisiones en Limpieza de Datos -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Decisiones Críticas en Limpieza</h2>
+            <h2>Decisiones críticas en limpieza</h2>
             
             <div class="two-column">
                 <div>
                     <h3>Estrategias para Datos Faltantes</h3>
                     
-                    <h4 style="color: #a73c3c; margin-top: 25px;">🔴 Eliminar (Listwise Deletion)</h4>
+                    <h4 style="color: #a73c3c; margin-top: 25px;"> Eliminar (Listwise deletion)</h4>
                     <p><strong>Cuándo usarlo:</strong></p>
                     <ul>
                         <li>< 5% de datos faltantes</li>
@@ -705,12 +705,12 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         <li>Dataset muy grande</li>
                     </ul>
                     
-                    <h4 style="color: #a73c3c;">🟡 Imputar con Medidas Centrales</h4>
+                    <h4 style="color: #a73c3c;"> Imputar con medidas centrales</h4>
                     <p><strong>Media:</strong> Para datos numéricos simétricos</p>
                     <p><strong>Mediana:</strong> Para datos asimétricos</p>
                     <p><strong>Moda:</strong> Para datos categóricos</p>
                     
-                    <h4 style="color: #a73c3c;">🟢 Imputación Avanzada</h4>
+                    <h4 style="color: #a73c3c;"> Imputación avanzada</h4>
                     <ul>
                         <li>Regresión lineal</li>
                         <li>K-nearest neighbors</li>
@@ -718,7 +718,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     </ul>
                 </div>
                 <div>
-                    <h3>Estrategias para Duplicados</h3>
+                    <h3>Estrategias para duplicados</h3>
                     
                     <h4 style="color: #a73c3c; margin-top: 25px;">Identificación</h4>
                     <ul>
@@ -727,7 +727,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         <li><strong>Duplicados conceptuales:</strong> Misma entidad, diferentes representaciones</li>
                     </ul>
 
-                    <h4 style="color: #a73c3c;">Decisiones de Acción</h4>
+                    <h4 style="color: #a73c3c;">Decisiones de acción</h4>
                     <div class="success-box">
                         <ul>
                             <li><strong>Eliminar automáticamente:</strong> Duplicados exactos</li>
@@ -737,9 +737,9 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         </ul>
                     </div>
 
-                    <h3>Outliers: ¿Eliminar o Conservar?</h3>
+                    <h3>Outliers: ¿Eliminar o conservar?</h3>
                     <div class="warning-box">
-                        <p><strong>⚠️ CUIDADO:</strong> Los outliers pueden ser:</p>
+                        <p><strong> CUIDADO:</strong> Los outliers pueden ser:</p>
                         <ul>
                             <li>Errores de captura (eliminar)</li>
                             <li>Fenómenos raros pero reales (conservar)</li>
@@ -754,11 +754,11 @@ table(datos$variable_categorica)  # Frecuencias</pre>
         <!-- Slide 7: Tipos de Datos - Clasificación Detallada -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Tipos de Datos: Clasificación Detallada</h2>
+            <h2>Tipos de datos: clasificación detallada</h2>
             
             <div class="data-types-grid">
                 <div class="data-type-card">
-                    <h4>📊 Datos Cuantitativos</h4>
+                    <h4> Datos cuantitativos</h4>
                     <p><strong>Discretos (Contables):</strong></p>
                     <ul>
                         <li>Número de estudiantes: 25, 30, 45</li>
@@ -777,7 +777,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                 </div>
                 
                 <div class="data-type-card">
-                    <h4>🏷️ Datos Cualitativos</h4>
+                    <h4> Datos cualitativos</h4>
                     <p><strong>Nominales (Sin orden):</strong></p>
                     <ul>
                         <li>Color: rojo, azul, verde</li>
@@ -795,7 +795,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                 </div>
                 
                 <div class="data-type-card">
-                    <h4>🕒 Datos Temporales</h4>
+                    <h4> Datos temporales</h4>
                     <ul>
                         <li><strong>Fechas:</strong> 2025-08-05</li>
                         <li><strong>Tiempo:</strong> 14:30:25</li>
@@ -803,7 +803,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         <li><strong>Series temporales:</strong> Datos con timestamps</li>
                     </ul>
                     
-                    <h4>🌍 Datos Geoespaciales</h4>
+                    <h4> Datos geoespaciales</h4>
                     <ul>
                         <li><strong>Coordenadas:</strong> Latitud/Longitud</li>
                         <li><strong>Direcciones:</strong> Texto estructurado</li>
@@ -812,7 +812,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                 </div>
                 
                 <div class="data-type-card">
-                    <h4>🔗 Datos No Estructurados</h4>
+                    <h4> Datos no estructurados</h4>
                     <ul>
                         <li><strong>Texto:</strong> Comentarios, reviews, artículos</li>
                         <li><strong>Imágenes:</strong> Fotos, gráficos, diagramas</li>
@@ -824,7 +824,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
             </div>
             
             <div class="best-practices">
-                <div class="practices-title">💡 Implicaciones para el Análisis</div>
+                <div class="practices-title"> Implicaciones para el análisis</div>
                 <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <li><strong>Cuantitativos:</strong> Permiten operaciones matemáticas completas</li>
                     <li><strong>Ordinales:</strong> Permiten ranking, pero no operaciones aritméticas</li>
@@ -838,7 +838,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
         <!-- Slide 8: Escalas de Medición y sus Implicaciones -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Escalas de Medición: Qué Operaciones Permite Cada Una</h2>
+            <h2>Escalas de medición: Qué operaciones permite cada una</h2>
             
             <table class="comparison-table">
                 <thead>
@@ -883,7 +883,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
             </table>
 
             <div class="warning-box">
-                <p><strong>⚠️ Error Común:</strong> Aplicar estadísticas inapropiadas para el tipo de escala puede llevar a conclusiones incorrectas. Por ejemplo, calcular la media de satisfacción en escala Likert (ordinal) puede ser problemático.</p>
+                <p><strong> Error Común:</strong> Aplicar estadísticas inapropiadas para el tipo de escala puede llevar a conclusiones incorrectas. Por ejemplo, calcular la media de satisfacción en escala Likert (ordinal) puede ser problemático.</p>
             </div>
             
             <div class="slide-number">8 / 18</div>
@@ -892,11 +892,11 @@ table(datos$variable_categorica)  # Frecuencias</pre>
         <!-- Slide 9: Visualización - Cuándo Usar Cada Gráfico -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Visualización: ¿Cuándo Usar Cada Gráfico?</h2>
+            <h2>Visualización: ¿Cuándo usar cada gráfico?</h2>
             
             <div class="charts-grid">
                 <div class="chart-card">
-                    <div class="chart-title">📊 Histogramas</div>
+                    <div class="chart-title"> Histogramas</div>
                     <p><strong>Cuándo usar:</strong></p>
                     <ul>
                         <li>Datos cuantitativos continuos</li>
@@ -905,12 +905,12 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     </ul>
                     <p><strong>Ejemplo:</strong> Distribución de edades, alturas, tiempos de respuesta</p>
                     <div class="success-box">
-                        <p><strong>✅ Buena práctica:</strong> Experimenta con diferentes números de bins (5-30 dependiendo del tamaño de datos)</p>
+                        <p><strong> Buena práctica:</strong> Experimenta con diferentes números de bins (5-30 dependiendo del tamaño de datos)</p>
                     </div>
                 </div>
                 
                 <div class="chart-card">
-                    <div class="chart-title">📈 Gráficos de Barras</div>
+                    <div class="chart-title"> Gráficos de barras</div>
                     <p><strong>Cuándo usar:</strong></p>
                     <ul>
                         <li>Datos categóricos (nominales u ordinales)</li>
@@ -919,12 +919,12 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     </ul>
                     <p><strong>Ejemplo:</strong> Ventas por región, número de estudiantes por carrera</p>
                     <div class="warning-box">
-                        <p><strong>⚠️ Evitar:</strong> Gráficos 3D innecesarios que distorsionan la percepción</p>
+                        <p><strong> Evitar:</strong> Gráficos 3D innecesarios que distorsionan la percepción</p>
                     </div>
                 </div>
                 
                 <div class="chart-card">
-                    <div class="chart-title">🎯 Pictogramas</div>
+                    <div class="chart-title"> Pictogramas</div>
                     <p><strong>Cuándo usar:</strong></p>
                     <ul>
                         <li>Presentaciones públicas</li>
@@ -933,12 +933,12 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     </ul>
                     <p><strong>Ejemplo:</strong> Población representada con figuras humanas</p>
                     <div class="warning-box">
-                        <p><strong>⚠️ Cuidado:</strong> Pueden distorsionar proporciones si no se escalan correctamente</p>
+                        <p><strong> Cuidado:</strong> Pueden distorsionar proporciones si no se escalan correctamente</p>
                     </div>
                 </div>
                 
                 <div class="chart-card">
-                    <div class="chart-title">📉 Polígonos de Frecuencia</div>
+                    <div class="chart-title"> Polígonos de frecuencia</div>
                     <p><strong>Cuándo usar:</strong></p>
                     <ul>
                         <li>Comparar distribuciones múltiples</li>
@@ -947,7 +947,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     </ul>
                     <p><strong>Ejemplo:</strong> Comparar distribuciones de calificaciones entre diferentes cursos</p>
                     <div class="success-box">
-                        <p><strong>✅ Ventaja:</strong> Más claro que múltiples histogramas superpuestos</p>
+                        <p><strong> Ventaja:</strong> Más claro que múltiples histogramas superpuestos</p>
                     </div>
                 </div>
             </div>
@@ -957,11 +957,11 @@ table(datos$variable_categorica)  # Frecuencias</pre>
         <!-- Slide 10: Errores Comunes en Visualización -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Errores Comunes en Visualización</h2>
+            <h2>Errores comunes en visualización</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>🚫 Errores Técnicos</h3>
+                    <h3> Errores técnicos</h3>
                     <div class="warning-box">
                         <ul>
                             <li><strong>Ejes que no empiezan en cero:</strong> Exageran diferencias</li>
@@ -972,7 +972,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         </ul>
                     </div>
 
-                    <h3>📊 Tipo de Gráfico Incorrecto</h3>
+                    <h3> Tipo de gráfico incorrecto</h3>
                     <div class="warning-box">
                         <ul>
                             <li><strong>Gráfico de líneas para categóricos:</strong> Implica continuidad falsa</li>
@@ -983,7 +983,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>✅ Buenas Prácticas</h3>
+                    <h3> Buenas prácticas</h3>
                     <div class="success-box">
                         <ul>
                             <li><strong>Títulos descriptivos:</strong> Que expliquen qué se muestra</li>
@@ -994,29 +994,44 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         </ul>
                     </div>
 
-                    <h3>🎨 Principios de Diseño</h3>
-                    <ul>
-                        <li><strong>Contraste:</strong> Elementos importantes deben destacar</li>
-                        <li><strong>Alineación:</strong> Elementos organizados visualmente</li>
-                        <li><strong>Repetición:</strong> Consistencia en estilo</li>
-                        <li><strong>Proximidad:</strong> Elementos relacionados juntos</li>
-                    </ul>
+                    <h3> Principios de diseño</h3>
+<ul>
+    <li><strong>Contraste:</strong> Elementos importantes deben destacar</li>
+    <li><strong>Alineación:</strong> Elementos organizados visualmente</li>
+    <li><strong>Repetición:</strong> Consistencia en estilo</li>
+    <li><strong>Proximidad:</strong> Elementos relacionados juntos</li>
+</ul>
 
-                    <div class="code-snippet">
-# Colores accesibles recomendados
-# Python: usar paletas como 'viridis', 'Set2'
-# R: usar RColorBrewer, paletas viridis
-# Evitar: rojo-verde juntos (daltonismo)
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">10 / 18</div>
-        </div>
+<h3> Paletas de colores en R</h3>
+<div class="code-snippet">
+<pre># Paletas accesibles recomendadas en R
+library(RColorBrewer)
+library(viridis)
 
+# Paletas para datos categóricos
+RColorBrewer::display.brewer.all(colorblindFriendly = TRUE)
+brewer.pal(8, "Set2")    # Colores suaves y distinguibles
+brewer.pal(8, "Dark2")   # Colores más intensos
+
+# Paletas para datos continuos
+viridis(10)              # Paleta viridis (amarillo-verde-azul)
+plasma(10)               # Paleta plasma (rosa-púrpura)
+cividis(10)              # Diseñada específicamente para daltonismo
+
+# Ejemplo de uso en ggplot2
+ggplot(data) + 
+  geom_point(aes(x = var1, y = var2, color = categoria)) +
+  scale_color_brewer(type = "qual", palette = "Set2")
+
+# EVITAR: combinaciones problemáticas
+# - Rojo y verde juntos (daltonismo más común)
+# - Colores muy similares en tonalidad
+# - Más de 8-10 colores categóricos diferentes</pre>
+</div>
         <!-- Slide 11: Medidas de Tendencia Central - Revisión -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Medidas de Tendencia Central: ¿Cuál Elegir?</h2>
+            <h2>Medidas de tendencia central: ¿Cuál elegir?</h2>
             
             <div class="two-column">
                 <div>
@@ -1025,7 +1040,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         $$\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
                     </div>
                     
-                    <p><strong>✅ Usar cuando:</strong></p>
+                    <p><strong> Usar cuando:</strong></p>
                     <ul>
                         <li>Distribución simétrica</li>
                         <li>Sin valores atípicos extremos</li>
@@ -1033,7 +1048,7 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                         <li>Se necesita precisión matemática</li>
                     </ul>
                     
-                    <p><strong>❌ Evitar cuando:</strong></p>
+                    <p><strong> Evitar cuando:</strong></p>
                     <ul>
                         <li>Distribución muy asimétrica</li>
                         <li>Presencia de outliers</li>
@@ -1050,22 +1065,22 @@ table(datos$variable_categorica)  # Frecuencias</pre>
                     
                     <p><strong>Mediana - El valor del medio:</strong></p>
                     <ul>
-                        <li><strong>✅ Robusta</strong> ante outliers</li>
-                        <li><strong>✅ Apropiada</strong> para datos ordinales</li>
-                        <li><strong>✅ Mejor para</strong> distribuciones asimétricas</li>
-                        <li><strong>✅ Interpretación</strong> clara: 50% por encima/debajo</li>
+                        <li><strong> Robusta</strong> ante outliers</li>
+                        <li><strong> Apropiada</strong> para datos ordinales</li>
+                        <li><strong> Mejor para</strong> distribuciones asimétricas</li>
+                        <li><strong> Interpretación</strong> clara: 50% por encima/debajo</li>
                     </ul>
 
                     <p><strong>Moda - El valor más frecuente:</strong></p>
                     <ul>
-                        <li><strong>✅ Única medida</strong> para datos nominales</li>
-                        <li><strong>✅ Identifica</strong> valores típicos/populares</li>
-                        <li><strong>✅ Puede tener</strong> múltiples valores</li>
-                        <li><strong>❌ Puede no existir</strong> o ser poco informativa</li>
+                        <li><strong> Única medida</strong> para datos nominales</li>
+                        <li><strong> Identifica</strong> valores típicos/populares</li>
+                        <li><strong> Puede tener</strong> múltiples valores</li>
+                        <li><strong> Puede no existir</strong> o ser poco informativa</li>
                     </ul>
 
                     <div class="success-box">
-                        <p><strong>💡 Regla práctica:</strong></p>
+                        <p><strong> Regla práctica:</strong></p>
                         <ul>
                             <li><strong>Simétrica:</strong> Media ≈ Mediana ≈ Moda</li>
                             <li><strong>Asimétrica positiva:</strong> Media > Mediana > Moda</li>
@@ -1078,82 +1093,104 @@ table(datos$variable_categorica)  # Frecuencias</pre>
         </div>
 
         <!-- Slide 12: Medidas de Tendencia No Central -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Medidas de Tendencia No Central</h2>
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Medidas de tendencia no central</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Cuartiles y Percentiles</h3>
             
-            <div class="two-column">
-                <div>
-                    <h3>Cuartiles y Percentiles</h3>
-                    
-                    <div class="formula">
-                        $$Q_1 = P_{25}, \quad Q_2 = P_{50} = Me, \quad Q_3 = P_{75}$$
-                    </div>
-                    
-                    <p><strong>Interpretación:</strong></p>
-                    <ul>
-                        <li><strong>Q1:</strong> 25% de datos por debajo</li>
-                        <li><strong>Q2:</strong> Mediana (50%)</li>
-                        <li><strong>Q3:</strong> 75% de datos por debajo</li>
-                        <li><strong>P90:</strong> 90% de datos por debajo</li>
-                    </ul>
-
-                    <h3>Rango Intercuartílico (IQR)</h3>
-                    <div class="formula">
-                        $$IQR = Q_3 - Q_1$$
-                    </div>
-                    
-                    <p><strong>Ventajas del IQR:</strong></p>
-                    <ul>
-                        <li>Robusto ante outliers</li>
-                        <li>Describe el 50% central de los datos</li>
-                        <li>Base para detectar outliers</li>
-                        <li>Útil para comparar dispersión</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Detección de Outliers con IQR</h3>
-                    
-                    <div class="formula">
-                        $$\text{Outlier inferior} < Q_1 - 1.5 \times IQR$$
-                        $$\text{Outlier superior} > Q_3 + 1.5 \times IQR$$
-                    </div>
-
-                    <div class="code-snippet">
-# Python - Detección de outliers
-Q1 = df['variable'].quantile(0.25)
-Q3 = df['variable'].quantile(0.75)
-IQR = Q3 - Q1
-lower_bound = Q1 - 1.5 * IQR
-upper_bound = Q3 + 1.5 * IQR
-
-outliers = df[(df['variable'] < lower_bound) | 
-              (df['variable'] > upper_bound)]
-
-# R - Detección de outliers
-Q1 <- quantile(df$variable, 0.25)
-Q3 <- quantile(df$variable, 0.75)
-IQR <- Q3 - Q1
-outliers <- df[df$variable < Q1 - 1.5*IQR | 
-               df$variable > Q3 + 1.5*IQR, ]
-                    </div>
-
-                    <h3>Aplicaciones Prácticas</h3>
-                    <ul>
-                        <li><strong>Educación:</strong> Percentiles en exámenes estandarizados</li>
-                        <li><strong>Medicina:</strong> Percentiles de crecimiento infantil</li>
-                        <li><strong>Finanzas:</strong> VaR (Value at Risk) usando percentiles</li>
-                        <li><strong>Calidad:</strong> Control de procesos con cuartiles</li>
-                    </ul>
-                </div>
+            <div class="formula">
+                $$Q_1 = P_{25}, \quad Q_2 = P_{50} = Me, \quad Q_3 = P_{75}$$
             </div>
-            <div class="slide-number">12 / 18</div>
+            
+            <p><strong>Interpretación:</strong></p>
+            <ul>
+                <li><strong>Q1:</strong> 25% de datos por debajo</li>
+                <li><strong>Q2:</strong> Mediana (50%)</li>
+                <li><strong>Q3:</strong> 75% de datos por debajo</li>
+                <li><strong>P90:</strong> 90% de datos por debajo</li>
+            </ul>
+
+            <h3>Rango Intercuartílico (IQR)</h3>
+            <div class="formula">
+                $$IQR = Q_3 - Q_1$$
+            </div>
+            
+            <p><strong>Ventajas del IQR:</strong></p>
+            <ul>
+                <li>Robusto ante outliers</li>
+                <li>Describe el 50% central de los datos</li>
+                <li>Base para detectar outliers</li>
+                <li>Útil para comparar dispersión</li>
+            </ul>
         </div>
+        <div>
+            <h3>Cálculo de Cuartiles en R</h3>
+            <div class="code-snippet">
+<pre># Cálculo de cuartiles y percentiles
+Q1 <- quantile(datos$variable, 0.25)    # Primer cuartil
+Q2 <- quantile(datos$variable, 0.50)    # Mediana
+Q3 <- quantile(datos$variable, 0.75)    # Tercer cuartil
+
+# Percentiles específicos
+P10 <- quantile(datos$variable, 0.10)   # Percentil 10
+P90 <- quantile(datos$variable, 0.90)   # Percentil 90
+
+# Resumen completo de cuartiles
+summary(datos$variable)                 # Min, Q1, Median, Q3, Max
+
+# Rango intercuartílico
+IQR_valor <- IQR(datos$variable)        # Función directa
+# O manualmente:
+IQR_manual <- Q3 - Q1</pre>
+            </div>
+
+            <h3>Detección de Outliers con IQR</h3>
+            <div class="formula">
+                $$\text{Outlier inferior} < Q_1 - 1.5 \times IQR$$
+                $$\text{Outlier superior} > Q_3 + 1.5 \times IQR$$
+            </div>
+
+            <div class="code-snippet">
+<pre># Detección de outliers usando IQR
+Q1 <- quantile(datos$variable, 0.25)
+Q3 <- quantile(datos$variable, 0.75)
+IQR_val <- Q3 - Q1
+
+# Definir límites
+limite_inferior <- Q1 - 1.5 * IQR_val
+limite_superior <- Q3 + 1.5 * IQR_val
+
+# Identificar outliers
+outliers <- datos[datos$variable < limite_inferior | 
+                  datos$variable > limite_superior, ]
+
+# Contar outliers
+num_outliers <- nrow(outliers)
+cat("Outliers encontrados:", num_outliers)
+
+# Boxplot automático (muestra outliers)
+boxplot(datos$variable, main = "Detección de Outliers")</pre>
+            </div>
+
+            <h3>Aplicaciones Prácticas</h3>
+            <ul>
+                <li><strong>Educación:</strong> Percentiles en exámenes estandarizados</li>
+                <li><strong>Medicina:</strong> Percentiles de crecimiento infantil</li>
+                <li><strong>Química:</strong> Control de calidad en concentraciones</li>
+                <li><strong>Agricultura:</strong> Análisis de rendimientos por parcela</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">12 / 18</div>
+</div>
 
         <!-- Slide 13: Medidas de Dispersión - Profundización -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Medidas de Dispersión: ¿Qué Tan Dispersos Están los Datos?</h2>
+            <h2>Medidas de dispersión: ¿Qué tan dispersos están los datos?</h2>
             
             <div class="two-column">
                 <div>
@@ -1204,7 +1241,7 @@ outliers <- df[df$variable < Q1 - 1.5*IQR |
                     </ul>
 
                     <div class="warning-box">
-                        <p><strong>⚠️ Limitación:</strong> CV no es apropiado cuando la media es cercana a cero o puede ser negativa</p>
+                        <p><strong> Limitación:</strong> CV no es apropiado cuando la media es cercana a cero o puede ser negativa</p>
                     </div>
 
                     <h3>Otras Medidas de Dispersión</h3>
@@ -1221,7 +1258,7 @@ outliers <- df[df$variable < Q1 - 1.5*IQR |
         <!-- Slide 14: Introducción a Estructuras de Control -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Estructuras de Control para Análisis de Datos</h2>
+            <h2>Estructuras de control para análisis de datos</h2>
             
             <div style="text-align: center; margin: 30px 0;">
                 <div style="background: linear-gradient(145deg, #34495e, #2c3e50); color: white; padding: 25px; border-radius: 15px; font-size: 1.2em; font-weight: 600; box-shadow: 0 10px 30px rgba(52, 73, 94, 0.3);">
@@ -1231,7 +1268,7 @@ outliers <- df[df$variable < Q1 - 1.5*IQR |
 
             <div class="control-structures">
                 <div class="structure-card">
-                    <div class="structure-title">🔀 Estructuras Condicionales</div>
+                    <div class="structure-title"> Estructuras Condicionales</div>
                     <p><strong>if/else/elif:</strong> Tomar decisiones basadas en condiciones</p>
                     
                     <h4>Casos de uso en análisis:</h4>
@@ -1245,7 +1282,7 @@ outliers <- df[df$variable < Q1 - 1.5*IQR |
                 </div>
                 
                 <div class="structure-card">
-                    <div class="structure-title">🔄 Estructuras Iterativas</div>
+                    <div class="structure-title"> Estructuras Iterativas</div>
                     <p><strong>for/while:</strong> Repetir operaciones múltiples veces</p>
                     
                     <h4>Casos de uso en análisis:</h4>
@@ -1260,7 +1297,7 @@ outliers <- df[df$variable < Q1 - 1.5*IQR |
             </div>
 
             <div class="best-practices">
-                <div class="practices-title">🎯 ¿Por qué son importantes en análisis de datos?</div>
+                <div class="practices-title"> ¿Por qué son importantes en análisis de datos?</div>
                 <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <li><strong>Automatización:</strong> Procesar miles de registros sin intervención manual</li>
                     <li><strong>Consistencia:</strong> Aplicar las mismas reglas a todos los datos</li>
@@ -1272,23 +1309,15 @@ outliers <- df[df$variable < Q1 - 1.5*IQR |
         </div>
 
         <!-- Slide 15: if/else en Análisis de Datos -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Condicionales if/else: Casos Prácticos</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Sintaxis Básica</h3>
-                    <div class="code-snippet">
-# Python
-if condicion:
-    accion1
-elif otra_condicion:
-    accion2
-else:
-    accion3
-
-# R
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Condicionales if/else: Casos prácticos</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Sintaxis Básica en R</h3>
+            <div class="code-snippet">
+<pre># Estructura básica
 if (condicion) {
     accion1
 } else if (otra_condicion) {
@@ -1296,311 +1325,386 @@ if (condicion) {
 } else {
     accion3
 }
-                    </div>
 
-                    <h3>Ejemplo 1: Clasificación de Edades</h3>
-                    <div class="code-snippet">
-# Python - Clasificación de edades
-def clasificar_edad(edad):
-    if edad < 18:
-        return "Menor de edad"
-    elif edad < 65:
-        return "Adulto"
-    else:
-        return "Adulto mayor"
+# Función ifelse() para vectores
+resultado <- ifelse(condicion, valor_si_verdadero, valor_si_falso)
+
+# ifelse() anidado
+resultado <- ifelse(condicion1, "opcion1",
+                   ifelse(condicion2, "opcion2", "opcion3"))</pre>
+            </div>
+
+            <h3>Ejemplo 1: Clasificación de Edades</h3>
+            <div class="code-snippet">
+<pre># Función personalizada
+clasificar_edad <- function(edad) {
+    if (edad < 18) {
+        return("Menor de edad")
+    } else if (edad < 65) {
+        return("Adulto")
+    } else {
+        return("Adulto mayor")
+    }
+}
 
 # Aplicar a todo el dataset
-df['categoria_edad'] = df['edad'].apply(clasificar_edad)
+datos$categoria_edad <- sapply(datos$edad, clasificar_edad)
 
-# R - Clasificación de edades
-df$categoria_edad <- ifelse(df$edad < 18, "Menor de edad",
-                     ifelse(df$edad < 65, "Adulto", 
-                            "Adulto mayor"))
-                    </div>
-
-                    <h3>Ejemplo 2: Detección de Outliers</h3>
-                    <div class="code-snippet">
-# Python - Marcar outliers
-Q1 = df['variable'].quantile(0.25)
-Q3 = df['variable'].quantile(0.75)
-IQR = Q3 - Q1
-
-def es_outlier(valor):
-    if valor < Q1 - 1.5 * IQR:
-        return "Outlier inferior"
-    elif valor > Q3 + 1.5 * IQR:
-        return "Outlier superior"
-    else:
-        return "Normal"
-
-df['tipo_valor'] = df['variable'].apply(es_outlier)
-                    </div>
-                </div>
-                <div>
-                    <h3>Ejemplo 3: Validación de Datos</h3>
-                    <div class="code-snippet">
-# Python - Validar datos de temperatura
-def validar_temperatura(temp):
-    if temp < -50 or temp > 60:
-        return "Valor imposible"
-    elif temp < 0:
-        return "Muy frío"
-    elif temp > 40:
-        return "Muy caliente"
-    else:
-        return "Normal"
-
-df['validez_temp'] = df['temperatura'].apply(validar_temperatura)
-
-# R - Mismo ejemplo
-validar_temp <- function(temp) {
-  if (temp < -50 | temp > 60) {
-    return("Valor imposible")
-  } else if (temp < 0) {
-    return("Muy frío")
-  } else if (temp > 40) {
-    return("Muy caliente")
-  } else {
-    return("Normal")
-  }
-}
-                    </div>
-
-                    <h3>Ejemplo 4: Imputación Inteligente</h3>
-                    <div class="code-snippet">
-# Python - Imputación condicional
-def imputar_valor(row):
-    if pd.isna(row['salario']):
-        if row['experiencia'] < 2:
-            return 30000  # Salario junior
-        elif row['experiencia'] < 5:
-            return 45000  # Salario medio
-        else:
-            return 60000  # Salario senior
-    else:
-        return row['salario']
-
-df['salario_imputado'] = df.apply(imputar_valor, axis=1)
-                    </div>
-                </div>
+# Alternativa con ifelse (más eficiente)
+datos$categoria_edad <- ifelse(datos$edad < 18, "Menor de edad",
+                              ifelse(datos$edad < 65, "Adulto", 
+                                    "Adulto mayor"))</pre>
             </div>
-            <div class="slide-number">15 / 18</div>
+
+            <h3>Ejemplo 2: Detección de Outliers</h3>
+            <div class="code-snippet">
+<pre># Calcular límites IQR
+Q1 <- quantile(datos$variable, 0.25)
+Q3 <- quantile(datos$variable, 0.75)
+IQR_val <- Q3 - Q1
+
+# Función para clasificar valores
+clasificar_outlier <- function(valor) {
+    if (valor < Q1 - 1.5 * IQR_val) {
+        return("Outlier inferior")
+    } else if (valor > Q3 + 1.5 * IQR_val) {
+        return("Outlier superior")
+    } else {
+        return("Normal")
+    }
+}
+
+# Aplicar clasificación
+datos$tipo_valor <- sapply(datos$variable, clasificar_outlier)</pre>
+            </div>
         </div>
+        <div>
+            <h3>Ejemplo 3: Validación de Datos Químicos</h3>
+            <div class="code-snippet">
+<pre># Validar concentraciones químicas (ppm)
+validar_concentracion <- function(conc) {
+    if (is.na(conc)) {
+        return("Dato faltante")
+    } else if (conc < 0) {
+        return("Valor imposible")
+    } else if (conc == 0) {
+        return("Sin detectar")
+    } else if (conc > 1000) {
+        return("Concentración alta")
+    } else {
+        return("Normal")
+    }
+}
+
+# Aplicar validación
+datos$validez_conc <- sapply(datos$concentracion, validar_concentracion)
+
+# Contar por categoría
+table(datos$validez_conc)</pre>
+            </div>
+
+            <h3>Ejemplo 4: Imputación Inteligente</h3>
+            <div class="code-snippet">
+<pre># Imputación basada en condiciones
+imputar_ph <- function(row) {
+    if (is.na(row["ph"])) {
+        if (row["tipo_muestra"] == "agua_potable") {
+            return(7.0)  # pH neutro típico
+        } else if (row["tipo_muestra"] == "suelo_acido") {
+            return(5.5)  # pH ácido típico
+        } else {
+            return(6.8)  # pH promedio general
+        }
+    } else {
+        return(row["ph"])
+    }
+}
+
+# Aplicar usando apply por filas
+datos$ph_imputado <- apply(datos, 1, imputar_ph)
+
+# Verificar imputación
+sum(is.na(datos$ph))         # Antes
+sum(is.na(datos$ph_imputado)) # Después</pre>
+            </div>
+
+            <h3> Consejos Prácticos</h3>
+            <ul>
+                <li><strong>ifelse():</strong> Más eficiente para vectores grandes</li>
+                <li><strong>Funciones personalizadas:</strong> Mejor para lógica compleja</li>
+                <li><strong>Validar datos:</strong> Siempre revisar casos extremos</li>
+                <li><strong>Documentar:</strong> Comentar la lógica de decisiones</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">15 / 18</div>
+</div>
 
         <!-- Slide 16: Bucles for/while en Análisis de Datos -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Bucles for/while: Automatización de Procesos</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Bucle for - Iteración Definida</h3>
-                    <div class="code-snippet">
-# Python - Procesar múltiples archivos
-import pandas as pd
-import glob
-
-archivos = glob.glob("datos_*.csv")
-dataframes = []
-
-for archivo in archivos:
-    df = pd.read_csv(archivo)
-    df['fuente'] = archivo
-    dataframes.append(df)
-
-datos_completos = pd.concat(dataframes)
-
-# R - Mismo ejemplo
-archivos <- list.files(pattern = "datos_.*\\.csv")
-lista_df <- list()
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Bucles for/while: Automatización de procesos</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3>Bucle for - Iteración Definida</h3>
+            <div class="code-snippet">
+<pre># Procesar múltiples archivos de laboratorio
+archivos <- list.files(pattern = "analisis_.*\\.csv")
+lista_datos <- list()
 
 for (i in 1:length(archivos)) {
-  df <- read.csv(archivos[i])
-  df$fuente <- archivos[i]
-  lista_df[[i]] <- df
+    # Leer cada archivo
+    datos_lab <- read.csv(archivos[i])
+    
+    # Agregar información de fuente
+    datos_lab$archivo_origen <- archivos[i]
+    datos_lab$fecha_procesado <- Sys.Date()
+    
+    # Guardar en lista
+    lista_datos[[i]] <- datos_lab
 }
 
-datos_completos <- do.call(rbind, lista_df)
-                    </div>
+# Combinar todos los datos
+datos_completos <- do.call(rbind, lista_datos)
+cat("Procesados", length(archivos), "archivos")
+cat("Total de filas:", nrow(datos_completos))</pre>
+            </div>
 
-                    <h3>Análisis por Subgrupos</h3>
-                    <div class="code-snippet">
-# Python - Estadísticas por categoría
-categorias = df['categoria'].unique()
-resultados = {}
+            <h3>Análisis por Grupos de Muestras</h3>
+            <div class="code-snippet">
+<pre># Estadísticas por tipo de muestra química
+tipos_muestra <- unique(datos$tipo_muestra)
+resultados <- data.frame()
 
-for cat in categorias:
-    subset = df[df['categoria'] == cat]
-    resultados[cat] = {
-        'media': subset['valor'].mean(),
-        'mediana': subset['valor'].median(),
-        'std': subset['valor'].std()
-    }
+for (tipo in tipos_muestra) {
+    # Filtrar por tipo
+    subconjunto <- datos[datos$tipo_muestra == tipo, ]
+    
+    # Calcular estadísticas
+    stats <- data.frame(
+        tipo_muestra = tipo,
+        n_muestras = nrow(subconjunto),
+        ph_promedio = mean(subconjunto$ph, na.rm = TRUE),
+        ph_desv_std = sd(subconjunto$ph, na.rm = TRUE),
+        concentracion_max = max(subconjunto$concentracion, na.rm = TRUE)
+    )
+    
+    # Agregar a resultados
+    resultados <- rbind(resultados, stats)
+}
 
-# Convertir a DataFrame
-resultado_df = pd.DataFrame(resultados).T
-                    </div>
-                </div>
-                <div>
-                    <h3>Generación Automática de Gráficos</h3>
-                    <div class="code-snippet">
-# Python - Múltiples gráficos
-import matplotlib.pyplot as plt
-
-variables_numericas = ['edad', 'salario', 'experiencia']
-
-for i, var in enumerate(variables_numericas):
-    plt.figure(figsize=(8, 6))
-    plt.hist(df[var], bins=20, alpha=0.7)
-    plt.title(f'Distribución de {var}')
-    plt.xlabel(var)
-    plt.ylabel('Frecuencia')
-    plt.savefig(f'histograma_{var}.png')
-    plt.close()
-
-# R - Múltiples gráficos
+# Ver resultados
+print(resultados)</pre>
+            </div>
+        </div>
+        <div>
+            <h3>Generación Automática de Gráficos</h3>
+            <div class="code-snippet">
+<pre># Crear histogramas para múltiples variables químicas
 library(ggplot2)
+variables_quimicas <- c("ph", "concentracion", "turbidez", "conductividad")
 
-variables <- c("edad", "salario", "experiencia")
-
-for (var in variables) {
-  p <- ggplot(df, aes_string(x = var)) +
-    geom_histogram(bins = 20, alpha = 0.7) +
-    labs(title = paste("Distribución de", var))
-  
-  ggsave(paste0("histograma_", var, ".png"), p)
-}
-                    </div>
-
-                    <h3>Bucle while - Iteración Condicional</h3>
-                    <div class="code-snippet">
-# Python - Limpieza iterativa
-outliers_detectados = True
-iteracion = 0
-
-while outliers_detectados and iteracion < 10:
-    Q1 = df['variable'].quantile(0.25)
-    Q3 = df['variable'].quantile(0.75)
-    IQR = Q3 - Q1
+for (var in variables_quimicas) {
+    # Crear gráfico
+    p <- ggplot(datos, aes_string(x = var)) +
+        geom_histogram(bins = 20, fill = "steelblue", alpha = 0.7) +
+        labs(
+            title = paste("Distribución de", var),
+            x = var,
+            y = "Frecuencia"
+        ) +
+        theme_minimal()
     
-    outliers = df[(df['variable'] < Q1 - 1.5*IQR) | 
-                  (df['variable'] > Q3 + 1.5*IQR)]
+    # Guardar gráfico
+    nombre_archivo <- paste0("histograma_", var, ".png")
+    ggsave(nombre_archivo, p, width = 8, height = 6)
     
-    if len(outliers) == 0:
-        outliers_detectados = False
-    else:
-        # Remover outliers extremos
-        df = df[~df.index.isin(outliers.index)]
-        iteracion += 1
-
-print(f"Proceso terminado en {iteracion} iteraciones")
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">16 / 18</div>
-        </div>
-
-        <!-- Slide 17: Mejores Prácticas en Estructuras de Control -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Mejores Prácticas en Estructuras de Control</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>✅ Buenas Prácticas</h3>
-                    <div class="success-box">
-                        <ul>
-                            <li><strong>Legibilidad:</strong> Usa nombres descriptivos para variables</li>
-                            <li><strong>Documentación:</strong> Comenta el propósito de cada bucle</li>
-                            <li><strong>Validación:</strong> Verifica condiciones antes de procesar</li>
-                            <li><strong>Eficiencia:</strong> Evita bucles innecesarios</li>
-                            <li><strong>Modularidad:</strong> Divide tareas complejas en funciones</li>
-                        </ul>
-                    </div>
-
-                    <h3>🚀 Optimización</h3>
-                    <div class="code-snippet">
-# ❌ Ineficiente
-resultado = []
-for i in range(len(df)):
-    if df.iloc[i]['edad'] > 18:
-        resultado.append(df.iloc[i]['nombre'])
-
-# ✅ Eficiente (Vectorizado)
-resultado = df[df['edad'] > 18]['nombre'].tolist()
-
-# ❌ Lento en R
-resultado <- c()
-for (i in 1:nrow(df)) {
-  if (df$edad[i] > 18) {
-    resultado <- c(resultado, df$nombre[i])
-  }
+    cat("Gráfico guardado:", nombre_archivo, "\n")
 }
 
-# ✅ Rápido en R
-resultado <- df$nombre[df$edad > 18]
-                    </div>
-                </div>
-                <div>
-                    <h3>⚠️ Errores Comunes</h3>
-                    <div class="warning-box">
-                        <ul>
-                            <li><strong>Bucles infinitos:</strong> Olvidar actualizar la condición</li>
-                            <li><strong>Índices fuera de rango:</strong> No validar límites</li>
-                            <li><strong>Modificar durante iteración:</strong> Cambiar la estructura que se recorre</li>
-                            <li><strong>No usar vectorización:</strong> Bucles innecesarios</li>
-                            <li><strong>Condiciones mal formuladas:</strong> Lógica booleana incorrecta</li>
-                        </ul>
-                    </div>
-
-                    <h3>🛡️ Validación y Manejo de Errores</h3>
-                    <div class="code-snippet">
-# Python - Manejo robusto
-try:
-    for archivo in lista_archivos:
-        if os.path.exists(archivo):
-            df = pd.read_csv(archivo)
-            # Procesar datos
-        else:
-            print(f"Archivo no encontrado: {archivo}")
-except Exception as e:
-    print(f"Error en procesamiento: {e}")
-
-# R - Validación
-for (archivo in lista_archivos) {
-  if (file.exists(archivo)) {
-    tryCatch({
-      df <- read.csv(archivo)
-      # Procesar datos
-    }, error = function(e) {
-      cat("Error procesando", archivo, ":", e$message, "\n")
-    })
-  } else {
-    cat("Archivo no encontrado:", archivo, "\n")
-  }
-}
-                    </div>
-
-                    <h3>📊 Cuándo NO usar bucles</h3>
-                    <ul>
-                        <li>Operaciones que se pueden vectorizar</li>
-                        <li>Funciones built-in más rápidas (apply, map)</li>
-                        <li>Operaciones de agregación (groupby, summarise)</li>
-                        <li>Transformaciones simples de columnas</li>
-                    </ul>
-                </div>
+# Crear boxplots por grupo
+for (var in variables_quimicas) {
+    p <- ggplot(datos, aes_string(x = "tipo_muestra", y = var)) +
+        geom_boxplot(fill = "lightblue") +
+        labs(title = paste("Boxplot de", var, "por tipo de muestra"))
+    
+    ggsave(paste0("boxplot_", var, ".png"), p)
+}</pre>
             </div>
-            <div class="slide-number">17 / 18</div>
+
+            <h3>Bucle while - Control de Calidad Iterativo</h3>
+            <div class="code-snippet">
+<pre># Limpieza iterativa de outliers extremos
+datos_limpios <- datos
+outliers_encontrados <- TRUE
+iteracion <- 0
+max_iteraciones <- 5
+
+while (outliers_encontrados && iteracion < max_iteraciones) {
+    # Calcular límites IQR
+    Q1 <- quantile(datos_limpios$concentracion, 0.25, na.rm = TRUE)
+    Q3 <- quantile(datos_limpios$concentracion, 0.75, na.rm = TRUE)
+    IQR_val <- Q3 - Q1
+    
+    # Detectar outliers extremos
+    limite_inf <- Q1 - 3 * IQR_val  # Más estricto (3 x IQR)
+    limite_sup <- Q3 + 3 * IQR_val
+    
+    outliers <- which(datos_limpios$concentracion < limite_inf | 
+                      datos_limpios$concentracion > limite_sup)
+    
+    if (length(outliers) == 0) {
+        outliers_encontrados <- FALSE
+        cat("No se encontraron más outliers extremos\n")
+    } else {
+        # Remover outliers
+        datos_limpios <- datos_limpios[-outliers, ]
+        iteracion <- iteracion + 1
+        cat("Iteración", iteracion, "- Removidos", length(outliers), "outliers\n")
+    }
+}
+
+cat("Proceso completado en", iteracion, "iteraciones")
+cat("Datos finales:", nrow(datos_limpios), "de", nrow(datos), "originales")</pre>
+            </div>
         </div>
+    </div>
+    <div class="slide-number">16 / 18</div>
+</div>
+
+       <!-- Slide 17: Mejores Prácticas en Estructuras de Control -->
+<div class="slide">
+    <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+    <h2>Mejores prácticas en estructuras de control</h2>
+    
+    <div class="two-column">
+        <div>
+            <h3> Buenas Prácticas</h3>
+            <div class="success-box">
+                <ul>
+                    <li><strong>Legibilidad:</strong> Usa nombres descriptivos para variables</li>
+                    <li><strong>Documentación:</strong> Comenta el propósito de cada bucle</li>
+                    <li><strong>Validación:</strong> Verifica condiciones antes de procesar</li>
+                    <li><strong>Eficiencia:</strong> Evita bucles innecesarios</li>
+                    <li><strong>Modularidad:</strong> Divide tareas complejas en funciones</li>
+                </ul>
+            </div>
+
+            <h3> Optimización en R</h3>
+            <div class="code-snippet">
+<pre>#  Ineficiente - Bucle innecesario
+resultado_lento <- c()
+for (i in 1:nrow(datos)) {
+    if (datos$ph[i] > 7) {
+        resultado_lento <- c(resultado_lento, datos$muestra_id[i])
+    }
+}
+
+#  Eficiente - Vectorización
+resultado_rapido <- datos$muestra_id[datos$ph > 7]
+
+#  Muy lento - Concatenar vectores en bucle
+concentraciones_altas <- c()
+for (i in 1:nrow(datos)) {
+    if (datos$concentracion[i] > 100) {
+        # ¡Esto recrea el vector cada vez!
+        concentraciones_altas <- c(concentraciones_altas, datos$concentracion[i])
+    }
+}
+
+#  Más eficiente - Pre-asignar espacio
+indices_altas <- which(datos$concentracion > 100)
+concentraciones_altas <- datos$concentracion[indices_altas]</pre>
+            </div>
+
+            <h3>🔧 Usar Funciones de la Familia apply</h3>
+            <div class="code-snippet">
+<pre>#  Bucle para calcular medias por grupo
+grupos <- unique(datos$tipo_muestra)
+medias_por_grupo <- numeric()
+
+for (grupo in grupos) {
+    subset_datos <- datos[datos$tipo_muestra == grupo, ]
+    media_grupo <- mean(subset_datos$ph, na.rm = TRUE)
+    medias_por_grupo <- c(medias_por_grupo, media_grupo)
+}
+
+#  Más eficiente con aggregate()
+medias_por_grupo <- aggregate(ph ~ tipo_muestra, 
+                             datos, mean, na.rm = TRUE)
+
+#  O con tapply()
+medias_tapply <- tapply(datos$ph, datos$tipo_muestra, 
+                       mean, na.rm = TRUE)</pre>
+            </div>
+        </div>
+        <div>
+            <h3> Errores Comunes</h3>
+            <div class="warning-box">
+                <ul>
+                    <li><strong>Bucles infinitos:</strong> Olvidar actualizar la condición</li>
+                    <li><strong>Índices fuera de rango:</strong> No validar límites</li>
+                    <li><strong>Modificar durante iteración:</strong> Cambiar la estructura que se recorre</li>
+                    <li><strong>Concatenar vectores:</strong> Usar c() en bucles es muy lento</li>
+                    <li><strong>No usar vectorización:</strong> Bucles innecesarios</li>
+                </ul>
+            </div>
+
+            <h3> Validación y Manejo de Errores en R</h3>
+            <div class="code-snippet">
+<pre># Validación robusta al procesar archivos
+archivos_laboratorio <- list.files(pattern = "\\.csv$")
+
+for (archivo in archivos_laboratorio) {
+    # Verificar que el archivo existe
+    if (file.exists(archivo)) {
+        
+        # Manejo de errores con tryCatch
+        datos_archivo <- tryCatch({
+            read.csv(archivo, stringsAsFactors = FALSE)
+        }, error = function(e) {
+            cat("Error leyendo", archivo, ":", e$message, "\n")
+            return(NULL)
+        })
+        
+        # Continuar solo si la lectura fue exitosa
+        if (!is.null(datos_archivo)) {
+            # Validar estructura esperada
+            if (all(c("muestra_id", "ph", "concentracion") %in% names(datos_archivo))) {
+                # Procesar datos...
+                cat("Procesado exitosamente:", archivo, "\n")
+            } else {
+                cat("Columnas faltantes en", archivo, "\n")
+            }
+        }
+    } else {
+        cat("Archivo no encontrado:", archivo, "\n")
+    }
+}</pre>
+            </div>
+
+            <h3> Cuándo NO usar bucles en R</h3>
+            <ul>
+                <li><strong>Operaciones vectorizadas:</strong> `+`, `-`, `*`, `/`, `>`, etc.</li>
+                <li><strong>Funciones apply:</strong> `apply()`, `lapply()`, `sapply()`, `mapply()`</li>
+                <li><strong>Agregaciones:</strong> `aggregate()`, `tapply()`, `by()`</li>
+                <li><strong>Filtros y subsets:</strong> Indexación lógica directa</li>
+                <li><strong>Transformaciones:</strong> `ifelse()`, `cut()`, `factor()`</li>
+            </ul>
+        </div>
+    </div>
+    <div class="slide-number">17 / 18</div>
+</div>
 
         <!-- Slide 18: Próxima Clase y Resumen -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Resumen y Próxima Clase</h2>
+            <h2>Resumen y próxima clase</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>🎯 Lo que aprendimos hoy</h3>
+                    <h3> Lo que aprendimos hoy</h3>
                     <ul>
                         <li><strong>EDA profundo:</strong> Proceso de 6 pasos sistemático</li>
                         <li><strong>Calidad de datos:</strong> Cómo evaluarla y mejorarla</li>
@@ -1611,7 +1715,7 @@ for (archivo in lista_archivos) {
                         <li><strong>Estructuras de control:</strong> Automatización de análisis</li>
                     </ul>
 
-                    <h3>🔑 Conceptos Clave</h3>
+                    <h3> Conceptos Clave</h3>
                     <div class="success-box">
                         <ul>
                             <li>80% del tiempo se invierte en preparar datos</li>
@@ -1622,7 +1726,7 @@ for (archivo in lista_archivos) {
                     </div>
                 </div>
                 <div>
-                    <h3>📚 Próxima Clase: Programación Práctica</h3>
+                    <h3> Próxima Clase: Programación Práctica</h3>
                     <ul>
                         <li>Laboratorio #2: Sintaxis avanzada de R/Python</li>
                         <li>Estructuras de datos: listas, diccionarios, data frames</li>
@@ -1631,7 +1735,7 @@ for (archivo in lista_archivos) {
                         <li>Primeras visualizaciones con código</li>
                     </ul>
 
-                    <h3>📝 Para la próxima clase</h3>
+                    <h3> Para la próxima clase</h3>
                     <ul>
                         <li>Tarea #2: Ejercicios de estructuras de control</li>
                         <li>Instalar/verificar software (Python/R + IDE)</li>
@@ -1640,7 +1744,7 @@ for (archivo in lista_archivos) {
                     </ul>
 
                     <div style="margin-top: 30px; padding: 25px; background: linear-gradient(145deg, #a73c3c, #8b2f2f); border-radius: 15px; color: white; text-align: center;">
-                        <h3 style="color: white; margin-bottom: 15px;">💡 Reflexión Final</h3>
+                        <h3 style="color: white; margin-bottom: 15px;"> Reflexión Final</h3>
                         <p style="color: white; margin: 0; font-size: 1.1em;">
                             "El EDA no es solo una fase previa al análisis, es la conversación inicial con nuestros datos. Entre mejor sea esta conversación, más reveladores serán los insights que obtengamos."
                         </p>
