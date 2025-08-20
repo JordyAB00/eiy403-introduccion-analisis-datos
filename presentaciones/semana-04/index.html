@@ -1399,14 +1399,14 @@ for (i in 1:length(valores)) {
             <div class="slide-number">12 / 14</div>
         </div>
 
-        <!-- Slide 13: Preparación para el Laboratorio -->
+        <!-- Slide 13: Preparación para el Notebook -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Preparación para el laboratorio</h2>
+            <h2>Preparación para el notebook</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Lo que haremos en el laboratorio</h3>
+                    <h3>Lo que haremos en el notebook R</h3>
                     <ul>
                         <li><strong>Ejercicio 1:</strong> Procesar datos de pH con bucle for</li>
                         <li><strong>Ejercicio 2:</strong> Calcular molaridades de múltiples soluciones</li>
@@ -1449,6 +1449,18 @@ K = °C + 273.15</pre>
                     </div>
                 </div>
                 <div>
+                    <h3>Metodología del notebook</h3>
+                    <div class="simple-example">
+                        <p><strong>Trabajaremos juntos paso a paso:</strong></p>
+                        <ul>
+                            <li>Explicación teórica breve</li>
+                            <li>Demostración en R</li>
+                            <li>Práctica guiada</li>
+                            <li>Ejercicios aplicados</li>
+                            <li>Discusión de resultados</li>
+                        </ul>
+                    </div>
+
                     <h3>Tipos de datos que manejaremos</h3>
                     <div class="code-snippet">
 <pre># Ejemplos de datos típicos
@@ -1483,7 +1495,7 @@ if (any(is.na(datos))) {
 
 # 3. Procesar con bucle
 for (valor in datos) {
-    # Aplicarfórmula o lógica
+    # Aplicar fórmula o lógica
     resultado <- calcular_algo(valor)
     
     # Mostrar resultado
@@ -1494,28 +1506,20 @@ for (valor in datos) {
 print("Procesamiento completado")</pre>
                     </div>
 
-                    <h3>Consejos para el laboratorio</h3>
+                    <h3>Consejos para el notebook</h3>
                     <div class="success-box">
-                        <p><strong>Para tener éxito:</strong></p>
+                        <p><strong>Para aprovechar al máximo:</strong></p>
                         <ul>
-                            <li><strong>Lee despacio:</strong> Entiende qué pide cada ejercicio</li>
-                            <li><strong>Empieza simple:</strong> Prueba con 2-3 valores primero</li>
-                            <li><strong>Usa print():</strong> Para ver qué está pasando</li>
-                            <li><strong>Pide ayuda:</strong> Si algo no funciona</li>
-                            <li><strong>Experimenta:</strong> Cambia valores y observa</li>
+                            <li><strong>Participa activamente:</strong> Haz preguntas durante la clase</li>
+                            <li><strong>Sigue el ritmo:</strong> Ejecuta el código junto conmigo</li>
+                            <li><strong>Experimenta:</strong> Cambia valores y observa qué pasa</li>
+                            <li><strong>Toma notas:</strong> Anota conceptos importantes</li>
+                            <li><strong>Relaciona:</strong> Conecta con tu experiencia en química</li>
                         </ul>
                     </div>
 
-                    <h3>Preparación previa</h3>
-                    <ul>
-                        <li>Repasar las fórmulas químicas básicas</li>
-                        <li>Practicar crear vectores en R</li>
-                        <li>Recordar operaciones matemáticas básicas</li>
-                        <li>Traer calculadora (por si acaso)</li>
-                    </ul>
-
                     <div class="warning-box">
-                        <p><strong>Recordatorio importante:</strong> En el laboratorio trabajaremos con R Markdown, así que verás código y resultados en el mismo documento</p>
+                        <p><strong>Importante:</strong> El notebook es un taller práctico donde trabajamos juntos. Es diferente de los laboratorios evaluables que harán individualmente más adelante</p>
                     </div>
                 </div>
             </div>
@@ -1557,34 +1561,34 @@ print("Procesamiento completado")</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>Próxima clase: declaración de funciones</h3>
-                    <p><strong>¿Qué aprenderemos?</strong></p>
+                    <h3>Próxima clase: notebook de sentencias iterativas</h3>
+                    <p><strong>Trabajaremos en R con un notebook que incluye:</strong></p>
                     <ul>
-                        <li><strong>Crear funciones personalizadas:</strong> Para cálculos químicos específicos</li>
-                        <li><strong>Parámetros de entrada:</strong> Hacer funciones flexibles</li>
-                        <li><strong>Valores de retorno:</strong> Obtener resultados de las funciones</li>
-                        <li><strong>Reutilización de código:</strong> Escribir una vez, usar muchas veces</li>
-                        <li><strong>Funciones para química:</strong> Molaridad, diluciones, conversiones</li>
-                        <li><strong>Organización del código:</strong> Mantener todo ordenado</li>
+                        <li><strong>Aplicación práctica:</strong> Implementar bucles en R paso a paso</li>
+                        <li><strong>Datos químicos reales:</strong> Ejercicios con muestras de laboratorio</li>
+                        <li><strong>Taller colaborativo:</strong> Resolveremos ejercicios juntos</li>
+                        <li><strong>Debugging en tiempo real:</strong> Aprenderás a solucionar errores</li>
+                        <li><strong>Casos de uso químicos:</strong> Situaciones típicas de laboratorio</li>
+                        <li><strong>Buenas prácticas:</strong> Código limpio y eficiente</li>
                     </ul>
 
-                    <h3>Tarea para casa</h3>
-                    <div class="warning-box">
-                        <p><strong>Ejercicio práctico:</strong></p>
-                        <ol>
-                            <li>Crear un vector con 5 valores de pH diferentes</li>
-                            <li>Usar bucle for para clasificar cada pH como ácido, neutro o básico</li>
-                            <li>Crear un bucle while que simule agregar base hasta alcanzar pH 7</li>
-                            <li>Subir el código a la plataforma del curso</li>
-                        </ol>
+                    <h3>Metodología de la próxima clase</h3>
+                    <div class="success-box">
+                        <p><strong>Formato del notebook:</strong></p>
+                        <ul>
+                            <li><strong>Explicación + código:</strong> Teoría y práctica integradas</li>
+                            <li><strong>Ejercicios progresivos:</strong> De simple a complejo</li>
+                            <li><strong>Trabajo colaborativo:</strong> Discusión y resolución grupal</li>
+                            <li><strong>Código ejecutable:</strong> Resultados inmediatos</li>
+                        </ul>
                     </div>
 
-                    <h3>Para el próximo laboratorio</h3>
+                    <h3>Preparación recomendada</h3>
                     <ul>
-                        <li>Practicar los ejemplos de hoy en R</li>
-                        <li>Repasar cómo crear vectores y data frames</li>
-                        <li>Pensar en cálculos repetitivos de tu área</li>
-                        <li>Traer datos propios si los tienes (opcional)</li>
+                        <li>Repasar los conceptos de bucles de hoy</li>
+                        <li>Practicar crear vectores en R (opcional)</li>
+                        <li>Recordar fórmulas químicas básicas</li>
+                        <li>Traer preguntas sobre casos específicos</li>
                     </ul>
 
                     <div style="margin-top: 30px; text-align: center; padding: 20px; background: linear-gradient(145deg, #2c3e50, #34495e); border-radius: 15px; color: white;">
@@ -1597,7 +1601,6 @@ print("Procesamiento completado")</pre>
             </div>
             <div class="slide-number">14 / 14</div>
         </div>
-    </div>
 
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
