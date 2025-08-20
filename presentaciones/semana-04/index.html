@@ -232,13 +232,6 @@
             text-align: left;
         }
 
-        .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            text-align: left;
-        }
-
         .loop-types-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -282,7 +275,7 @@
             overflow-x: auto;
         }
 
-        .chemistry-example {
+        .simple-example {
             background: linear-gradient(145deg, #e8f5e8, #d4edda);
             border: 2px solid #28a745;
             border-radius: 12px;
@@ -327,49 +320,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             text-align: center;
-        }
-
-        .applications-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin: 25px 0;
-        }
-
-        .application-card {
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            border: 2px solid #34495e;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-        }
-
-        .application-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .application-title {
-            color: #a73c3c;
-            font-weight: 700;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .formula {
-            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
-            border: 1px solid #a73c3c;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            font-size: 1.1em;
-            margin: 15px 0;
-            text-align: center;
-            color: #2c3e50;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
         .comparison-table {
@@ -418,38 +368,6 @@
             text-align: center;
             margin: 25px 0;
         }
-
-        .lab-workflow {
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            border: 2px solid #34495e;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-            box-shadow: 0 8px 25px rgba(52, 73, 94, 0.1);
-        }
-
-        .workflow-step {
-            background: linear-gradient(145deg, #ecf0f1, #ffffff);
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            border-left: 4px solid #a73c3c;
-        }
-
-        .step-number {
-            background: #a73c3c;
-            color: white;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            font-weight: 700;
-            font-size: 0.9em;
-        }
     </style>
 </head>
 <body>
@@ -461,18 +379,18 @@
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
             <h1>EIY403</h1>
             <p class="subtitle" style="text-align: center;">Introducción al análisis de datos para otras carreras</p>
-            <div class="info"><strong>Clase 4:</strong> Sentencias iterativas para análisis químico</div>
+            <div class="info"><strong>Clase 4:</strong> Sentencias iterativas</div>
             <div class="info"><strong>II Semestre 2025</strong></div>
             <div class="info"><strong>Escuela de Informática y Computación</strong></div>
             
             <!-- Imagen conceptual -->
             <div style="margin: 30px 0; display: flex; justify-content: center;">
                 <div style="width: 400px; height: 200px; background: linear-gradient(45deg, #a73c3c, #2c3e50); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5em; font-weight: 600; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);">
-                    Automatización en química analítica
+                    Repetir procesos automáticamente
                 </div>
             </div>
             
-            <div class="slide-number">1 / 16</div>
+            <div class="slide-number">1 / 14</div>
         </div>
 
         <!-- Slide 2: Agenda de la Clase -->
@@ -481,41 +399,41 @@
             <h2>Agenda de la clase</h2>
             <div class="two-column">
                 <div>
-                    <h3>Bloque 1: Fundamentos</h3>
+                    <h3>Bloque 1: Conceptos básicos</h3>
                     <ul>
                         <li>¿Qué son las sentencias iterativas?</li>
-                        <li>Importancia en química analítica</li>
-                        <li>Tipos de bucles: for, while, repeat</li>
+                        <li>¿Por qué son útiles en química?</li>
+                        <li>Tipos principales: for y while</li>
                         <li>Cuándo usar cada tipo</li>
                     </ul>
                     
-                    <h3>Bloque 2: Bucles for</h3>
+                    <h3>Bloque 2: Bucle for</h3>
                     <ul>
-                        <li>Sintaxis y estructura</li>
-                        <li>Procesamiento de múltiples muestras</li>
-                        <li>Análisis por lotes químicos</li>
-                        <li>Generación automática de reportes</li>
+                        <li>Estructura básica</li>
+                        <li>Ejemplos químicos simples</li>
+                        <li>Procesar múltiples valores</li>
+                        <li>Errores comunes</li>
                     </ul>
                 </div>
                 <div>
-                    <h3>Bloque 3: Bucles while y repeat</h3>
+                    <h3>Bloque 3: Bucle while</h3>
                     <ul>
-                        <li>Control de procesos químicos</li>
-                        <li>Convergencia en cálculos iterativos</li>
-                        <li>Control de calidad automático</li>
-                        <li>Optimización de condiciones</li>
+                        <li>Estructura y funcionamiento</li>
+                        <li>Condiciones de parada</li>
+                        <li>Ejemplos de convergencia</li>
+                        <li>Prevenir bucles infinitos</li>
                     </ul>
                     
-                    <h3>Bloque 4: Aplicaciones prácticas</h3>
+                    <h3>Bloque 4: Mejores prácticas</h3>
                     <ul>
-                        <li>Análisis de cinética química</li>
-                        <li>Procesamiento de espectros</li>
-                        <li>Calibración de instrumentos</li>
-                        <li>Optimización de procesos</li>
+                        <li>Cuándo usar bucles vs. otros métodos</li>
+                        <li>Optimización básica</li>
+                        <li>Debugging y validación</li>
+                        <li>Preparación para el laboratorio</li>
                     </ul>
                 </div>
             </div>
-            <div class="slide-number">2 / 16</div>
+            <div class="slide-number">2 / 14</div>
         </div>
 
         <!-- Slide 3: ¿Qué son las Sentencias Iterativas? -->
@@ -525,100 +443,101 @@
             
             <div style="text-align: center; margin: 30px 0;">
                 <div style="background: linear-gradient(145deg, #a73c3c, #8b2f2f); color: white; padding: 30px; border-radius: 15px; font-size: 1.3em; font-weight: 600; box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);">
-                    "Las sentencias iterativas permiten repetir automáticamente procesos de análisis químico que serían tediosos o imposibles de realizar manualmente"
+                    "Las sentencias iterativas nos permiten repetir un conjunto de instrucciones automáticamente"
                 </div>
             </div>
 
             <div class="two-column">
                 <div>
-                    <h3>Definición técnica</h3>
-                    <p>Las <strong>sentencias iterativas</strong> son estructuras de control que ejecutan repetidamente un bloque de código mientras se cumple una condición específica o para un número determinado de repeticiones.</p>
-
-                    <h3>¿Por qué son esenciales en química?</h3>
+                    <h3>Definición simple</h3>
+                    <p>Las <strong>sentencias iterativas</strong> son estructuras que ejecutan el mismo código múltiples veces, siguiendo un patrón específico.</p>
+                    
+                    <p>Es como tener un <strong>robot</strong> que:</p>
                     <ul>
-                        <li><strong>Volumen de datos:</strong> Análisis de miles de espectros</li>
-                        <li><strong>Repetibilidad:</strong> Mismos cálculos en múltiples muestras</li>
-                        <li><strong>Precisión:</strong> Elimina errores humanos en cálculos repetitivos</li>
-                        <li><strong>Eficiencia:</strong> Procesa datos en segundos vs. horas/días</li>
-                        <li><strong>Escalabilidad:</strong> Mismo código para 10 o 10,000 muestras</li>
+                        <li>Hace la misma tarea repetidas veces</li>
+                        <li>Nunca se cansa</li>
+                        <li>No comete errores de copia</li>
+                        <li>Es mucho más rápido que nosotros</li>
                     </ul>
+
+                    <h3>Analogía de laboratorio</h3>
+                    <div class="simple-example">
+                        <p><strong>Imagina que tienes que:</strong></p>
+                        <ul>
+                            <li>Medir el pH de 50 muestras de agua</li>
+                            <li>Calcular la concentración de cada una</li>
+                            <li>Clasificarlas como ácidas, neutras o básicas</li>
+                        </ul>
+                        <p><strong>Sin bucles:</strong> Escribes 50 veces el mismo código</p>
+                        <p><strong>Con bucles:</strong> Escribes el código una vez, se ejecuta 50 veces</p>
+                    </div>
                 </div>
                 <div>
-                    <h3>Ejemplos en laboratorio químico</h3>
-                    <div class="chemistry-example">
-                        <p><strong>Análisis de rutina:</strong></p>
-                        <ul>
-                            <li>100 muestras de agua → calcular pH promedio</li>
-                            <li>50 espectros IR → identificar picos característicos</li>
-                            <li>200 titulaciones → determinar concentraciones</li>
-                        </ul>
-                    </div>
-
-                    <div class="chemistry-example">
-                        <p><strong>Control de calidad:</strong></p>
-                        <ul>
-                            <li>Verificar pureza de 500 lotes de producto</li>
-                            <li>Validar calibración de 20 instrumentos</li>
-                            <li>Monitorear estabilidad de reactivos en tiempo</li>
-                        </ul>
-                    </div>
-
-                    <h3>Ventajas clave</h3>
+                    <h3>¿Por qué son importantes en química?</h3>
                     <ul>
-                        <li><strong>Automatización:</strong> Reduce trabajo manual</li>
-                        <li><strong>Consistencia:</strong> Mismos criterios siempre</li>
-                        <li><strong>Trazabilidad:</strong> Registro automático de procesos</li>
-                        <li><strong>Reproducibilidad:</strong> Resultados idénticos</li>
+                        <li><strong>Análisis rutinarios:</strong> Procesar muchas muestras similares</li>
+                        <li><strong>Cálculos repetitivos:</strong> Misma fórmula, diferentes valores</li>
+                        <li><strong>Precisión:</strong> Eliminar errores de transcripción</li>
+                        <li><strong>Tiempo:</strong> Hacer en segundos lo que tomaría horas</li>
+                        <li><strong>Escalabilidad:</strong> Funciona igual para 10 o 1000 muestras</li>
                     </ul>
+
+                    <h3>Ejemplos cotidianos en química</h3>
+                    <ul>
+                        <li>Calcular la molaridad de 20 soluciones diferentes</li>
+                        <li>Convertir temperaturas de °C a Kelvin para múltiples experimentos</li>
+                        <li>Determinar el pH de todas las muestras del día</li>
+                        <li>Verificar si las concentraciones están dentro del rango aceptable</li>
+                        <li>Calcular el porcentaje de error en múltiples mediciones</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <p><strong>Ventaja principal:</strong> Escribes el código una vez, funciona para todos los datos</p>
+                    </div>
                 </div>
             </div>
-            <div class="slide-number">3 / 16</div>
+            <div class="slide-number">3 / 14</div>
         </div>
 
         <!-- Slide 4: Tipos de Bucles -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Tipos de bucles en R: ¿Cuál elegir?</h2>
+            <h2>Tipos principales de bucles</h2>
             
             <div class="loop-types-grid">
                 <div class="loop-type-card">
                     <div class="loop-title">Bucle for</div>
-                    <p><strong>Cuándo usar:</strong> Cuando sabes exactamente cuántas veces repetir</p>
+                    <p><strong>Uso:</strong> Cuando sabes exactamente cuántas veces repetir</p>
                     
-                    <h4>Casos químicos típicos:</h4>
+                    <h4>Situaciones típicas:</h4>
                     <ul>
-                        <li>Procesar cada muestra en un lote</li>
-                        <li>Analizar cada archivo de espectro</li>
-                        <li>Calcular para cada concentración</li>
-                        <li>Iterar sobre cada día de análisis</li>
+                        <li>Procesar cada muestra en una lista</li>
+                        <li>Repetir un cálculo 10 veces</li>
+                        <li>Analizar datos del día 1 al día 30</li>
+                        <li>Convertir todas las temperaturas</li>
                     </ul>
 
-                    <div class="code-snippet">
-<pre># Estructura básica
-for (variable in secuencia) {
-    # código a repetir
-}</pre>
+                    <div class="simple-example">
+                        <p><strong>Ejemplo:</strong> "Calcula la molaridad para las 15 muestras"</p>
+                        <p>→ Sabemos que son exactamente 15</p>
                     </div>
                 </div>
                 
                 <div class="loop-type-card">
                     <div class="loop-title">Bucle while</div>
-                    <p><strong>Cuándo usar:</strong> Cuando no sabes cuántas repeticiones necesitas</p>
+                    <p><strong>Uso:</strong> Cuando no sabes cuántas repeticiones necesitas</p>
                     
-                    <h4>Casos químicos típicos:</h4>
+                    <h4>Situaciones típicas:</h4>
                     <ul>
-                        <li>Hasta que se alcance equilibrio químico</li>
-                        <li>Hasta convergencia en cálculos iterativos</li>
-                        <li>Hasta que la precisión sea aceptable</li>
-                        <li>Mientras el proceso esté en control</li>
+                        <li>Hasta que el pH sea neutro</li>
+                        <li>Mientras la concentración sea muy alta</li>
+                        <li>Hasta alcanzar la temperatura deseada</li>
+                        <li>Mientras haya errores en los datos</li>
                     </ul>
 
-                    <div class="code-snippet">
-<pre># Estructura básica
-while (condicion) {
-    # código a repetir
-    # actualizar condición
-}</pre>
+                    <div class="simple-example">
+                        <p><strong>Ejemplo:</strong> "Agrega base hasta que el pH sea 7"</p>
+                        <p>→ No sabemos cuántas gotas necesitaremos</p>
                     </div>
                 </div>
             </div>
@@ -626,2373 +545,984 @@ while (condicion) {
             <table class="comparison-table">
                 <thead>
                     <tr>
-                        <th>Criterio</th>
+                        <th>Aspecto</th>
                         <th>Bucle for</th>
                         <th>Bucle while</th>
-                        <th>Ejemplo químico</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Número de iteraciones</strong></td>
-                        <td>Conocido previamente</td>
-                        <td>Desconocido inicialmente</td>
-                        <td>50 muestras vs. hasta pH estable</td>
+                        <td><strong>¿Cuántas veces?</strong></td>
+                        <td>Número conocido</td>
+                        <td>Número desconocido</td>
                     </tr>
                     <tr>
-                        <td><strong>Control de terminación</strong></td>
-                        <td>Automático</td>
-                        <td>Manual (condición)</td>
-                        <td>Lista completa vs. criterio de convergencia</td>
+                        <td><strong>Condición</strong></td>
+                        <td>Hasta terminar la lista</td>
+                        <td>Mientras se cumpla algo</td>
                     </tr>
                     <tr>
-                        <td><strong>Riesgo de bucle infinito</strong></td>
-                        <td>Muy bajo</td>
-                        <td>Moderado</td>
-                        <td>Ninguno vs. condición mal definida</td>
+                        <td><strong>Ejemplo químico</strong></td>
+                        <td>20 muestras → 20 repeticiones</td>
+                        <td>Hasta pH = 7 → ? repeticiones</td>
                     </tr>
                     <tr>
-                        <td><strong>Uso típico</strong></td>
-                        <td>Procesamiento de datos</td>
-                        <td>Algoritmos iterativos</td>
-                        <td>Análisis de lotes vs. optimización</td>
+                        <td><strong>Riesgo</strong></td>
+                        <td>Muy seguro</td>
+                        <td>Puede ser infinito</td>
                     </tr>
                 </tbody>
             </table>
-            <div class="slide-number">4 / 16</div>
+            <div class="slide-number">4 / 14</div>
         </div>
 
-        <!-- Slide 5: Bucle for - Sintaxis y Estructura -->
+        <!-- Slide 5: Bucle for - Estructura Básica -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Bucle for: sintaxis y componentes</h2>
+            <h2>Bucle for: estructura básica</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Anatomía del bucle for</h3>
+                    <h3>Sintaxis general</h3>
                     <div class="code-snippet">
-<pre># Estructura general
-for (variable_iteracion in secuencia) {
-    # Código que se ejecuta en cada iteración
-    # Puede usar variable_iteracion
-    # Puede acceder a datos externos
-}
-
-# Componentes clave:
-# - variable_iteracion: toma cada valor de la secuencia
-# - secuencia: vector, lista, rango de números
-# - bloque de código: se ejecuta una vez por elemento</pre>
+<pre>for (variable in lista) {
+    # Código que se repite
+    # Puede usar la variable
+}</pre>
                     </div>
 
-                    <h3>Tipos de secuencias comunes</h3>
+                    <p><strong>Componentes:</strong></p>
+                    <ul>
+                        <li><strong>variable:</strong> Toma cada valor de la lista</li>
+                        <li><strong>lista:</strong> Conjunto de valores a procesar</li>
+                        <li><strong>código:</strong> Se ejecuta una vez por cada valor</li>
+                    </ul>
+
+                    <h3>Ejemplo muy simple</h3>
                     <div class="code-snippet">
-<pre># Números secuenciales
-for (i in 1:100) { ... }        # 1, 2, 3, ..., 100
+<pre># Saludar a 3 estudiantes
+estudiantes <- c("Ana", "Carlos", "María")
 
-# Vectores de datos
-for (muestra in muestras_id) { ... }
+for (nombre in estudiantes) {
+    print(paste("Hola", nombre))
+}
 
-# Indices de datasets
-for (i in 1:nrow(datos_quimica)) { ... }
-
-# Listas de archivos
-archivos <- list.files(pattern = "\\.csv$")
-for (archivo in archivos) { ... }
-
-# Nombres de columnas
-for (variable in names(datos)) { ... }</pre>
+# Resultado:
+# "Hola Ana"
+# "Hola Carlos" 
+# "Hola María"</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>Ejemplo: análisis de pH por lotes</h3>
+                    <h3>Ejemplo químico básico</h3>
                     <div class="code-snippet">
-<pre># Datos de ejemplo: pH de diferentes lotes químicos
-lotes_quimicos <- c("A2025001", "A2025002", "A2025003", 
-                    "B2025001", "B2025002")
-ph_datos <- data.frame(
-    lote = lotes_quimicos,
-    ph_medido = c(7.2, 6.8, 7.1, 8.3, 8.1)
-)
+<pre># Convertir temperaturas de °C a Kelvin
+temperaturas_C <- c(25, 30, 35, 40)
 
-# Bucle para clasificar cada lote
-for (i in 1:nrow(ph_datos)) {
-    lote_actual <- ph_datos$lote[i]
-    ph_actual <- ph_datos$ph_medido[i]
-    
-    # Clasificar según especificaciones
-    if (ph_actual < 6.5) {
-        clasificacion <- "Fuera de spec (ácido)"
-    } else if (ph_actual > 8.5) {
-        clasificacion <- "Fuera de spec (básico)"
-    } else {
-        clasificacion <- "Dentro de especificación"
-    }
-    
-    # Imprimir resultado
-    cat("Lote:", lote_actual, 
-        "- pH:", ph_actual, 
-        "- Estado:", clasificacion, "\n")
-}</pre>
+for (temp_C in temperaturas_C) {
+    temp_K <- temp_C + 273.15
+    print(paste(temp_C, "°C =", temp_K, "K"))
+}
+
+# Resultado:
+# "25 °C = 298.15 K"
+# "30 °C = 303.15 K"
+# "35 °C = 308.15 K"
+# "40 °C = 313.15 K"</pre>
+                    </div>
+
+                    <h3>Ejemplo con números</h3>
+                    <div class="code-snippet">
+<pre># Calcular el cuadrado de números del 1 al 5
+for (numero in 1:5) {
+    cuadrado <- numero^2
+    print(paste(numero, "al cuadrado =", cuadrado))
+}
+
+# Resultado:
+# "1 al cuadrado = 1"
+# "2 al cuadrado = 4"
+# "3 al cuadrado = 9"
+# "4 al cuadrado = 16"
+# "5 al cuadrado = 25"</pre>
                     </div>
 
                     <div class="success-box">
-                        <p><strong>Salida esperada:</strong></p>
-<pre>Lote: A2025001 - pH: 7.2 - Estado: Dentro de especificación
-Lote: A2025002 - pH: 6.8 - Estado: Dentro de especificación
-Lote: A2025003 - pH: 7.1 - Estado: Dentro de especificación
-Lote: B2025001 - pH: 8.3 - Estado: Dentro de especificación
-Lote: B2025002 - pH: 8.1 - Estado: Dentro de especificación</pre>
+                        <p><strong>Lo importante:</strong> El código dentro del bucle se ejecuta una vez para cada elemento de la lista</p>
                     </div>
                 </div>
             </div>
-            <div class="slide-number">5 / 16</div>
+            <div class="slide-number">5 / 14</div>
         </div>
 
-        <!-- Slide 6: Procesamiento de Múltiples Muestras -->
+        <!-- Slide 6: Ejemplos Químicos con for -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Procesamiento de múltiples muestras químicas</h2>
+            <h2>Ejemplos químicos con bucle for</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Caso práctico: análisis de concentraciones</h3>
+                    <h3>Cálculo de molaridad</h3>
                     <div class="code-snippet">
-<pre># Dataset de muestras de laboratorio
-muestras_laboratorio <- data.frame(
-    muestra_id = paste0("M", sprintf("%03d", 1:50)),
-    concentracion_mg_L = c(125, 340, 89, 267, 156, 
-                          401, 78, 289, 167, 345,
-                          rep(NA, 40)), # Simular datos faltantes
-    metodo_analisis = rep(c("HPLC", "GC-MS", "UV-Vis"), 
-                         length.out = 50)
-)
+<pre># Datos de diferentes soluciones
+moles_soluto <- c(0.5, 1.2, 0.8, 2.0)
+litros_solucion <- c(1.0, 2.0, 0.5, 1.5)
 
-# Procesar cada muestra individualmente
-resultados_procesamiento <- data.frame()
+# Calcular molaridad para cada solución
+for (i in 1:4) {
+    molaridad <- moles_soluto[i] / litros_solucion[i]
+    print(paste("Solución", i, ": M =", 
+                round(molaridad, 2)))
+}
 
-for (i in 1:nrow(muestras_laboratorio)) {
-    muestra_actual <- muestras_laboratorio[i, ]
-    
-    # Verificar si hay datos
-    if (!is.na(muestra_actual$concentracion_mg_L)) {
-        
-        # Clasificar concentración
-        conc <- muestra_actual$concentracion_mg_L
-        if (conc < 100) {
-            categoria <- "Baja"
-        } else if (conc < 300) {
-            categoria <- "Media"
-        } else {
-            categoria <- "Alta"
-        }
-        
-        # Calcular factor de dilución recomendado
-        if (conc > 400) {
-            factor_dilucion <- 10
-        } else if (conc > 200) {
-            factor_dilucion <- 5
-        } else {
-            factor_dilucion <- 1
-        }
-        
+# Resultado:
+# "Solución 1 : M = 0.5"
+# "Solución 2 : M = 0.6"
+# "Solución 3 : M = 1.6"
+# "Solución 4 : M = 1.33"</pre>
+                    </div>
+
+                    <h3>Clasificación de pH</h3>
+                    <div class="code-snippet">
+<pre># Valores de pH de diferentes muestras
+valores_ph <- c(3.2, 7.1, 10.5, 6.8, 2.1)
+
+for (ph in valores_ph) {
+    if (ph < 7) {
+        tipo <- "ácida"
+    } else if (ph == 7) {
+        tipo <- "neutra"
     } else {
-        categoria <- "Sin datos"
-        factor_dilucion <- NA
+        tipo <- "básica"
     }
     
-    # Almacenar resultados
-    resultado_muestra <- data.frame(
-        muestra_id = muestra_actual$muestra_id,
-        concentracion_original = muestra_actual$concentracion_mg_L,
-        metodo = muestra_actual$metodo_analisis,
-        categoria_concentracion = categoria,
-        factor_dilucion_recom = factor_dilucion,
-        fecha_procesamiento = Sys.Date()
-    )
-    
-    resultados_procesamiento <- rbind(resultados_procesamiento, 
-                                    resultado_muestra)
-}</pre>
+    print(paste("pH", ph, "es", tipo))
+}
+
+# Resultado:
+# "pH 3.2 es ácida"
+# "pH 7.1 es básica"
+# "pH 10.5 es básica"
+# "pH 6.8 es ácida"
+# "pH 2.1 es ácida"</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>Generación de reporte automático</h3>
+                    <h3>Control de calidad básico</h3>
                     <div class="code-snippet">
-<pre># Generar estadísticas por método
-metodos_unicos <- unique(muestras_laboratorio$metodo_analisis)
+<pre># Concentraciones medidas (mg/L)
+concentraciones <- c(95, 102, 88, 110, 98)
+limite_inferior <- 90
+limite_superior <- 105
 
-for (metodo in metodos_unicos) {
-    cat("\n=== REPORTE PARA MÉTODO:", metodo, "===\n")
+for (i in 1:length(concentraciones)) {
+    conc <- concentraciones[i]
     
-    # Filtrar datos por método
-    datos_metodo <- resultados_procesamiento[
-        resultados_procesamiento$metodo == metodo, ]
-    
-    # Estadísticas básicas
-    muestras_validas <- datos_metodo[
-        !is.na(datos_metodo$concentracion_original), ]
-    
-    if (nrow(muestras_validas) > 0) {
-        cat("Número de muestras analizadas:", nrow(muestras_validas), "\n")
-        cat("Concentración promedio:", 
-            round(mean(muestras_validas$concentracion_original), 2), 
-            "mg/L\n")
-        cat("Rango de concentraciones:", 
-            min(muestras_validas$concentracion_original), "-",
-            max(muestras_validas$concentracion_original), "mg/L\n")
-        
-        # Distribución por categorías
-        tabla_categorias <- table(muestras_validas$categoria_concentracion)
-        cat("Distribución por categorías:\n")
-        for (i in 1:length(tabla_categorias)) {
-            cat("  ", names(tabla_categorias)[i], ": ", 
-                tabla_categorias[i], " muestras\n")
-        }
+    if (conc >= limite_inferior && 
+        conc <= limite_superior) {
+        estado <- "APROBADA"
     } else {
-        cat("No hay datos válidos para este método\n")
+        estado <- "RECHAZADA"
     }
-}</pre>
+    
+    print(paste("Muestra", i, ":", conc, 
+                "mg/L -", estado))
+}
+
+# Resultado:
+# "Muestra 1 : 95 mg/L - APROBADA"
+# "Muestra 2 : 102 mg/L - APROBADA"
+# "Muestra 3 : 88 mg/L - RECHAZADA"
+# "Muestra 4 : 110 mg/L - RECHAZADA"
+# "Muestra 5 : 98 mg/L - APROBADA"</pre>
                     </div>
 
-                    <div class="chemistry-example">
-                        <p><strong>Ventajas del procesamiento automatizado:</strong></p>
+                    <h3>Cálculo de porcentaje de error</h3>
+                    <div class="code-snippet">
+<pre># Valores esperados vs medidos
+valores_esperados <- c(100, 50, 75, 25)
+valores_medidos <- c(98, 52, 73, 26)
+
+for (i in 1:4) {
+    esperado <- valores_esperados[i]
+    medido <- valores_medidos[i]
+    
+    error_porcentual <- abs(esperado - medido) / esperado * 100
+    
+    print(paste("Muestra", i, ": Error =", 
+                round(error_porcentual, 1), "%"))
+}
+
+# Resultado:
+# "Muestra 1 : Error = 2 %"
+# "Muestra 2 : Error = 4 %"
+# "Muestra 3 : Error = 2.7 %"
+# "Muestra 4 : Error = 4 %"</pre>
+                    </div>
+
+                    <div class="simple-example">
+                        <p><strong>Patrón común:</strong></p>
                         <ul>
-                            <li><strong>Velocidad:</strong> 50 muestras procesadas en segundos</li>
-                            <li><strong>Consistencia:</strong> Mismos criterios para todas las muestras</li>
-                            <li><strong>Trazabilidad:</strong> Registro automático de decisiones</li>
-                            <li><strong>Escalabilidad:</strong> Fácil adaptar a 500 o 5000 muestras</li>
-                            <li><strong>Reducción de errores:</strong> Elimina errores de transcripción</li>
+                            <li>Tengo una lista de valores químicos</li>
+                            <li>Quiero hacer el mismo cálculo con cada uno</li>
+                            <li>Uso for para procesar todos automáticamente</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="slide-number">6 / 16</div>
+            <div class="slide-number">6 / 14</div>
         </div>
 
-        <!-- Slide 7: Análisis por Lotes Químicos -->
+        <!-- Slide 7: Bucle while - Estructura Básica -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Análisis por lotes químicos: control de calidad</h2>
+            <h2>Bucle while: estructura básica</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Caso: validación de lotes de producción</h3>
+                    <h3>Sintaxis general</h3>
                     <div class="code-snippet">
-<pre># Datos de múltiples lotes químicos
-lotes_produccion <- list(
-    "L2025001" = data.frame(
-        muestra = 1:20,
-        pureza_pct = rnorm(20, mean = 98.5, sd = 0.8)
-    ),
-    "L2025002" = data.frame(
-        muestra = 1:20,
-        pureza_pct = rnorm(20, mean = 97.2, sd = 1.2)
-    ),
-    "L2025003" = data.frame(
-        muestra = 1:20,
-        pureza_pct = rnorm(20, mean = 99.1, sd = 0.5)
-    )
-)
-
-# Criterios de aceptación
-pureza_minima <- 97.0
-pureza_objetivo <- 98.0
-desviacion_maxima <- 1.5
-
-# Analizar cada lote
-reporte_lotes <- data.frame()
-
-for (lote_id in names(lotes_produccion)) {
-    cat("\n--- Analizando lote:", lote_id, "---\n")
-    
-    datos_lote <- lotes_produccion[[lote_id]]
-    
-    # Estadísticas del lote
-    pureza_promedio <- mean(datos_lote$pureza_pct)
-    pureza_desv_std <- sd(datos_lote$pureza_pct)
-    pureza_min <- min(datos_lote$pureza_pct)
-    pureza_max <- max(datos_lote$pureza_pct)
-    
-    # Muestras fuera de especificación
-    muestras_fuera_spec <- sum(datos_lote$pureza_pct < pureza_minima)
-    
-    # Evaluación del lote
-    if (pureza_promedio >= pureza_objetivo && 
-        pureza_desv_std <= desviacion_maxima && 
-        muestras_fuera_spec == 0) {
-        decision_lote <- "APROBADO"
-        comentario <- "Cumple todas las especificaciones"
-    } else if (pureza_promedio >= pureza_minima && 
-               muestras_fuera_spec <= 2) {
-        decision_lote <- "APROBADO CONDICIONAL"
-        comentario <- "Requiere verificación adicional"
-    } else {
-        decision_lote <- "RECHAZADO"
-        comentario <- "No cumple especificaciones mínimas"
-    }
-    
-    # Imprimir resumen
-    cat("Pureza promedio:", round(pureza_promedio, 2), "%\n")
-    cat("Desviación estándar:", round(pureza_desv_std, 2), "%\n")
-    cat("Rango:", round(pureza_min, 2), "-", round(pureza_max, 2), "%\n")
-    cat("Muestras fuera de spec:", muestras_fuera_spec, "\n")
-    cat("DECISIÓN:", decision_lote, "\n")
-    cat("Comentario:", comentario, "\n")
-}</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Workflow de control de calidad</h3>
-                    <div class="lab-workflow">
-                        <div class="workflow-step">
-                            <span class="step-number">1</span>
-                            <strong>Carga de datos:</strong> Leer resultados de análisis por lote
-                        </div>
-                        <div class="workflow-step">
-                            <span class="step-number">2</span>
-                            <strong>Cálculo estadístico:</strong> Media, desviación, rango por lote
-                        </div>
-                        <div class="workflow-step">
-                            <span class="step-number">3</span>
-                            <strong>Evaluación de criterios:</strong> Comparar vs. especificaciones
-                        </div>
-                        <div class="workflow-step">
-                            <span class="step-number">4</span>
-                            <strong>Decisión automática:</strong> Aprobar, rechazar o revisar
-                        </div>
-                        <div class="workflow-step">
-                            <span class="step-number">5</span>
-                            <strong>Documentación:</strong> Generar reporte de decisiones
-                        </div>
-                    </div>
-
-                    <h3>Generación de alertas automáticas</h3>
-                    <div class="code-snippet">
-<pre># Sistema de alertas para tendencias
-for (lote_id in names(lotes_produccion)) {
-    datos_lote <- lotes_produccion[[lote_id]]
-    pureza_promedio <- mean(datos_lote$pureza_pct)
-    
-    # Alertas por tendencias
-    if (pureza_promedio < 97.5) {
-        cat("🚨 ALERTA - Lote", lote_id, 
-            ": Pureza promedio baja (", 
-            round(pureza_promedio, 2), "%)\n")
-            
-        # Acciones recomendadas
-        cat("   Acciones sugeridas:\n")
-        cat("   - Revisar calibración de instrumentos\n")
-        cat("   - Verificar materias primas\n")
-        cat("   - Evaluar condiciones de proceso\n\n")
-    }
-    
-    # Alerta por variabilidad
-    pureza_cv <- sd(datos_lote$pureza_pct) / 
-                 mean(datos_lote$pureza_pct) * 100
-    if (pureza_cv > 1.5) {
-        cat("⚠️ ADVERTENCIA - Lote", lote_id, 
-            ": Alta variabilidad (CV =", 
-            round(pureza_cv, 1), "%)\n")
-        cat("   Revisar homogeneidad del proceso\n\n")
-    }
+<pre>while (condición) {
+    # Código que se repite
+    # IMPORTANTE: cambiar algo que afecte la condición
 }</pre>
                     </div>
 
-                    <div class="success-box">
-                        <p><strong>Beneficios del sistema automatizado:</strong></p>
-                        <ul>
-                            <li>Decisiones objetivas y consistentes</li>
-                            <li>Detección temprana de problemas</li>
-                            <li>Trazabilidad completa de decisiones</li>
-                            <li>Reportes estandarizados automáticamente</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">7 / 16</div>
-        </div>
+                    <p><strong>Funcionamiento:</strong></p>
+                    <ul>
+                        <li><strong>Verifica</strong> si la condición es verdadera</li>
+                        <li><strong>Si es verdadera:</strong> ejecuta el código</li>
+                        <li><strong>Repite</strong> desde el paso 1</li>
+                        <li><strong>Si es falsa:</strong> termina el bucle</li>
+                    </ul>
 
-        <!-- Slide 8: Bucle while - Control de Procesos -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Bucle while: control de procesos químicos</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Estructura y características</h3>
+                    <h3>Ejemplo muy simple</h3>
                     <div class="code-snippet">
-<pre># Sintaxis del bucle while
-while (condicion_logica) {
-    # Código a ejecutar
-    # IMPORTANTE: actualizar variables que afectan la condición
-    # para evitar bucles infinitos
+<pre># Contar del 1 al 5
+contador <- 1
+
+while (contador <= 5) {
+    print(paste("Número:", contador))
+    contador <- contador + 1  # ¡MUY IMPORTANTE!
 }
 
-# Características clave:
-# - Se ejecuta MIENTRAS la condición sea TRUE
-# - Si la condición es FALSE al inicio, no se ejecuta
-# - Riesgo de bucle infinito si no se actualiza la condición
-# - Ideal para procesos convergentes</pre>
-                    </div>
-
-                    <h3>Ejemplo: titulación automática</h3>
-                    <div class="code-snippet">
-<pre># Simulación de titulación ácido-base
-# Objetivo: alcanzar pH 7.0 ± 0.1
-
-ph_actual <- 3.2          # pH inicial (ácido)
-ph_objetivo <- 7.0        # pH meta
-tolerancia <- 0.1         # ±0.1 unidades de pH
-volumen_titulante <- 0    # mL de NaOH agregado
-incremento_vol <- 0.5     # mL por adición
-iteracion <- 0
-max_iteraciones <- 100    # Seguridad contra bucle infinito
-
-cat("Iniciando titulación automática...\n")
-cat("pH inicial:", ph_actual, "\n\n")
-
-while (abs(ph_actual - ph_objetivo) > tolerancia && 
-       iteracion < max_iteraciones) {
-    
-    iteracion <- iteracion + 1
-    
-    # Agregar titulante
-    volumen_titulante <- volumen_titulante + incremento_vol
-    
-    # Simular cambio de pH (ecuación simplificada)
-    # En realidad esto vendría de un sensor
-    ph_actual <- ph_actual + (incremento_vol * 0.3) - 
-                 (incremento_vol^2 * 0.01)
-    
-    # Ajustar incremento según proximidad al objetivo
-    if (abs(ph_actual - ph_objetivo) < 0.5) {
-        incremento_vol <- 0.1  # Incrementos más pequeños cerca del final
-    }
-    
-    # Reportar progreso
-    cat("Iteración", iteracion, ": Vol =", volumen_titulante, 
-        "mL, pH =", round(ph_actual, 2), "\n")
-    
-    # Condición de seguridad
-    if (ph_actual > 12) {
-        cat("ERROR: pH demasiado alto. Deteniendo titulación.\n")
-        break
-    }
-}
-
-# Resultados finales
-if (abs(ph_actual - ph_objetivo) <= tolerancia) {
-    cat("\n✅ TITULACIÓN EXITOSA\n")
-    cat("pH final:", round(ph_actual, 2), "\n")
-    cat("Volumen total de titulante:", volumen_titulante, "mL\n")
-    cat("Iteraciones requeridas:", iteracion, "\n")
-} else {
-    cat("\n❌ TITULACIÓN FALLIDA\n")
-    cat("No se alcanzó el pH objetivo en", max_iteraciones, "iteraciones\n")
-}</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Convergencia en cálculos iterativos</h3>
-                    <div class="code-snippet">
-<pre># Ejemplo: cálculo iterativo de constante de equilibrio
-# Método de aproximaciones sucesivas
-
-# Datos iniciales
-concentracion_inicial <- 0.1    # M
-Ka_estimado <- 1e-5            # Constante de acidez inicial
-tolerancia_conv <- 1e-8       # Criterio de convergencia
-max_iter <- 1000
-
-iteracion <- 0
-convergio <- FALSE
-Ka_anterior <- Ka_estimado
-
-cat("Calculando Ka por método iterativo...\n\n")
-
-while (!convergio && iteracion < max_iter) {
-    iteracion <- iteracion + 1
-    
-    # Cálculo de concentraciones de equilibrio
-    # [H+] = sqrt(Ka * C0) aproximación inicial
-    h_plus <- sqrt(Ka_estimado * concentracion_inicial)
-    
-    # Corrección por disociación significativa
-    h_plus_corregido <- (-Ka_estimado + 
-                        sqrt(Ka_estimado^2 + 4*Ka_estimado*concentracion_inicial)) / 2
-    
-    # Nueva estimación de Ka basada en pH medido (simulado)
-    ph_medido <- -log10(h_plus_corregido)  # pH calculado
-    ph_experimental <- 3.0  # pH "medido" en laboratorio
-    
-    # Ajustar Ka basado en diferencia
-    factor_correccion <- 10^(2*(ph_experimental - ph_medido))
-    Ka_nuevo <- Ka_estimado * factor_correccion
-    
-    # Verificar convergencia
-    diferencia_relativa <- abs(Ka_nuevo - Ka_anterior) / Ka_anterior
-    
-    if (diferencia_relativa < tolerancia_conv) {
-        convergio <- TRUE
-        cat("Convergencia alcanzada en iteración", iteracion, "\n")
-    }
-    
-    # Actualizar para próxima iteración
-    Ka_anterior <- Ka_estimado
-    Ka_estimado <- Ka_nuevo
-    
-    # Reportar progreso cada 10 iteraciones
-    if (iteracion %% 10 == 0) {
-        cat("Iter", iteracion, ": Ka =", 
-            format(Ka_estimado, scientific = TRUE, digits = 3), 
-            ", Diff =", format(diferencia_relativa, scientific = TRUE, digits = 3), "\n")
-    }
-}
-
-# Resultados
-if (convergio) {
-    cat("\n✅ CÁLCULO CONVERGIDO\n")
-    cat("Ka final:", format(Ka_estimado, scientific = TRUE, digits = 6), "\n")
-    cat("Iteraciones:", iteracion, "\n")
-    cat("pKa =", round(-log10(Ka_estimado), 2), "\n")
-} else {
-    cat("\n❌ NO CONVERGIÓ\n")
-    cat("Se alcanzó el máximo de iteraciones\n")
-}</pre>
+# Resultado:
+# "Número: 1"
+# "Número: 2"
+# "Número: 3"
+# "Número: 4"
+# "Número: 5"</pre>
                     </div>
 
                     <div class="warning-box">
-                        <p><strong>⚠️ Precauciones con bucles while:</strong></p>
-                        <ul>
-                            <li><strong>Siempre define un máximo de iteraciones</strong></li>
-                            <li><strong>Asegúrate de actualizar la condición</strong></li>
-                            <li><strong>Incluye verificaciones de seguridad</strong></li>
-                            <li><strong>Monitorea el progreso para debugging</strong></li>
-                        </ul>
+                        <p><strong>⚠️ CUIDADO:</strong> Si no cambias la variable en el bucle, se ejecutará infinitamente</p>
                     </div>
                 </div>
+                <div>
+                    <h3>Ejemplo químico: dilución</h3>
+                    <div class="code-snippet">
+<pre># Diluir hasta concentración aceptable
+concentracion <- 500  # mg/L (muy alta)
+objetivo <- 100       # mg/L (concentración deseada)
+iteracion <- 0
+
+print(paste("Concentración inicial:", concentracion, "mg/L"))
+
+while (concentracion > objetivo) {
+    # Diluir (agregar mismo volumen de agua)
+    concentracion <- concentracion / 2
+    iteracion <- iteracion + 1
+    
+    print(paste("Dilución", iteracion, ":", 
+                round(concentracion, 1), "mg/L"))
+}
+
+print(paste("¡Listo! Concentración final:", 
+            round(concentracion, 1), "mg/L"))
+
+# Resultado:
+# "Concentración inicial: 500 mg/L"
+# "Dilución 1 : 250 mg/L"
+# "Dilución 2 : 125 mg/L"
+# "Dilución 3 : 62.5 mg/L"
+# "¡Listo! Concentración final: 62.5 mg/L"</pre>
+                    </div>
+
+                    <h3>¿Cuándo usar while?</h3>
+                    <ul>
+                        <li>Cuando el objetivo es <strong>alcanzar un valor</strong></li>
+                        <li>Cuando no sabes <strong>cuántos pasos</strong> necesitas</li>
+                        <li>En procesos de <strong>aproximación</strong></li>
+                        <li>Para <strong>validar datos</strong> hasta que sean correctos</li>
+                    </ul>
+                </div>
             </div>
-            <div class="slide-number">8 / 16</div>
+            <div class="slide-number">7 / 14</div>
         </div>
 
-        <!-- Slide 9: Optimización de Condiciones -->
+        <!-- Slide 8: Ejemplos Químicos con while -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Optimización de condiciones experimentales</h2>
+            <h2>Ejemplos químicos con bucle while</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Optimización de temperatura de reacción</h3>
+                    <h3>Ajuste de pH (simulado)</h3>
                     <div class="code-snippet">
-<pre># Búsqueda de temperatura óptima para máximo rendimiento
-# Método de búsqueda por gradiente
+<pre># Simular ajuste de pH agregando base
+ph_actual <- 4.5      # pH inicial (ácido)
+ph_objetivo <- 7.0    # pH neutro deseado
+gotas_base <- 0
 
-temperatura_inicial <- 50    # °C
-rendimiento_objetivo <- 95   # %
-paso_temperatura <- 5       # °C
-tolerancia <- 0.5           # %
-max_iteraciones <- 20
+print(paste("pH inicial:", ph_actual))
 
-temperatura_actual <- temperatura_inicial
-mejor_temperatura <- temperatura_inicial
-mejor_rendimiento <- 0
-iteracion <- 0
-direccion <- 1  # 1 = aumentar, -1 = disminuir
-
-cat("Optimizando temperatura de reacción...\n\n")
-
-while (iteracion < max_iteraciones) {
-    iteracion <- iteracion + 1
+while (ph_actual < ph_objetivo) {
+    # Agregar una gota de base (simulado)
+    ph_actual <- ph_actual + 0.3
+    gotas_base <- gotas_base + 1
     
-    # Simular experimento (en realidad sería medición real)
-    # Función cuadrática simulando rendimiento vs temperatura
-    rendimiento_actual <- -0.02 * (temperatura_actual - 75)^2 + 92 + 
-                          rnorm(1, mean = 0, sd = 1)  # Ruido experimental
-    
-    cat("Experimento", iteracion, ": T =", temperatura_actual, 
-        "°C, Rendimiento =", round(rendimiento_actual, 1), "%\n")
-    
-    # Actualizar mejor condición
-    if (rendimiento_actual > mejor_rendimiento) {
-        mejor_rendimiento <- rendimiento_actual
-        mejor_temperatura <- temperatura_actual
-        
-        # Si es suficientemente bueno, detener
-        if (rendimiento_actual >= rendimiento_objetivo) {
-            cat("\n🎯 OBJETIVO ALCANZADO!\n")
-            break
-        }
-    }
-    
-    # Decidir próximo paso
-    if (iteracion == 1) {
-        # Primer paso: probar en dirección inicial
-        temperatura_siguiente <- temperatura_actual + paso_temperatura
-    } else {
-        # Estrategia de búsqueda por gradiente simplificada
-        if (rendimiento_actual > mejor_rendimiento * 0.98) {
-            # Buen resultado, continuar en misma dirección
-            temperatura_siguiente <- temperatura_actual + (direccion * paso_temperatura)
-        } else {
-            # Mal resultado, cambiar dirección y reducir paso
-            direccion <- -direccion
-            paso_temperatura <- paso_temperatura * 0.7
-            temperatura_siguiente <- mejor_temperatura + (direccion * paso_temperatura)
-        }
-    }
-    
-    # Límites de seguridad
-    if (temperatura_siguiente > 100) {
-        temperatura_siguiente <- 100
-    } else if (temperatura_siguiente < 20) {
-        temperatura_siguiente <- 20
-    }
-    
-    temperatura_actual <- temperatura_siguiente
-    
-    # Criterio de convergencia: paso muy pequeño
-    if (paso_temperatura < 0.5) {
-        cat("\nConvergencia alcanzada (paso muy pequeño)\n")
-        break
-    }
+    print(paste("Gota", gotas_base, ": pH =", 
+                round(ph_actual, 1)))
 }
 
-cat("\n=== RESULTADOS DE OPTIMIZACIÓN ===\n")
-cat("Mejor temperatura:", mejor_temperatura, "°C\n")
-cat("Mejor rendimiento:", round(mejor_rendimiento, 1), "%\n")
-cat("Experimentos realizados:", iteracion, "\n")
+print(paste("¡pH neutro alcanzado!"))
+print(paste("Total de gotas utilizadas:", gotas_base))</pre>
+                    </div>
 
-if (mejor_rendimiento >= rendimiento_objetivo) {
-    cat("✅ Optimización exitosa\n")
-} else {
-    cat("⚠️ Objetivo no alcanzado, se requiere más investigación\n")
-}</pre>
+                    <h3>Enfriamiento de muestra</h3>
+                    <div class="code-snippet">
+<pre># Esperar a que la muestra se enfríe
+temperatura <- 80     # °C (muy caliente)
+temp_segura <- 25    # °C (temperatura ambiente)
+minutos <- 0
+
+print(paste("Temperatura inicial:", temperatura, "°C"))
+
+while (temperatura > temp_segura) {
+    # Simular enfriamiento (pierde 5°C por minuto)
+    temperatura <- temperatura - 5
+    minutos <- minutos + 1
+    
+    print(paste("Minuto", minutos, ":", 
+                temperatura, "°C"))
+}
+
+print("¡Muestra lista para manipular!")</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>Control de calidad en tiempo real</h3>
+                    <h3>Precisión en mediciones</h3>
                     <div class="code-snippet">
-<pre># Sistema de monitoreo continuo de proceso
-# Detiene proceso si se sale de control estadístico
+<pre># Repetir medición hasta obtener precisión aceptable
+mediciones <- c()
+error_aceptable <- 2  # % error máximo permitido
+intentos <- 0
 
-# Parámetros de control
-media_objetivo <- 98.5       # % pureza objetivo
-limite_control_sup <- 101.0  # Límite superior de control
-limite_control_inf <- 96.0   # Límite inferior de control
-n_consecutivos_alerta <- 3   # Puntos consecutivos para alerta
+# Simular mediciones con diferentes errores
+errores_simulados <- c(5, 3, 1.5, 0.8)
 
-# Variables de estado
-proceso_en_control <- TRUE
-puntos_consecutivos <- 0
-tiempo_muestreo <- 0
-datos_proceso <- c()
-
-cat("Iniciando monitoreo de proceso en tiempo real...\n")
-cat("Meta: ", media_objetivo, "% ± ", 
-    (limite_control_sup - media_objetivo), "%\n\n")
-
-while (proceso_en_control && tiempo_muestreo < 50) {
-    tiempo_muestreo <- tiempo_muestreo + 1
+while (length(mediciones) == 0 || 
+       tail(mediciones, 1) > error_aceptable) {
     
-    # Simular medición del proceso (cada 10 minutos)
-    # En realidad vendría de instrumentos en línea
-    pureza_medida <- rnorm(1, mean = media_objetivo, sd = 1.2)
-    datos_proceso <- c(datos_proceso, pureza_medida)
+    intentos <- intentos + 1
     
-    cat("Tiempo", tiempo_muestreo*10, "min: Pureza =", 
-        round(pureza_medida, 1), "%")
+    # Simular medición (en la realidad sería experimental)
+    error_actual <- errores_simulados[intentos]
+    mediciones <- c(mediciones, error_actual)
     
-    # Verificar límites de control
-    if (pureza_medida > limite_control_sup || 
-        pureza_medida < limite_control_inf) {
-        
-        puntos_consecutivos <- puntos_consecutivos + 1
-        cat(" ⚠️ FUERA DE CONTROL")
-        
-        if (puntos_consecutivos >= n_consecutivos_alerta) {
-            proceso_en_control <- FALSE
-            cat("\n\n🚨 PROCESO DETENIDO - FUERA DE CONTROL ESTADÍSTICO\n")
-            cat("Puntos consecutivos fuera de límites:", puntos_consecutivos, "\n")
-            
-            # Acciones automáticas
-            cat("\nAcciones ejecutadas automáticamente:\n")
-            cat("- Proceso detenido\n")
-            cat("- Alerta enviada a supervisor\n")
-            cat("- Muestras conservadas para análisis\n")
-            break
-        }
+    print(paste("Intento", intentos, 
+                ": Error =", error_actual, "%"))
+    
+    if (error_actual <= error_aceptable) {
+        print("¡Precisión aceptable alcanzada!")
     } else {
-        # Punto dentro de control
-        puntos_consecutivos <- 0
-        cat(" ✅")
+        print("Repetir medición...")
     }
-    
-    # Verificar tendencias (últimos 5 puntos)
-    if (length(datos_proceso) >= 5) {
-        ultimos_5 <- tail(datos_proceso, 5)
-        tendencia <- lm(ultimos_5 ~ seq_along(ultimos_5))$coefficients[2]
-        
-        if (abs(tendencia) > 0.3) {
-            cat(" 📈 TENDENCIA DETECTADA")
-        }
-    }
-    
-    cat("\n")
-    
-    # Simular tiempo de espera (en la realidad sería automático)
-    Sys.sleep(0.1)  # Pausa corta para visualización
 }
 
-if (proceso_en_control) {
-    cat("\n✅ PROCESO COMPLETADO EXITOSAMENTE\n")
-    cat("Pureza promedio:", round(mean(datos_proceso), 2), "%\n")
-    cat("Desviación estándar:", round(sd(datos_proceso), 2), "%\n")
-} else {
-    cat("\nAnálisis de causa raíz requerido.\n")
-}</pre>
+print(paste("Total de intentos:", intentos))</pre>
                     </div>
 
                     <div class="success-box">
-                        <p><strong>Ventajas del control automático:</strong></p>
-                        <ul>
-                            <li><strong>Respuesta inmediata:</strong> Detección en tiempo real</li>
-                            <li><strong>Objetividad:</strong> Criterios consistentes</li>
-                            <li><strong>Documentación:</strong> Registro automático de eventos</li>
-                            <li><strong>Prevención:</strong> Evita productos defectuosos</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">9 / 16</div>
-        </div>
-
-        <!-- Slide 10: Aplicaciones en Cinética Química -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Aplicaciones en cinética química</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Seguimiento de reacción de primer orden</h3>
-                    <div class="code-snippet">
-<pre># Análisis cinético: descomposición de primer orden
-# A → productos, ln[A] = ln[A]0 - kt
-
-# Datos experimentales (simulados)
-tiempos <- seq(0, 120, by = 10)  # minutos
-conc_inicial <- 0.5              # M
-k_real <- 0.025                  # min^-1 (valor "real" desconocido)
-
-# Generar datos experimentales con ruido
-concentraciones_exp <- conc_inicial * exp(-k_real * tiempos) + 
-                      rnorm(length(tiempos), mean = 0, sd = 0.01)
-
-# Método iterativo para encontrar k óptima
-k_estimado <- 0.01               # Valor inicial
-mejor_k <- k_estimado
-menor_error <- Inf
-paso_k <- 0.001
-direccion <- 1
-iteracion <- 0
-max_iter <- 100
-
-cat("Determinando constante cinética por ajuste iterativo...\n\n")
-
-while (iteracion < max_iter) {
-    iteracion <- iteracion + 1
-    
-    # Calcular concentraciones teóricas
-    conc_teoricas <- conc_inicial * exp(-k_estimado * tiempos)
-    
-    # Calcular error (suma de cuadrados)
-    error_total <- sum((concentraciones_exp - conc_teoricas)^2)
-    
-    cat("Iter", iteracion, ": k =", 
-        format(k_estimado, digits = 4), 
-        ", Error =", format(error_total, scientific = TRUE, digits = 3))
-    
-    # Actualizar mejor ajuste
-    if (error_total < menor_error) {
-        menor_error <- error_total
-        mejor_k <- k_estimado
-        cat(" ✓ MEJOR")
-    }
-    
-    cat("\n")
-    
-    # Estrategia de búsqueda
-    if (iteracion == 1) {
-        k_siguiente <- k_estimado + paso_k
-    } else {
-        # Si el error disminuyó, continuar en misma dirección
-        # Si aumentó, cambiar dirección y reducir paso
-        if (error_total >= menor_error * 1.001) {
-            direccion <- -direccion
-            paso_k <- paso_k * 0.8
-        }
-        k_siguiente <- k_estimado + (direccion * paso_k)
-    }
-    
-    # Evitar valores negativos
-    if (k_siguiente <= 0) {
-        k_siguiente <- paso_k
-    }
-    
-    k_estimado <- k_siguiente
-    
-    # Criterio de convergencia
-    if (paso_k < 1e-6) {
-        cat("Convergencia alcanzada (paso muy pequeño)\n")
-        break
-    }
-}
-
-# Resultados finales
-cat("\n=== RESULTADOS DEL ANÁLISIS CINÉTICO ===\n")
-cat("Constante cinética encontrada: k =", 
-    format(mejor_k, digits = 5), "min^-1\n")
-cat("Valor real (referencia): k =", k_real, "min^-1\n")
-cat("Error relativo:", 
-    round(abs(mejor_k - k_real)/k_real * 100, 2), "%\n")
-cat("Vida media calculada: t½ =", 
-    round(log(2)/mejor_k, 1), "min\n")
-
-# Calcular R²
-conc_ajustadas <- conc_inicial * exp(-mejor_k * tiempos)
-ss_res <- sum((concentraciones_exp - conc_ajustadas)^2)
-ss_tot <- sum((concentraciones_exp - mean(concentraciones_exp))^2)
-r_cuadrado <- 1 - (ss_res / ss_tot)
-cat("Coeficiente de determinación: R² =", round(r_cuadrado, 4), "\n")
-
-if (r_cuadrado > 0.95) {
-    cat("✅ Excelente ajuste cinético\n")
-} else if (r_cuadrado > 0.90) {
-    cat("⚠️ Ajuste aceptable, revisar condiciones\n")
-} else {
-    cat("❌ Ajuste pobre, verificar modelo cinético\n")
-}</pre>
-                    </div>
-
-                    <h3>Análisis de múltiples experimentos</h3>
-                    <div class="code-snippet">
-<pre># Procesar múltiples experimentos cinéticos
-experimentos <- c("25C", "35C", "45C", "55C")
-resultados_cineticos <- data.frame()
-
-for (temp in experimentos) {
-    cat("\n--- Procesando experimento a", temp, "---\n")
-    
-    # Simular datos a diferentes temperaturas
-    if (temp == "25C") k_temp <- 0.015
-    else if (temp == "35C") k_temp <- 0.025
-    else if (temp == "45C") k_temp <- 0.042
-    else k_temp <- 0.068
-    
-    # Generar datos experimentales
-    tiempos_exp <- seq(0, 150, by = 15)
-    conc_exp <- 0.5 * exp(-k_temp * tiempos_exp) + 
-                rnorm(length(tiempos_exp), 0, 0.005)
-    
-    # Análisis cinético simplificado
-    ln_conc <- log(conc_exp[conc_exp > 0])
-    tiempos_validos <- tiempos_exp[conc_exp > 0]
-    
-    modelo_lineal <- lm(ln_conc ~ tiempos_validos)
-    k_determinado <- -modelo_lineal$coefficients[2]
-    r2 <- summary(modelo_lineal)$r.squared
-    
-    # Almacenar resultados
-    resultado <- data.frame(
-        temperatura = temp,
-        k_determinado = k_determinado,
-        r_cuadrado = r2,
-        vida_media = log(2) / k_determinado
-    )
-    
-    resultados_cineticos <- rbind(resultados_cineticos, resultado)
-    
-    cat("k =", round(k_determinado, 4), "min^-1")
-    cat(", R² =", round(r2, 3))
-    cat(", t½ =", round(log(2) / k_determinado, 1), "min\n")
-}
-
-cat("\n=== RESUMEN DE TODOS LOS EXPERIMENTOS ===\n")
-print(resultados_cineticos)</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Determinación de energía de activación</h3>
-                    <div class="code-snippet">
-<pre># Ecuación de Arrhenius: k = A * exp(-Ea/RT)
-# ln(k) = ln(A) - Ea/RT
-
-# Convertir temperaturas a Kelvin y calcular 1/T
-temperaturas_K <- c(298, 308, 318, 328)  # K
-inv_T <- 1 / temperaturas_K
-ln_k <- log(resultados_cineticos$k_determinado)
-R <- 8.314  # J/(mol·K)
-
-cat("\nCalculando energía de activación...\n")
-
-# Regresión lineal de Arrhenius
-modelo_arrhenius <- lm(ln_k ~ inv_T)
-pendiente <- modelo_arrhenius$coefficients[2]
-intercepto <- modelo_arrhenius$coefficients[1]
-r2_arrhenius <- summary(modelo_arrhenius)$r.squared
-
-# Calcular parámetros cinéticos
-Ea_J_mol <- -pendiente * R        # J/mol
-Ea_kJ_mol <- Ea_J_mol / 1000      # kJ/mol
-A_factor <- exp(intercepto)        # Factor pre-exponencial
-
-cat("=== PARÁMETROS DE ARRHENIUS ===\n")
-cat("Energía de activación: Ea =", round(Ea_kJ_mol, 1), "kJ/mol\n")
-cat("Factor pre-exponencial: A =", 
-    format(A_factor, scientific = TRUE, digits = 3), "min^-1\n")
-cat("Coeficiente de correlación: R² =", round(r2_arrhenius, 4), "\n")
-
-# Predicción a nueva temperatura
-temp_prediccion <- 40  # °C
-temp_pred_K <- temp_prediccion + 273.15
-k_predicho <- A_factor * exp(-Ea_J_mol / (R * temp_pred_K))
-
-cat("\nPredicción para", temp_prediccion, "°C:")
-cat("\nk predicho =", format(k_predicho, digits = 4), "min^-1")
-cat("\nt½ predicho =", round(log(2) / k_predicho, 1), "min\n")
-
-# Validación del modelo
-if (r2_arrhenius > 0.98) {
-    cat("\n✅ Excelente correlación de Arrhenius")
-    cat("\n   Modelo válido para interpolación/extrapolación\n")
-} else {
-    cat("\n⚠️ Correlación moderada")
-    cat("\n   Verificar mecanismo de reacción\n")
-}</pre>
-                    </div>
-
-                    <div class="chemistry-example">
-                        <p><strong>Aplicaciones industriales del análisis cinético automatizado:</strong></p>
-                        <ul>
-                            <li><strong>Optimización de procesos:</strong> Encontrar condiciones óptimas de temperatura y tiempo</li>
-                            <li><strong>Control de calidad:</strong> Verificar que las reacciones proceden según lo esperado</li>
-                            <li><strong>Escalado industrial:</strong> Predecir comportamiento en reactores grandes</li>
-                            <li><strong>Desarrollo de productos:</strong> Caracterizar nuevas formulaciones</li>
-                            <li><strong>Vida útil:</strong> Predecir estabilidad de productos químicos</li>
-                        </ul>
-                    </div>
-
-                    <div class="performance-highlight">
-                        "La automatización del análisis cinético puede reducir el tiempo de caracterización de nuevos procesos químicos de semanas a días, mientras aumenta la precisión y reproducibilidad de los resultados"
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">10 / 16</div>
-        </div>
-
-        <!-- Slide 11: Procesamiento de Espectros -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Procesamiento automatizado de espectros</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Análisis de múltiples espectros IR</h3>
-                    <div class="code-snippet">
-<pre># Procesamiento automático de espectros infrarrojos
-# Identificación de picos característicos
-
-# Simular datos espectrales
-numero_espectros <- 25
-archivos_espectros <- paste0("muestra_", 
-                            sprintf("%03d", 1:numero_espectros), 
-                            "_IR.txt")
-
-# Picos característicos a buscar (números de onda cm^-1)
-picos_referencia <- list(
-    "O-H_estiramiento" = c(3200, 3600),    # Alcoholes/agua
-    "C-H_estiramiento" = c(2850, 3000),    # Hidrocarburos
-    "C=O_estiramiento" = c(1650, 1750),    # Carbonilos
-    "C-O_estiramiento" = c(1000, 1300),    # Éteres/alcoholes
-    "N-H_flexion" = c(1500, 1650)         # Aminas
-)
-
-resultados_espectros <- data.frame()
-
-cat("Procesando", numero_espectros, "espectros IR...\n\n")
-
-for (i in 1:numero_espectros) {
-    archivo_actual <- archivos_espectros[i]
-    cat("Procesando:", archivo_actual)
-    
-    # Simular lectura de espectro (en realidad se leería archivo)
-    # Crear espectro simulado con ruido
-    numero_onda <- seq(500, 4000, by = 2)  # cm^-1
-    intensidad <- rep(0.1, length(numero_onda))  # Línea base
-    
-    # Agregar picos simulados aleatoriamente
-    picos_presentes <- character()
-    
-    for (tipo_pico in names(picos_referencia)) {
-        # 70% probabilidad de que cada tipo de pico esté presente
-        if (runif(1) > 0.3) {
-            rango_pico <- picos_referencia[[tipo_pico]]
-            posicion_pico <- runif(1, rango_pico[1], rango_pico[2])
-            
-            # Agregar pico gaussiano
-            indices_pico <- which(abs(numero_onda - posicion_pico) < 50)
-            intensidad[indices_pico] <- intensidad[indices_pico] + 
-                                       dnorm(numero_onda[indices_pico], 
-                                            posicion_pico, 20) * 100
-            
-            picos_presentes <- c(picos_presentes, tipo_pico)
-        }
-    }
-    
-    # Agregar ruido experimental
-    intensidad <- intensidad + rnorm(length(intensidad), 0, 0.02)
-    
-    # Análisis de picos automático
-    picos_identificados <- character()
-    intensidades_picos <- numeric()
-    
-    for (tipo_pico in names(picos_referencia)) {
-        rango_busqueda <- picos_referencia[[tipo_pico]]
-        indices_rango <- which(numero_onda >= rango_busqueda[1] & 
-                              numero_onda <= rango_busqueda[2])
-        
-        if (length(indices_rango) > 0) {
-            max_intensidad <- max(intensidad[indices_rango])
-            
-            # Umbral para considerar pico presente
-            if (max_intensidad > 0.5) {
-                picos_identificados <- c(picos_identificados, tipo_pico)
-                intensidades_picos <- c(intensidades_picos, max_intensidad)
-                
-                # Encontrar posición exacta del pico
-                indice_max <- indices_rango[which.max(intensidad[indices_rango])]
-                posicion_exacta <- numero_onda[indice_max]
-            }
-        }
-    }
-    
-    # Clasificar muestra basada en picos identificados
-    if ("C=O_estiramiento" %in% picos_identificados && 
-        "O-H_estiramiento" %in% picos_identificados) {
-        clasificacion <- "Ácido carboxílico"
-    } else if ("C=O_estiramiento" %in% picos_identificados) {
-        clasificacion <- "Compuesto carbonílico"
-    } else if ("O-H_estiramiento" %in% picos_identificados && 
-               "C-O_estiramiento" %in% picos_identificados) {
-        clasificacion <- "Alcohol"
-    } else if ("N-H_flexion" %in% picos_identificados) {
-        clasificacion <- "Compuesto nitrogenado"
-    } else {
-        clasificacion <- "Hidrocarburo/Otro"
-    }
-    
-    # Almacenar resultados
-    resultado_muestra <- data.frame(
-        archivo = archivo_actual,
-        num_picos_identificados = length(picos_identificados),
-        clasificacion_tentativa = clasificacion,
-        picos_principales = paste(picos_identificados, collapse = "; "),
-        calidad_espectro = ifelse(length(picos_identificados) >= 2, 
-                                 "Buena", "Regular")
-    )
-    
-    resultados_espectros <- rbind(resultados_espectros, resultado_muestra)
-    
-    cat(" - ", length(picos_identificados), "picos,", clasificacion, "\n")
-}
-
-# Resumen del análisis por lotes
-cat("\n=== RESUMEN DEL ANÁLISIS ESPECTROSCÓPICO ===\n")
-tabla_clasificaciones <- table(resultados_espectros$clasificacion_tentativa)
-cat("Distribución de clasificaciones:\n")
-for (i in 1:length(tabla_clasificaciones)) {
-    cat("  ", names(tabla_clasificaciones)[i], ": ", 
-        tabla_clasificaciones[i], " muestras\n")
-}
-
-# Estadísticas de calidad
-muestras_buena_calidad <- sum(resultados_espectros$calidad_espectro == "Buena")
-cat("\nCalidad de espectros:\n")
-cat("  Buena calidad:", muestras_buena_calidad, "/", numero_espectros, 
-    "(", round(muestras_buena_calidad/numero_espectros*100, 1), "%)\n")
-</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Generación de reporte automático</h3>
-                    <div class="code-snippet">
-<pre># Generar reporte detallado por clasificación
-cat("\n=== REPORTE DETALLADO POR TIPO DE COMPUESTO ===\n")
-
-clasificaciones_unicas <- unique(resultados_espectros$clasificacion_tentativa)
-
-for (tipo in clasificaciones_unicas) {
-    cat("\n--- ", tipo, " ---\n")
-    
-    muestras_tipo <- resultados_espectros[
-        resultados_espectros$clasificacion_tentativa == tipo, ]
-    
-    cat("Número de muestras:", nrow(muestras_tipo), "\n")
-    
-    # Picos más frecuentes en este tipo
-    todos_picos <- unlist(strsplit(muestras_tipo$picos_principales, "; "))
-    tabla_picos <- table(todos_picos)
-    
-    if (length(tabla_picos) > 0) {
-        cat("Picos más frecuentes:\n")
-        picos_ordenados <- sort(tabla_picos, decreasing = TRUE)
-        for (j in 1:min(3, length(picos_ordenados))) {
-            cat("  ", names(picos_ordenados)[j], ": ", 
-                picos_ordenados[j], "/", nrow(muestras_tipo), 
-                " muestras (", 
-                round(picos_ordenados[j]/nrow(muestras_tipo)*100, 1), 
-                "%)\n")
-        }
-    }
-    
-    # Archivos de este tipo
-    cat("Archivos identificados:\n")
-    for (k in 1:nrow(muestras_tipo)) {
-        cat("  ", muestras_tipo$archivo[k], "\n")
-    }
-}
-
-# Verificación de calidad del análisis
-cat("\n=== CONTROL DE CALIDAD DEL ANÁLISIS ===\n")
-
-# Muestras sin clasificar claramente
-muestras_dudosas <- resultados_espectros[
-    resultados_espectros$num_picos_identificados < 2, ]
-
-if (nrow(muestras_dudosas) > 0) {
-    cat("⚠️ Muestras que requieren revisión manual:\n")
-    for (i in 1:nrow(muestras_dudosas)) {
-        cat("  ", muestras_dudosas$archivo[i], 
-            " - Solo", muestras_dudosas$num_picos_identificados[i], 
-            "picos identificados\n")
-    }
-    
-    cat("\nRecomendaciones:\n")
-    cat("- Verificar calidad del espectro original\n")
-    cat("- Revisar condiciones de medición\n")
-    cat("- Considerar análisis complementario\n")
-} else {
-    cat("✅ Todas las muestras clasificadas exitosamente\n")
-}
-
-# Estadísticas finales
-cat("\nTiempo estimado ahorrado vs análisis manual:\n")
-tiempo_manual_min <- numero_espectros * 15  # 15 min por espectro manual
-tiempo_automatico_min <- 2  # 2 minutos total automatizado
-cat("Manual:", tiempo_manual_min, "minutos (", 
-    round(tiempo_manual_min/60, 1), "horas)\n")
-cat("Automatizado:", tiempo_automatico_min, "minutos\n")
-cat("Ahorro de tiempo:", 
-    round((tiempo_manual_min - tiempo_automatico_min)/tiempo_manual_min*100, 1), 
-    "%\n")
-</pre>
-                    </div>
-
-                    <div class="success-box">
-                        <p><strong>Ventajas del procesamiento automatizado de espectros:</strong></p>
-                        <ul>
-                            <li><strong>Velocidad:</strong> Análisis de cientos de espectros en minutos</li>
-                            <li><strong>Consistencia:</strong> Criterios objetivos y reproducibles</li>
-                            <li><strong>Detección de patrones:</strong> Identificación de tendencias ocultas</li>
-                            <li><strong>Documentación automática:</strong> Registro completo de decisiones</li>
-                            <li><strong>Escalabilidad:</strong> Fácil adaptación a nuevos tipos de muestras</li>
-                        </ul>
+                        <p><strong>Ventaja de while:</strong> Se adapta automáticamente a las condiciones, sin importar cuántos pasos requiera</p>
                     </div>
 
                     <div class="warning-box">
-                        <p><strong>Consideraciones importantes:</strong></p>
+                        <p><strong>Prevenir bucles infinitos:</strong></p>
                         <ul>
-                            <li>Validar algoritmos con muestras conocidas</li>
-                            <li>Mantener biblioteca de espectros de referencia actualizada</li>
-                            <li>Revisar manualmente casos dudosos</li>
-                            <li>Documentar parámetros y umbrales utilizados</li>
+                            <li>Siempre cambiar la variable de condición</li>
+                            <li>Incluir un contador máximo de seguridad</li>
+                            <li>Verificar que la condición pueda ser falsa</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="slide-number">11 / 16</div>
+            <div class="slide-number">8 / 14</div>
         </div>
 
-        <!-- Slide 12: Calibración de Instrumentos -->
+        <!-- Slide 9: Comparación for vs while -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Calibración automática de instrumentos</h2>
+            <h2>¿Cuándo usar for vs while?</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Calibración de espectrofotómetro UV-Vis</h3>
+                    <h3>Usar bucle for cuando:</h3>
+                    <div class="simple-example">
+                        <p><strong>Criterio principal:</strong> Conoces el número exacto de repeticiones</p>
+                        
+                        <p><strong>Situaciones típicas:</strong></p>
+                        <ul>
+                            <li>"Analizar las 20 muestras del día"</li>
+                            <li>"Calcular para cada valor en mi lista"</li>
+                            <li>"Repetir el experimento 5 veces"</li>
+                            <li>"Procesar datos de 7 días"</li>
+                        </ul>
+                    </div>
+
+                    <h3>Ejemplo de decisión: for</h3>
                     <div class="code-snippet">
-<pre># Sistema automático de calibración para análisis cuantitativo
-# Método: curva de calibración con estándares múltiples
+<pre># Tengo exactamente 6 muestras
+ph_muestras <- c(6.5, 7.2, 5.8, 8.1, 7.0, 6.9)
 
-# Datos de calibración (concentraciones conocidas)
-concentraciones_estandar <- c(0, 2, 5, 10, 15, 20, 25)  # mg/L
-n_replicados <- 3
-instrumentos <- c("UV-01", "UV-02", "UV-03")
-
-# Almacenar resultados de calibración
-resultados_calibracion <- list()
-
-for (instrumento in instrumentos) {
-    cat("\n=== CALIBRANDO INSTRUMENTO:", instrumento, "===\n")
-    
-    # Simular mediciones con cada estándar
-    absorbancias_medidas <- matrix(NA, 
-                                  nrow = length(concentraciones_estandar), 
-                                  ncol = n_replicados)
-    
-    for (i in 1:length(concentraciones_estandar)) {
-        conc <- concentraciones_estandar[i]
-        cat("Midiendo estándar", conc, "mg/L...")
-        
-        # Simular respuesta del instrumento (Ley de Beer: A = εbc)
-        # Agregar variabilidad instrumental realista
-        for (j in 1:n_replicados) {
-            if (instrumento == "UV-01") {
-                # Instrumento bien calibrado
-                absorbancia_teorica <- 0.042 * conc  # Sensibilidad buena
-                ruido <- rnorm(1, 0, 0.003)          # Poco ruido
-            } else if (instrumento == "UV-02") {
-                # Instrumento con deriva
-                absorbancia_teorica <- 0.038 * conc + 0.02  # Offset
-                ruido <- rnorm(1, 0, 0.005)                 # Más ruido
-            } else {
-                # Instrumento con no-linealidad
-                absorbancia_teorica <- 0.040 * conc + 0.0005 * conc^2
-                ruido <- rnorm(1, 0, 0.004)
-            }
-            
-            absorbancias_medidas[i, j] <- absorbancia_teorica + ruido
-        }
-        
-        # Calcular promedio y desviación
-        abs_promedio <- mean(absorbancias_medidas[i, ])
-        abs_desv <- sd(absorbancias_medidas[i, ])
-        
-        cat(" A =", round(abs_promedio, 4), 
-            "± ", round(abs_desv, 4), "\n")
-    }
-    
-    # Análisis de regresión lineal
-    absorbancias_promedio <- rowMeans(absorbancias_medidas)
-    
-    modelo_calibracion <- lm(absorbancias_promedio ~ concentraciones_estandar)
-    pendiente <- modelo_calibracion$coefficients[2]
-    intercepto <- modelo_calibracion$coefficients[1]
-    r_cuadrado <- summary(modelo_calibracion)$r.squared
-    
-    # Estadísticas del modelo
-    cat("\n--- Resultados de calibración ---\n")
-    cat("Ecuación: A =", round(pendiente, 6), "* C +", round(intercepto, 4), "\n")
-    cat("R² =", round(r_cuadrado, 5), "\n")
-    cat("Sensibilidad:", round(pendiente, 6), "AU/(mg/L)\n")
-    
-    # Evaluación de la calidad de calibración
-    if (r_cuadrado >= 0.999) {
-        estado_calibracion <- "EXCELENTE"
-    } else if (r_cuadrado >= 0.995) {
-        estado_calibracion <- "BUENA"
-    } else if (r_cuadrado >= 0.990) {
-        estado_calibracion <- "ACEPTABLE"
+# Uso for porque sé que son 6
+for (ph in ph_muestras) {
+    if (ph < 7) {
+        print(paste("pH", ph, "es ácido"))
     } else {
-        estado_calibracion <- "DEFICIENTE"
+        print(paste("pH", ph, "es básico/neutro"))
     }
-    
-    cat("Estado de calibración:", estado_calibracion, "\n")
-    
-    # Límites de detección y cuantificación
-    desv_blanco <- sd(absorbancias_medidas[1, ])  # Desv del blanco
-    limite_deteccion <- 3 * desv_blanco / pendiente
-    limite_cuantificacion <- 10 * desv_blanco / pendiente
-    
-    cat("Límite de detección:", round(limite_deteccion, 2), "mg/L\n")
-    cat("Límite de cuantificación:", round(limite_cuantificacion, 2), "mg/L\n")
-    
-    # Verificación con estándar de verificación
-    conc_verificacion <- 12.5  # mg/L
-    abs_verificacion <- 0.041 * conc_verificacion + rnorm(1, 0, 0.003)
-    conc_calculada <- (abs_verificacion - intercepto) / pendiente
-    error_relativo <- abs(conc_calculada - conc_verificacion) / conc_verificacion * 100
-    
-    cat("Verificación - Esperado:", conc_verificacion, "mg/L, ")
-    cat("Calculado:", round(conc_calculada, 2), "mg/L, ")
-    cat("Error:", round(error_relativo, 1), "%\n")
-    
-    # Almacenar resultados
-    resultados_calibracion[[instrumento]] <- list(
-        pendiente = pendiente,
-        intercepto = intercepto,
-        r_cuadrado = r_cuadrado,
-        estado = estado_calibracion,
-        limite_deteccion = limite_deteccion,
-        limite_cuantificacion = limite_cuantificacion,
-        error_verificacion = error_relativo
-    )
+}</pre>
+                    </div>
+
+                    <h3>Ventajas del for:</h3>
+                    <ul>
+                        <li><strong>Seguro:</strong> No puede ser infinito</li>
+                        <li><strong>Predecible:</strong> Sabes cuánto tardará</li>
+                        <li><strong>Simple:</strong> No necesitas contador manual</li>
+                        <li><strong>Claro:</strong> Es obvio cuántas veces se ejecuta</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Usar bucle while cuando:</h3>
+                    <div class="simple-example">
+                        <p><strong>Criterio principal:</strong> No sabes cuántas repeticiones necesitas</p>
+                        
+                        <p><strong>Situaciones típicas:</strong></p>
+                        <ul>
+                            <li>"Hasta que el pH sea neutro"</li>
+                            <li>"Mientras la temperatura esté alta"</li>
+                            <li>"Hasta encontrar la concentración correcta"</li>
+                            <li>"Mientras haya errores en los datos"</li>
+                        </ul>
+                    </div>
+
+                    <h3>Ejemplo de decisión: while</h3>
+                    <div class="code-snippet">
+<pre># No sé cuántas diluciones necesito
+concentracion <- 1000  # mg/L (muy alta)
+limite_seguro <- 50    # mg/L
+
+# Uso while porque no sé cuántas veces diluir
+while (concentracion > limite_seguro) {
+    concentracion <- concentracion * 0.7  # Diluir 30%
+    print(paste("Nueva concentración:", 
+                round(concentracion, 1), "mg/L"))
+}</pre>
+                    </div>
+
+                    <h3>Ventajas del while:</h3>
+                    <ul>
+                        <li><strong>Flexible:</strong> Se adapta a las condiciones</li>
+                        <li><strong>Eficiente:</strong> Para exactamente cuando debe</li>
+                        <li><strong>Realista:</strong> Simula procesos naturales</li>
+                        <li><strong>Preciso:</strong> Alcanza el objetivo exacto</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Regla de seguridad para while:</strong> Siempre incluir un límite máximo de iteraciones</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">9 / 14</div>
+        </div>
+
+        <!-- Slide 10: Errores Comunes -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Errores comunes y cómo evitarlos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Error 1: Bucle infinito en while</h3>
+                    <div class="code-snippet">
+<pre># ❌ MAL - Bucle infinito
+contador <- 1
+while (contador <= 5) {
+    print(contador)
+    # ¡Olvido incrementar contador!
+}
+# Este bucle nunca termina
+
+# ✅ BIEN - Actualizar la variable
+contador <- 1
+while (contador <= 5) {
+    print(contador)
+    contador <- contador + 1  # ¡Importante!
+}</pre>
+                    </div>
+
+                    <h3>Error 2: Usar índices incorrectos</h3>
+                    <div class="code-snippet">
+<pre># ❌ MAL - Índice fuera de rango
+datos <- c(10, 20, 30)
+for (i in 1:5) {  # ¡Solo hay 3 elementos!
+    print(datos[i])  # Error en i=4 y i=5
+}
+
+# ✅ BIEN - Usar length()
+datos <- c(10, 20, 30)
+for (i in 1:length(datos)) {
+    print(datos[i])
+}</pre>
+                    </div>
+
+                    <h3>Error 3: Condición incorrecta en while</h3>
+                    <div class="code-snippet">
+<pre># ❌ MAL - Condición que nunca cambia
+ph <- 5
+while (ph != 7) {  # ph nunca será exactamente 7
+    ph <- ph + 0.3  # Puede saltar sobre 7
+}
+
+# ✅ BIEN - Usar rango de tolerancia
+ph <- 5
+while (abs(ph - 7) > 0.1) {  # Cerca de 7
+    ph <- ph + 0.3
 }</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>Validación y recomendaciones automáticas</h3>
+                    <h3>Error 4: No validar datos de entrada</h3>
                     <div class="code-snippet">
-<pre># Generar reporte de validación para todos los instrumentos
-cat("\n\n=== REPORTE DE VALIDACIÓN DE INSTRUMENTOS ===\n")
+<pre># ❌ MAL - No verificar datos
+concentraciones <- c(50, NA, 75, 100)
+for (conc in concentraciones) {
+    molaridad <- conc / 58.44  # Error con NA
+    print(molaridad)
+}
 
-# Tabla resumen
-cat("INSTRUMENTO\tR²\t\tESTADO\t\tERROR(%)\tACCIÓN\n")
-cat(rep("-", 60), "\n")
-
-for (inst in names(resultados_calibracion)) {
-    resultado <- resultados_calibracion[[inst]]
-    
-    # Determinar acción recomendada
-    if (resultado$r_cuadrado >= 0.999 && resultado$error_verificacion <= 2) {
-        accion <- "APROBAR"
-    } else if (resultado$r_cuadrado >= 0.995 && resultado$error_verificacion <= 5) {
-        accion <- "APROBAR CON RESERVAS"
+# ✅ BIEN - Validar antes de usar
+concentraciones <- c(50, NA, 75, 100)
+for (conc in concentraciones) {
+    if (!is.na(conc)) {
+        molaridad <- conc / 58.44
+        print(paste("Molaridad:", round(molaridad, 3)))
     } else {
-        accion <- "RECALIBRAR"
+        print("Dato faltante - saltando")
     }
-    
-    cat(inst, "\t\t", round(resultado$r_cuadrado, 4), "\t", 
-        resultado$estado, "\t", round(resultado$error_verificacion, 1), 
-        "\t", accion, "\n")
-}
+}</pre>
+                    </div>
 
-# Análisis comparativo entre instrumentos
-cat("\n=== ANÁLISIS COMPARATIVO ===\n")
-
-# Extraer parámetros para comparación
-sensibilidades <- sapply(resultados_calibracion, function(x) x$pendiente)
-precisiones <- sapply(resultados_calibracion, function(x) x$r_cuadrado)
-
-# Coeficiente de variación entre instrumentos
-cv_sensibilidad <- sd(sensibilidades) / mean(sensibilidades) * 100
-
-cat("Sensibilidades de instrumentos:\n")
-for (i in 1:length(sensibilidades)) {
-    cat("  ", names(sensibilidades)[i], ": ", 
-        round(sensibilidades[i], 6), " AU/(mg/L)\n")
-}
-
-cat("CV entre instrumentos:", round(cv_sensibilidad, 2), "%\n")
-
-if (cv_sensibilidad <= 5) {
-    cat("✅ Excelente concordancia entre instrumentos\n")
-} else if (cv_sensibilidad <= 10) {
-    cat("⚠️ Concordancia aceptable, monitorear tendencias\n")
-} else {
-    cat("❌ Concordancia deficiente, revisar mantenimiento\n")
-}
-
-# Programación de próximas calibraciones
-cat("\n=== PROGRAMACIÓN DE MANTENIMIENTO ===\n")
-
-for (inst in names(resultados_calibracion)) {
-    resultado <- resultados_calibracion[[inst]]
-    
-    if (resultado$estado == "EXCELENTE") {
-        proxima_calibracion <- "30 días"
-        mantenimiento <- "Rutinario"
-    } else if (resultado$estado == "BUENA") {
-        proxima_calibracion <- "15 días"
-        mantenimiento <- "Verificar óptica"
-    } else if (resultado$estado == "ACEPTABLE") {
-        proxima_calibracion <- "7 días"
-        mantenimiento <- "Limpieza profunda"
-    } else {
-        proxima_calibracion <- "INMEDIATO"
-        mantenimiento <- "Servicio técnico"
-    }
-    
-    cat(inst, ":\n")
-    cat("  Próxima calibración:", proxima_calibracion, "\n")
-    cat("  Mantenimiento recomendado:", mantenimiento, "\n")
-}
-
-# Generar certificado de calibración automático
-cat("\n=== CERTIFICADOS GENERADOS ===\n")
-
-for (inst in names(resultados_calibracion)) {
-    resultado <- resultados_calibracion[[inst]]
-    
-    if (resultado$error_verificacion <= 5) {
-        cat("✅ Certificado generado para", inst, "\n")
-        cat("   Válido hasta:", 
-            format(Sys.Date() + 30, "%Y-%m-%d"), "\n")
-        cat("   Rango validado: 0 -", max(concentraciones_estandar), "mg/L\n")
-    } else {
-        cat("❌ Certificado NO generado para", inst, "\n")
-        cat("   Requiere recalibración\n")
+                    <h3>Error 5: Modificar la lista durante el bucle</h3>
+                    <div class="code-snippet">
+<pre># ❌ MAL - Cambiar la lista durante el bucle
+valores <- c(1, 2, 3, 4, 5)
+for (i in 1:length(valores)) {
+    if (valores[i] > 3) {
+        valores <- valores[-i]  # ¡Modifica la lista!
     }
 }
-</pre>
+
+# ✅ BIEN - Crear nueva lista
+valores <- c(1, 2, 3, 4, 5)
+valores_filtrados <- c()
+for (valor in valores) {
+    if (valor <= 3) {
+        valores_filtrados <- c(valores_filtrados, valor)
+    }
+}</pre>
                     </div>
 
                     <div class="best-practices">
-                        <div class="practices-title">Mejores prácticas en calibración automática</div>
+                        <div class="practices-title">Consejos para evitar errores</div>
                         <ul>
-                            <li><strong>Frecuencia apropiada:</strong> Basada en estabilidad del instrumento</li>
-                            <li><strong>Estándares trazables:</strong> Materiales de referencia certificados</li>
-                            <li><strong>Verificación independiente:</strong> Estándares externos al set de calibración</li>
-                            <li><strong>Documentación automática:</strong> Registro completo para auditorías</li>
-                            <li><strong>Alertas preventivas:</strong> Detección temprana de problemas</li>
-                            <li><strong>Integración con LIMS:</strong> Sistema integral de gestión</li>
+                            <li>Siempre actualizar variables en while</li>
+                            <li>Usar length() en lugar de números fijos</li>
+                            <li>Validar datos antes de procesarlos</li>
+                            <li>Probar con datos pequeños primero</li>
+                            <li>Agregar print() para seguir el progreso</li>
                         </ul>
-                    </div>
-
-                    <div class="performance-highlight">
-                        La calibración automática reduce el tiempo de validación de instrumentos en 85% mientras mejora la reproducibilidad y trazabilidad de los resultados analíticos
                     </div>
                 </div>
             </div>
-            <div class="slide-number">12 / 16</div>
+            <div class="slide-number">10 / 14</div>
         </div>
 
-        <!-- Slide 13: Mejores Prácticas y Optimización -->
+        <!-- Slide 11: Bucles vs Vectorización -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Mejores prácticas y optimización</h2>
+            <h2>¿Cuándo usar bucles vs otras alternativas?</h2>
             
             <div class="two-column">
                 <div>
-                    <h3>Optimización de rendimiento en R</h3>
-                    <div class="code-snippet">
-<pre># EJEMPLO INEFICIENTE - EVITAR
-# Crecimiento dinámico de vectores (MUY LENTO)
-resultados_lento <- c()
-tiempos_reaccion <- runif(10000, 1, 100)
-
-system.time({
-    for (i in 1:length(tiempos_reaccion)) {
-        # ¡MAL! Recrea el vector en cada iteración
-        resultados_lento <- c(resultados_lento, sqrt(tiempos_reaccion[i]))
-    }
-})
-
-# EJEMPLO EFICIENTE - RECOMENDADO
-# Pre-asignar espacio para resultados
-resultados_rapido <- numeric(length(tiempos_reaccion))
-
-system.time({
-    for (i in 1:length(tiempos_reaccion)) {
-        # ¡BIEN! Solo asigna valor, no recrea estructura
-        resultados_rapido[i] <- sqrt(tiempos_reaccion[i])
-    }
-})
-
-# EJEMPLO MÁS EFICIENTE - VECTORIZACIÓN
-# Evitar bucles cuando sea posible
-system.time({
-    resultados_vectorizado <- sqrt(tiempos_reaccion)
-})
-
-cat("Comparación de tiempos:\n")
-cat("Método ineficiente: ~", "XX segundos (muy lento)\n")
-cat("Método con pre-asignación: ~", "XX segundos (mejor)\n") 
-cat("Método vectorizado: ~", "XX segundos (óptimo)\n")</pre>
+                    <h3>Cuándo SÍ usar bucles</h3>
+                    <div class="simple-example">
+                        <p><strong>Situaciones apropiadas:</strong></p>
+                        <ul>
+                            <li><strong>Lógica compleja:</strong> Cada caso requiere decisiones diferentes</li>
+                            <li><strong>Múltiples pasos:</strong> Varios cálculos secuenciales por elemento</li>
+                            <li><strong>Condiciones especiales:</strong> Saltar elementos o cambiar comportamiento</li>
+                            <li><strong>Interacción entre elementos:</strong> Un resultado afecta el siguiente</li>
+                        </ul>
                     </div>
 
-                    <h3>Funciones apply para química</h3>
+                    <h3>Ejemplo: lógica compleja</h3>
                     <div class="code-snippet">
-<pre># Aplicar cálculos a múltiples muestras químicas
-datos_muestras <- data.frame(
-    muestra_id = paste0("Q", 1:1000),
-    concentracion_A = runif(1000, 10, 100),
-    concentracion_B = runif(1000, 5, 50),
-    volumen_ml = runif(1000, 50, 200),
-    temperatura_C = runif(1000, 20, 80)
+<pre># Clasificación compleja que requiere bucle
+muestras <- data.frame(
+    ph = c(6.5, 8.2, 3.1, 7.0),
+    temperatura = c(25, 45, 20, 30),
+    concentracion = c(100, 200, 50, 150)
 )
 
-# EVITAR: Bucle for para cálculos simples
-molaridad_lenta <- numeric(nrow(datos_muestras))
-for (i in 1:nrow(datos_muestras)) {
-    molaridad_lenta[i] <- datos_muestras$concentracion_A[i] / 
-                         (datos_muestras$volumen_ml[i] / 1000)
-}
-
-# PREFERIR: Vectorización directa
-molaridad_rapida <- datos_muestras$concentracion_A / 
-                   (datos_muestras$volumen_ml / 1000)
-
-# USO APROPIADO DE apply: cálculos complejos por fila
-calcular_equilibrio_quimico <- function(fila) {
-    conc_A <- fila["concentracion_A"]
-    conc_B <- fila["concentracion_B"]
-    temp_K <- fila["temperatura_C"] + 273.15
-    
-    # Cálculo complejo que requiere múltiples pasos
-    K_eq <- exp(-5000 / (8.314 * temp_K))  # Constante de equilibrio
-    producto <- conc_A * conc_B * K_eq
-    
-    return(c(K_equilibrio = K_eq, 
-             producto_equilibrio = producto))
-}
-
-# Aplicar función compleja a cada fila
-resultados_equilibrio <- apply(datos_muestras[, c("concentracion_A", 
-                                                 "concentracion_B", 
-                                                 "temperatura_C")], 
-                              1, calcular_equilibrio_quimico)
-
-# Convertir resultados a dataframe
-equilibrios <- as.data.frame(t(resultados_equilibrio))
-datos_muestras <- cbind(datos_muestras, equilibrios)</pre>
-                    </div>
-
-                    <h3>Manejo eficiente de datos grandes</h3>
-                    <div class="code-snippet">
-<pre># Para datasets químicos muy grandes (>100,000 muestras)
-library(data.table)  # Para mejor rendimiento
-
-# Procesamiento por chunks cuando la memoria es limitante
-procesar_por_chunks <- function(archivo_datos, tamano_chunk = 10000) {
-    
-    # Leer archivo en chunks
-    conexion <- file(archivo_datos, "r")
-    chunk_num <- 1
-    resultados_totales <- data.frame()
-    
-    while (TRUE) {
-        # Leer chunk
-        lineas <- readLines(conexion, n = tamano_chunk)
-        
-        if (length(lineas) == 0) break  # Fin del archivo
-        
-        cat("Procesando chunk", chunk_num, 
-            "con", length(lineas), "muestras...\n")
-        
-        # Convertir a dataframe
-        chunk_data <- read.table(text = lineas, 
-                                header = FALSE, 
-                                sep = ",")
-        
-        # Procesar chunk (ejemplo: análisis estadístico)
-        chunk_resultados <- data.frame(
-            chunk = chunk_num,
-            n_muestras = nrow(chunk_data),
-            ph_promedio = mean(chunk_data$V3, na.rm = TRUE),
-            concentracion_max = max(chunk_data$V4, na.rm = TRUE)
-        )
-        
-        resultados_totales <- rbind(resultados_totales, chunk_resultados)
-        chunk_num <- chunk_num + 1
+for (i in 1:nrow(muestras)) {
+    # Lógica compleja que combina múltiples factores
+    if (muestras$ph[i] < 6 && muestras$temperatura[i] > 40) {
+        clasificacion <- "Peligrosa"
+    } else if (muestras$concentracion[i] > 180) {
+        clasificacion <- "Muy concentrada"
+    } else if (abs(muestras$ph[i] - 7) < 0.5) {
+        clasificacion <- "Ideal"
+    } else {
+        clasificacion <- "Normal"
     }
     
-    close(conexion)
-    return(resultados_totales)
-}
-
-# Procesamiento paralelo para múltiples archivos
-library(parallel)
-
-procesar_archivo_paralelo <- function(archivo) {
-    datos <- read.csv(archivo)
-    # Realizar análisis específico
-    return(data.frame(
-        archivo = archivo,
-        n_muestras = nrow(datos),
-        pureza_promedio = mean(datos$pureza, na.rm = TRUE)
-    ))
-}
-
-# Lista de archivos a procesar
-archivos_laboratorio <- list.files(pattern = "lab_.*\\.csv")
-
-# Procesar en paralelo (usa múltiples cores)
-resultados_paralelos <- mclapply(archivos_laboratorio, 
-                                procesar_archivo_paralelo, 
-                                mc.cores = detectCores() - 1)
-
-# Combinar resultados
-reporte_final <- do.call(rbind, resultados_paralelos)</pre>
+    print(paste("Muestra", i, ":", clasificacion))
+}</pre>
                     </div>
                 </div>
                 <div>
-                    <h3>Validación y debugging de bucles</h3>
-                    <div class="code-snippet">
-<pre># Técnicas para debuggear bucles químicos complejos
+                    <h3>Cuándo usar vectorización (más simple)</h3>
+                    <div class="simple-example">
+                        <p><strong>Situaciones para vectorización:</strong></p>
+                        <ul>
+                            <li><strong>Operaciones simples:</strong> Misma operación a todos los elementos</li>
+                            <li><strong>Cálculos matemáticos básicos:</strong> Suma, multiplicación, etc.</li>
+                            <li><strong>Transformaciones directas:</strong> Aplicar una fórmula</li>
+                            <li><strong>Sin condiciones complejas:</strong> Mismo tratamiento para todos</li>
+                        </ul>
+                    </div>
 
-validar_datos_entrada <- function(datos) {
-    errores <- character()
+                    <h3>Ejemplo: vectorización simple</h3>
+                    <div class="code-snippet">
+<pre># Conversión simple - mejor SIN bucle
+temperaturas_C <- c(25, 30, 35, 40, 45)
+
+# ❌ Innecesariamente complejo con bucle
+temperaturas_K_bucle <- c()
+for (temp in temperaturas_C) {
+    temperaturas_K_bucle <- c(temperaturas_K_bucle, temp + 273.15)
+}
+
+# ✅ Más simple con vectorización
+temperaturas_K_simple <- temperaturas_C + 273.15
+
+# Ambos dan el mismo resultado:
+print(temperaturas_K_simple)
+# [1] 298.15 303.15 308.15 313.15 318.15</pre>
+                    </div>
+
+                    <h3>Guía de decisión rápida</h3>
+                    <div class="success-box">
+                        <p><strong>Usa bucles si necesitas:</strong></p>
+                        <ul>
+                            <li>Condiciones if/else complejas</li>
+                            <li>Múltiples pasos por elemento</li>
+                            <li>Imprimir progreso paso a paso</li>
+                            <li>Interacción entre elementos</li>
+                        </ul>
+                        
+                        <p><strong>Usa vectorización si solo necesitas:</strong></p>
+                        <ul>
+                            <li>Aplicar una fórmula matemática</li>
+                            <li>Transformación directa</li>
+                            <li>Operaciones simples</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">11 / 14</div>
+        </div>
+
+        <!-- Slide 12: Debugging y Validación -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Debugging y validación de bucles</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Técnicas de debugging</h3>
+                    
+                    <h4>1. Agregar mensajes de progreso</h4>
+                    <div class="code-snippet">
+<pre># Mostrar progreso durante el bucle
+muestras <- c(45, 67, 89, 23, 56)
+
+for (i in 1:length(muestras)) {
+    print(paste("Procesando muestra", i, "de", length(muestras)))
     
-    # Verificar estructura
-    if (!is.data.frame(datos)) {
-        errores <- c(errores, "Datos deben ser data.frame")
+    resultado <- muestras[i] * 2.5
+    
+    print(paste("Valor:", muestras[i], "-> Resultado:", resultado))
+    print("---")  # Separador visual
+}</pre>
+                    </div>
+
+                    <h4>2. Probar con datos pequeños</h4>
+                    <div class="code-snippet">
+<pre># Primero probar con pocos datos
+datos_prueba <- c(10, 20, 30)  # Solo 3 elementos
+
+for (valor in datos_prueba) {
+    resultado <- valor / 5
+    print(paste(valor, "/ 5 =", resultado))
+}
+
+# Si funciona bien, usar con datos completos
+datos_completos <- c(10, 20, 30, 40, 50, 60, 70, 80)</pre>
+                    </div>
+
+                    <h4>3. Validar condiciones en while</h4>
+                    <div class="code-snippet">
+<pre># Agregar contador de seguridad
+concentracion <- 1000
+objetivo <- 50
+iteraciones <- 0
+max_iteraciones <- 20  # Límite de seguridad
+
+while (concentracion > objetivo && iteraciones < max_iteraciones) {
+    concentracion <- concentracion * 0.8
+    iteraciones <- iteraciones + 1
+    
+    print(paste("Iteración", iteraciones, 
+                ": concentración =", round(concentracion, 1)))
+}
+
+if (iteraciones >= max_iteraciones) {
+    print("ADVERTENCIA: Se alcanzó el límite máximo de iteraciones")
+}</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Validación de datos</h3>
+                    
+                    <h4>Verificar antes de procesar</h4>
+                    <div class="code-snippet">
+<pre># Función simple de validación
+validar_datos_quimicos <- function(datos) {
+    errores <- c()
+    
+    # Verificar que no estén vacíos
+    if (length(datos) == 0) {
+        errores <- c(errores, "No hay datos para procesar")
     }
     
-    # Verificar columnas requeridas
-    columnas_req <- c("ph", "concentracion", "temperatura")
-    faltantes <- setdiff(columnas_req, names(datos))
-    if (length(faltantes) > 0) {
-        errores <- c(errores, 
-                    paste("Columnas faltantes:", paste(faltantes, collapse = ", ")))
+    # Verificar valores NA
+    if (any(is.na(datos))) {
+        errores <- c(errores, "Hay valores faltantes (NA)")
     }
     
-    # Verificar rangos químicos válidos
-    if ("ph" %in% names(datos)) {
-        ph_invalidos <- which(datos$ph < 0 | datos$ph > 14)
-        if (length(ph_invalidos) > 0) {
-            errores <- c(errores, 
-                        paste("pH inválidos en filas:", 
-                              paste(ph_invalidos, collapse = ", ")))
-        }
-    }
-    
-    if ("concentracion" %in% names(datos)) {
-        conc_negativas <- which(datos$concentracion < 0)
-        if (length(conc_negativas) > 0) {
-            errores <- c(errores, 
-                        paste("Concentraciones negativas en filas:", 
-                              paste(conc_negativas, collapse = ", ")))
-        }
+    # Verificar valores negativos (si aplica)
+    if (any(datos < 0, na.rm = TRUE)) {
+        errores <- c(errores, "Hay valores negativos")
     }
     
     return(errores)
 }
 
-# Función de procesamiento con validación robusta
-procesar_muestras_seguro <- function(datos_quimicos) {
-    
-    # Validar entrada
-    errores <- validar_datos_entrada(datos_quimicos)
-    if (length(errores) > 0) {
-        stop("Errores en datos de entrada:\n", 
-             paste(errores, collapse = "\n"))
+# Usar la validación
+concentraciones <- c(50, 75, NA, 100, -5)
+errores <- validar_datos_quimicos(concentraciones)
+
+if (length(errores) > 0) {
+    print("ERRORES ENCONTRADOS:")
+    for (error in errores) {
+        print(paste("-", error))
     }
-    
-    resultados <- vector("list", nrow(datos_quimicos))
-    errores_procesamiento <- character()
-    
-    for (i in 1:nrow(datos_quimicos)) {
-        # Crear checkpoint para debugging
-        if (i %% 100 == 0) {
-            cat("Procesando muestra", i, "de", nrow(datos_quimicos), "\n")
-        }
-        
-        tryCatch({
-            muestra <- datos_quimicos[i, ]
-            
-            # Procesamiento específico con validaciones
-            if (is.na(muestra$ph) || is.na(muestra$concentracion)) {
-                resultado <- list(
-                    muestra_id = i,
-                    estado = "datos_incompletos",
-                    mensaje = "Datos faltantes"
-                )
-            } else {
-                # Cálculos químicos complejos
-                factor_correccion <- ifelse(muestra$temperatura > 25, 
-                                          1 + (muestra$temperatura - 25) * 0.02, 
-                                          1)
-                
-                concentracion_corregida <- muestra$concentracion * factor_correccion
-                
-                # Clasificación automática
-                if (muestra$ph < 3) {
-                    categoria <- "altamente_acido"
-                } else if (muestra$ph > 11) {
-                    categoria <- "altamente_basico"
-                } else {
-                    categoria <- "rango_normal"
-                }
-                
-                resultado <- list(
-                    muestra_id = i,
-                    ph_original = muestra$ph,
-                    concentracion_corregida = concentracion_corregida,
-                    categoria_ph = categoria,
-                    factor_temperatura = factor_correccion,
-                    estado = "procesado_exitoso"
-                )
-            }
-            
-            resultados[[i]] <- resultado
-            
-        }, error = function(e) {
-            # Capturar errores específicos sin detener todo el proceso
-            error_msg <- paste("Error en muestra", i, ":", e$message)
-            errores_procesamiento <<- c(errores_procesamiento, error_msg)
-            
-            resultados[[i]] <<- list(
-                muestra_id = i,
-                estado = "error_procesamiento",
-                mensaje = e$message
-            )
-        })
-    }
-    
-    # Reporte final
-    cat("\n=== REPORTE DE PROCESAMIENTO ===\n")
-    cat("Total de muestras:", nrow(datos_quimicos), "\n")
-    
-    estados <- sapply(resultados, function(x) x$estado)
-    tabla_estados <- table(estados)
-    
-    for (i in 1:length(tabla_estados)) {
-        cat(names(tabla_estados)[i], ":", tabla_estados[i], "\n")
-    }
-    
-    if (length(errores_procesamiento) > 0) {
-        cat("\nErrores encontrados:\n")
-        for (error in errores_procesamiento) {
-            cat("  ", error, "\n")
-        }
-    }
-    
-    return(resultados)
+} else {
+    print("Datos válidos - procesando...")
+    # Aquí iría el bucle principal
 }</pre>
                     </div>
 
-                    <div class="warning-box">
-                        <p><strong>⚠️ Errores comunes que evitar:</strong></p>
-                        <ul>
-                            <li><strong>Bucles infinitos:</strong> Siempre verificar condición de salida</li>
-                            <li><strong>Crecimiento dinámico:</strong> Pre-asignar espacio para vectores</li>
-                            <li><strong>Falta de validación:</strong> Verificar datos antes de procesar</li>
-                            <li><strong>Sin manejo de errores:</strong> Un error detiene todo el proceso</li>
-                            <li><strong>Falta de progreso:</strong> No mostrar avance en procesos largos</li>
-                        </ul>
-                    </div>
-
-                    <div class="success-box">
-                        <p><strong>✅ Checklist para bucles eficientes:</strong></p>
-                        <ul>
-                            <li>Pre-asignar espacio para resultados</li>
-                            <li>Validar datos de entrada</li>
-                            <li>Incluir manejo de errores (tryCatch)</li>
-                            <li>Mostrar progreso en procesos largos</li>
-                            <li>Documentar lógica compleja</li>
-                            <li>Probar con subconjunto pequeño primero</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">13 / 16</div>
-        </div>
-
-        <!-- Slide 14: Casos de Estudio Avanzados -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Casos de estudio avanzados</h2>
-            
-            <div class="applications-grid">
-                <div class="application-card">
-                    <div class="application-title">Análisis de estabilidad</div>
-                    <p>Monitoreo automático de degradación de fármacos en función del tiempo y condiciones ambientales</p>
-                    <ul>
-                        <li>Múltiples condiciones simultáneas</li>
-                        <li>Predicción de vida útil</li>
-                        <li>Alertas de deterioro</li>
-                    </ul>
-                </div>
-                
-                <div class="application-card">
-                    <div class="application-title">Optimización de formulaciones</div>
-                    <p>Búsqueda automática de proporciones óptimas en mezclas químicas complejas</p>
-                    <ul>
-                        <li>Algoritmos de optimización</li>
-                        <li>Restricciones múltiples</li>
-                        <li>Validación experimental</li>
-                    </ul>
-                </div>
-                
-                <div class="application-card">
-                    <div class="application-title">Control estadístico de procesos</div>
-                    <p>Implementación de cartas de control automáticas para procesos químicos industriales</p>
-                    <ul>
-                        <li>Detección de tendencias</li>
-                        <li>Límites dinámicos</li>
-                        <li>Acciones correctivas</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="two-column">
-                <div>
-                    <h3>Integración con sistemas LIMS</h3>
+                    <h4>Manejo de errores en bucles</h4>
                     <div class="code-snippet">
-<pre># Ejemplo: Integración con sistema de gestión de laboratorio
-conectar_LIMS <- function() {
-    # Simulación de conexión a base de datos LIMS
-    cat("Conectando a sistema LIMS...\n")
-    return(TRUE)
-}
+<pre># Continuar procesando aunque haya errores individuales
+valores <- c(100, 0, 50, NA, 75)
 
-procesar_lote_automatico <- function(numero_lote) {
-    cat("Procesando lote automático:", numero_lote, "\n")
+for (i in 1:length(valores)) {
+    print(paste("Procesando elemento", i))
     
-    # 1. Obtener muestras pendientes del LIMS
-    muestras_pendientes <- obtener_muestras_pendientes(numero_lote)
+    valor <- valores[i]
     
-    # 2. Procesar cada muestra
-    resultados_lote <- list()
-    
-    for (muestra_id in muestras_pendientes) {
-        # Obtener datos de la muestra
-        datos_muestra <- consultar_muestra_LIMS(muestra_id)
-        
-        # Aplicar métodos analíticos automáticos
-        if (datos_muestra$tipo_analisis == "pureza_HPLC") {
-            resultado <- analizar_pureza_HPLC(datos_muestra)
-        } else if (datos_muestra$tipo_analisis == "identificacion_IR") {
-            resultado <- analizar_espectro_IR(datos_muestra)
-        } else {
-            resultado <- list(estado = "metodo_no_implementado")
-        }
-        
-        # Actualizar LIMS con resultados
-        actualizar_resultado_LIMS(muestra_id, resultado)
-        
-        resultados_lote[[muestra_id]] <- resultado
+    # Verificar casos problemáticos
+    if (is.na(valor)) {
+        print("  Saltando: valor faltante")
+        next  # Continúa con el siguiente elemento
     }
     
-    # 3. Generar reporte de lote
-    generar_reporte_lote(numero_lote, resultados_lote)
-    
-    return(resultados_lote)
-}
-
-# Función para monitoreo continuo
-monitoreo_laboratorio_24_7 <- function() {
-    while (TRUE) {
-        # Verificar muestras nuevas cada 15 minutos
-        lotes_pendientes <- consultar_lotes_pendientes()
-        
-        if (length(lotes_pendientes) > 0) {
-            for (lote in lotes_pendientes) {
-                procesar_lote_automatico(lote)
-            }
-        }
-        
-        # Verificar calibraciones pendientes
-        instrumentos_calibrar <- verificar_calendario_calibracion()
-        
-        if (length(instrumentos_calibrar) > 0) {
-            for (instrumento in instrumentos_calibrar) {
-                ejecutar_calibracion_automatica(instrumento)
-            }
-        }
-        
-        # Esperar 15 minutos antes de próxima verificación
-        Sys.sleep(15 * 60)
-    }
-}</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Machine Learning para predicción</h3>
-                    <div class="code-snippet">
-<pre># Aplicación de ML para predecir propiedades químicas
-library(randomForest)
-
-entrenar_modelo_solubilidad <- function(datos_entrenamiento) {
-    # Características moleculares como predictores
-    predictores <- c("peso_molecular", "area_superficial", 
-                    "momento_dipolar", "enlaces_H_donor", 
-                    "enlaces_H_aceptor", "logP")
-    
-    # Entrenar modelo de bosque aleatorio
-    modelo <- randomForest(
-        solubilidad_mg_L ~ ., 
-        data = datos_entrenamiento[, c(predictores, "solubilidad_mg_L")],
-        ntree = 500,
-        mtry = 3,
-        importance = TRUE
-    )
-    
-    return(modelo)
-}
-
-# Aplicar modelo a nuevos compuestos
-predecir_propiedades_lote <- function(modelo, compuestos_nuevos) {
-    predicciones <- data.frame()
-    
-    for (i in 1:nrow(compuestos_nuevos)) {
-        compuesto <- compuestos_nuevos[i, ]
-        
-        # Predicción
-        solubilidad_pred <- predict(modelo, compuesto)
-        
-        # Intervalo de confianza (estimado)
-        uncertainty <- sqrt(modelo$mse[length(modelo$mse)])
-        ic_inferior <- solubilidad_pred - 1.96 * uncertainty
-        ic_superior <- solubilidad_pred + 1.96 * uncertainty
-        
-        # Clasificación de riesgo
-        if (solubilidad_pred < 10) {
-            riesgo_formulacion <- "Alto"
-        } else if (solubilidad_pred < 100) {
-            riesgo_formulacion <- "Medio"
-        } else {
-            riesgo_formulacion <- "Bajo"
-        }
-        
-        resultado <- data.frame(
-            compuesto_id = compuesto$id,
-            solubilidad_predicha = solubilidad_pred,
-            ic_95_inferior = ic_inferior,
-            ic_95_superior = ic_superior,
-            riesgo_formulacion = riesgo_formulacion
-        )
-        
-        predicciones <- rbind(predicciones, resultado)
+    if (valor == 0) {
+        print("  Saltando: valor cero")
+        next
     }
     
-    return(predicciones)
-}
-
-# Validación cruzada automática
-validar_modelo_iterativo <- function(datos, k_folds = 5) {
-    n <- nrow(datos)
-    indices_fold <- sample(rep(1:k_folds, length.out = n))
-    
-    errores_validacion <- numeric(k_folds)
-    
-    for (fold in 1:k_folds) {
-        # Dividir datos
-        datos_entrenamiento <- datos[indices_fold != fold, ]
-        datos_validacion <- datos[indices_fold == fold, ]
-        
-        # Entrenar modelo
-        modelo_fold <- entrenar_modelo_solubilidad(datos_entrenamiento)
-        
-        # Predecir en conjunto de validación
-        predicciones <- predict(modelo_fold, datos_validacion)
-        
-        # Calcular error
-        error_rmse <- sqrt(mean((datos_validacion$solubilidad_mg_L - predicciones)^2))
-        errores_validacion[fold] <- error_rmse
-        
-        cat("Fold", fold, "- RMSE:", round(error_rmse, 2), "\n")
-    }
-    
-    error_promedio <- mean(errores_validacion)
-    error_std <- sd(errores_validacion)
-    
-    cat("Error de validación cruzada:", 
-        round(error_promedio, 2), "±", round(error_std, 2), "\n")
-    
-    return(list(error_promedio = error_promedio, 
-                error_std = error_std))
-}</pre>
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">14 / 16</div>
-        </div>
-
-        <!-- Slide 15: Herramientas Complementarias -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Herramientas complementarias y ecosistema</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Paquetes esenciales para químicos</h3>
-                    <div class="code-snippet">
-<pre># Instalación de paquetes especializados
-install.packages(c(
-    "ChemmineR",     # Quimioinformática
-    "rcdk",          # Chemistry Development Kit
-    "webchem",       # Bases de datos químicas
-    "enviPat",       # Patrones isotópicos
-    "specL",         # Espectroscopia
-    "OrgMassSpecR",  # Espectrometría de masas
-    "hyperSpec",     # Espectroscopia hiperespectral
-    "pls",           # Regresión por mínimos cuadrados parciales
-    "mixOmics"       # Análisis multivariado
-))
-
-# Ejemplo: Análisis de similaridad molecular
-library(ChemmineR)
-library(rcdk)
-
-calcular_similaridad_tanimoto <- function(smiles_list) {
-    cat("Calculando matriz de similaridad para", 
-        length(smiles_list), "compuestos...\n")
-    
-    # Convertir SMILES a fingerprints moleculares
-    mols <- parse.smiles(smiles_list)
-    fps <- lapply(mols, get.fingerprint, type = "extended")
-    
-    # Matriz de similaridad
-    n <- length(fps)
-    matriz_sim <- matrix(0, nrow = n, ncol = n)
-    
-    for (i in 1:n) {
-        for (j in i:n) {
-            if (i == j) {
-                matriz_sim[i, j] <- 1.0
-            } else {
-                sim <- distance(fps[[i]], fps[[j]], method = "tanimoto")
-                matriz_sim[i, j] <- sim
-                matriz_sim[j, i] <- sim  # Simétrica
-            }
-        }
-        
-        if (i %% 10 == 0) {
-            cat("Procesados", i, "/", n, "compuestos\n")
-        }
-    }
-    
-    return(matriz_sim)
-}
-
-# Clustering automático de compuestos
-agrupar_compuestos_similares <- function(matriz_similaridad, 
-                                        nombres_compuestos, 
-                                        umbral = 0.7) {
-    
-    # Convertir similaridad a distancia
-    matriz_distancia <- 1 - matriz_similaridad
-    
-    # Clustering jerárquico
-    cluster_result <- hclust(as.dist(matriz_distancia), 
-                            method = "average")
-    
-    # Cortar dendrograma en grupos
-    grupos <- cutree(cluster_result, h = 1 - umbral)
-    
-    # Organizar resultados por grupo
-    grupos_organizados <- split(nombres_compuestos, grupos)
-    
-    cat("Se identificaron", length(grupos_organizados), "grupos:\n")
-    for (i in 1:length(grupos_organizados)) {
-        cat("Grupo", i, ":", length(grupos_organizados[[i]]), "compuestos\n")
-    }
-    
-    return(list(grupos = grupos_organizados, 
-                cluster = cluster_result))
-}</pre>
-                    </div>
-
-                    <h3>Automatización con GitHub Actions</h3>
-                    <div class="code-snippet">
-<pre># Archivo .github/workflows/analisis-quimico.yml
-# Automatización de análisis en la nube
-
-name: Análisis Químico Automático
-
-on:
-  schedule:
-    - cron: '0 6 * * *'  # Diario a las 6 AM
-  push:
-    paths: ['datos/**']   # Cuando se agreguen nuevos datos
-
-jobs:
-  analisis_laboratorio:
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Configurar R
-      uses: r-lib/actions/setup-r@v2
-      with:
-        r-version: '4.3.0'
-    
-    - name: Instalar dependencias
-      run: |
-        R -e "install.packages(c('ggplot2', 'dplyr', 'readr'))"
-    
-    - name: Ejecutar análisis automático
-      run: |
-        R -e "source('scripts/analisis_diario.R')"
-    
-    - name: Generar reportes
-      run: |
-        R -e "rmarkdown::render('reportes/reporte_diario.Rmd')"
-    
-    - name: Enviar alertas si hay problemas
-      if: failure()
-      run: |
-        # Código para enviar email/Slack de alerta
-        echo "Análisis falló - revisar datos"
-
-# Script R para análisis automático diario
-# archivo: scripts/analisis_diario.R
-
-library(dplyr)
-library(ggplot2)
-library(readr)
-
-# Función principal de análisis diario
-analisis_automatico_diario <- function() {
-    fecha_hoy <- Sys.Date()
-    cat("Ejecutando análisis automático para:", fecha_hoy, "\n")
-    
-    # 1. Buscar nuevos archivos de datos
-    archivos_nuevos <- list.files("datos/", 
-                                 pattern = paste0(fecha_hoy, ".*\\.csv"),
-                                 full.names = TRUE)
-    
-    if (length(archivos_nuevos) == 0) {
-        cat("No hay datos nuevos para procesar\n")
-        return(NULL)
-    }
-    
-    # 2. Procesar cada archivo
-    resultados_dia <- data.frame()
-    
-    for (archivo in archivos_nuevos) {
-        datos <- read_csv(archivo, show_col_types = FALSE)
-        
-        # Análisis de calidad
-        n_muestras <- nrow(datos)
-        ph_promedio <- mean(datos$ph, na.rm = TRUE)
-        outliers <- sum(abs(datos$ph - ph_promedio) > 2, na.rm = TRUE)
-        
-        resultado <- data.frame(
-            fecha = fecha_hoy,
-            archivo = basename(archivo),
-            n_muestras = n_muestras,
-            ph_promedio = ph_promedio,
-            outliers_detectados = outliers,
-            estado = ifelse(outliers > n_muestras * 0.05, 
-                           "Requiere revisión", "OK")
-        )
-        
-        resultados_dia <- rbind(resultados_dia, resultado)
-    }
-    
-    # 3. Guardar resultados
-    write_csv(resultados_dia, 
-              paste0("resultados/resumen_", fecha_hoy, ".csv"))
-    
-    # 4. Generar alertas si es necesario
-    problemas <- resultados_dia[resultados_dia$estado != "OK", ]
-    
-    if (nrow(problemas) > 0) {
-        cat("ALERTA: Se detectaron", nrow(problemas), "archivos con problemas\n")
-        write_csv(problemas, 
-                  paste0("alertas/problemas_", fecha_hoy, ".csv"))
-    }
-    
-    return(resultados_dia)
-}
-
-# Ejecutar análisis
-resultado <- analisis_automatico_diario()</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Integración con bases de datos</h3>
-                    <div class="code-snippet">
-<pre># Conexión a bases de datos químicas
-library(RMySQL)
-library(DBI)
-
-conectar_bd_laboratorio <- function() {
-    con <- dbConnect(MySQL(),
-                    user = "usuario_lab",
-                    password = Sys.getenv("DB_PASSWORD"),
-                    dbname = "laboratorio_quimica",
-                    host = "servidor-lab.empresa.com")
-    return(con)
-}
-
-# Función para almacenar resultados automáticamente
-almacenar_resultados_bd <- function(resultados_analisis) {
-    con <- conectar_bd_laboratorio()
-    
-    # Preparar datos para inserción
-    for (i in 1:nrow(resultados_analisis)) {
-        resultado <- resultados_analisis[i, ]
-        
-        query <- paste0("INSERT INTO resultados_analisis 
-                        (fecha_analisis, muestra_id, metodo, resultado, 
-                         incertidumbre, analista, estado) 
-                        VALUES ('", resultado$fecha, "', '", 
-                        resultado$muestra_id, "', '", resultado$metodo, "', ",
-                        resultado$valor, ", ", resultado$incertidumbre, ", '",
-                        resultado$analista, "', '", resultado$estado, "')")
-        
-        dbExecute(con, query)
-    }
-    
-    dbDisconnect(con)
-    cat("Almacenados", nrow(resultados_analisis), "resultados en BD\n")
-}
-
-# Consultas automáticas para control de calidad
-generar_reporte_tendencias <- function(dias_atras = 30) {
-    con <- conectar_bd_laboratorio()
-    
-    query <- paste0("SELECT 
-                        DATE(fecha_analisis) as fecha,
-                        metodo,
-                        AVG(resultado) as promedio_diario,
-                        STDDEV(resultado) as desviacion_diaria,
-                        COUNT(*) as n_analisis
-                    FROM resultados_analisis 
-                    WHERE fecha_analisis >= DATE_SUB(CURDATE(), INTERVAL ", 
-                    dias_atras, " DAY)
-                    AND estado = 'aprobado'
-                    GROUP BY DATE(fecha_analisis), metodo
-                    ORDER BY fecha, metodo")
-    
-    datos_tendencia <- dbGetQuery(con, query)
-    
-    dbDisconnect(con)
-    
-    # Análisis de tendencias automático
-    library(ggplot2)
-    
-    for (metodo_actual in unique(datos_tendencia$metodo)) {
-        datos_metodo <- datos_tendencia[datos_tendencia$metodo == metodo_actual, ]
-        
-        # Detectar tendencias usando regresión lineal
-        modelo_tendencia <- lm(promedio_diario ~ as.numeric(as.Date(fecha)), 
-                              data = datos_metodo)
-        
-        pendiente <- coef(modelo_tendencia)[2]
-        p_value <- summary(modelo_tendencia)$coefficients[2, 4]
-        
-        # Generar gráfico de tendencia
-        grafico <- ggplot(datos_metodo, aes(x = as.Date(fecha), y = promedio_diario)) +
-            geom_point() +
-            geom_smooth(method = "lm", se = TRUE) +
-            labs(title = paste("Tendencia -", metodo_actual),
-                 subtitle = paste("Pendiente:", round(pendiente * 365, 4), 
-                                 "unidades/año, p =", round(p_value, 4)),
-                 x = "Fecha", y = "Resultado promedio") +
-            theme_minimal()
-        
-        ggsave(paste0("graficos/tendencia_", metodo_actual, "_", Sys.Date(), ".png"),
-               grafico, width = 10, height = 6, dpi = 300)
-        
-        # Alerta si hay tendencia significativa
-        if (p_value < 0.05) {
-            cat("⚠️ ALERTA: Tendencia significativa detectada en", metodo_actual, "\n")
-            cat("   Pendiente:", round(pendiente * 365, 4), "unidades/año\n")
-            cat("   p-value:", round(p_value, 4), "\n\n")
-        }
-    }
-    
-    return(datos_tendencia)
-}</pre>
-                    </div>
-
-                    <h3>Notificaciones automáticas</h3>
-                    <div class="code-snippet">
-<pre># Sistema de notificaciones automáticas
-library(httr)
-library(jsonlite)
-
-enviar_notificacion_slack <- function(mensaje, canal = "#laboratorio") {
-    webhook_url <- Sys.getenv("SLACK_WEBHOOK_URL")
-    
-    payload <- list(
-        channel = canal,
-        text = mensaje,
-        username = "AnalisisBot",
-        icon_emoji = ":microscope:"
-    )
-    
-    response <- POST(url = webhook_url,
-                    body = toJSON(payload, auto_unbox = TRUE),
-                    content_type("application/json"))
-    
-    if (status_code(response) == 200) {
-        cat("Notificación enviada exitosamente\n")
-    } else {
-        cat("Error enviando notificación:", status_code(response), "\n")
-    }
-}
-
-enviar_email_supervisor <- function(asunto, cuerpo) {
-    # Usando servicio de email (ejemplo con SendGrid)
-    api_key <- Sys.getenv("SENDGRID_API_KEY")
-    
-    email_data <- list(
-        personalizations = list(list(
-            to = list(list(email = "supervisor.lab@empresa.com"))
-        )),
-        from = list(email = "analisis.automatico@empresa.com"),
-        subject = asunto,
-        content = list(list(
-            type = "text/plain",
-            value = cuerpo
-        ))
-    )
-    
-    response <- POST(
-        url = "https://api.sendgrid.com/v3/mail/send",
-        add_headers(Authorization = paste("Bearer", api_key)),
-        body = toJSON(email_data, auto_unbox = TRUE),
-        content_type("application/json")
-    )
-    
-    return(status_code(response) == 202)
-}
-
-# Sistema de monitoreo con notificaciones
-monitoreo_calidad_continuo <- function() {
-    while (TRUE) {
-        # Verificar estado de instrumentos
-        instrumentos_problema <- verificar_estado_instrumentos()
-        
-        if (length(instrumentos_problema) > 0) {
-            mensaje_slack <- paste("🚨 Instrumentos con problemas:",
-                                  paste(instrumentos_problema, collapse = ", "))
-            enviar_notificacion_slack(mensaje_slack)
-        }
-        
-        # Verificar resultados fuera de control
-        resultados_problema <- verificar_control_estadistico()
-        
-        if (nrow(resultados_problema) > 0) {
-            mensaje_email <- paste(
-                "Se detectaron", nrow(resultados_problema), 
-                "resultados fuera de control estadístico.\n\n",
-                "Detalles:\n",
-                paste(capture.output(print(resultados_problema)), collapse = "\n")
-            )
-            
-            enviar_email_supervisor("Alerta: Control Estadístico", mensaje_email)
-        }
-        
-        # Verificar vencimiento de calibraciones
-        calibraciones_vencidas <- verificar_calendario_calibraciones()
-        
-        if (length(calibraciones_vencidas) > 0) {
-            mensaje <- paste("📅 Calibraciones próximas a vencer:",
-                           paste(calibraciones_vencidas, collapse = ", "))
-            enviar_notificacion_slack(mensaje)
-        }
-        
-        # Esperar 1 hora antes de próxima verificación
-        Sys.sleep(3600)
-    }
+    # Procesar normalmente
+    resultado <- 100 / valor
+    print(paste("  Resultado:", round(resultado, 2)))
 }</pre>
                     </div>
 
                     <div class="best-practices">
-                        <div class="practices-title">Ecosistema de automatización química</div>
+                        <div class="practices-title">Lista de verificación para bucles</div>
                         <ul>
-                            <li><strong>R + Python:</strong> Combinar fortalezas de ambos lenguajes</li>
-                            <li><strong>Bases de datos:</strong> Almacenamiento persistente y consultas complejas</li>
-                            <li><strong>APIs REST:</strong> Integración con sistemas existentes</li>
-                            <li><strong>Contenedores Docker:</strong> Reproducibilidad y deployment</li>
-                            <li><strong>CI/CD:</strong> Automatización de testing y deployment</li>
-                            <li><strong>Monitoreo:</strong> Alertas proactivas y dashboards</li>
+                            <li>✓ Probar con 2-3 elementos primero</li>
+                            <li>✓ Verificar condiciones de parada</li>
+                            <li>✓ Validar datos de entrada</li>
+                            <li>✓ Agregar mensajes de progreso</li>
+                            <li>✓ Incluir límites de seguridad</li>
+                            <li>✓ Manejar casos especiales (NA, 0, etc.)</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="slide-number">15 / 16</div>
+            <div class="slide-number">12 / 14</div>
         </div>
 
-        <!-- Slide 16: Próxima Clase y Resumen -->
+        <!-- Slide 13: Preparación para el Laboratorio -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Preparación para el laboratorio</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Lo que haremos en el laboratorio</h3>
+                    <ul>
+                        <li><strong>Ejercicio 1:</strong> Procesar datos de pH con bucle for</li>
+                        <li><strong>Ejercicio 2:</strong> Calcular molaridades de múltiples soluciones</li>
+                        <li><strong>Ejercicio 3:</strong> Simular dilución con bucle while</li>
+                        <li><strong>Ejercicio 4:</strong> Control de calidad automatizado</li>
+                        <li><strong>Ejercicio 5:</strong> Conversión de unidades en lotes</li>
+                    </ul>
+
+                    <h3>Conceptos que necesitas recordar</h3>
+                    <div class="simple-example">
+                        <p><strong>Bucle for:</strong></p>
+                        <ul>
+                            <li>Para número conocido de repeticiones</li>
+                            <li>Procesar listas de datos</li>
+                            <li>Sintaxis: for (variable in lista)</li>
+                        </ul>
+                        
+                        <p><strong>Bucle while:</strong></p>
+                        <ul>
+                            <li>Para número desconocido de repeticiones</li>
+                            <li>Hasta alcanzar una condición</li>
+                            <li>Sintaxis: while (condición)</li>
+                            <li>¡Recordar actualizar la variable!</li>
+                        </ul>
+                    </div>
+
+                    <h3>Fórmulas químicas que usaremos</h3>
+                    <div class="code-snippet">
+<pre># Molaridad
+M = moles / litros
+
+# Dilución
+C1 * V1 = C2 * V2
+
+# Porcentaje de error
+error % = |valor_real - valor_medido| / valor_real * 100
+
+# Conversión de temperatura
+K = °C + 273.15</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Tipos de datos que manejaremos</h3>
+                    <div class="code-snippet">
+<pre># Ejemplos de datos típicos
+
+# Vector de pH
+ph_muestras <- c(6.5, 7.2, 5.8, 8.1, 7.0)
+
+# Vector de concentraciones (mg/L)
+concentraciones <- c(45, 67, 89, 23, 56)
+
+# Vector de temperaturas (°C)
+temperaturas <- c(25, 30, 35, 40)
+
+# Data frame con múltiples variables
+datos_lab <- data.frame(
+    muestra_id = c("A1", "A2", "A3"),
+    ph = c(6.5, 7.2, 5.8),
+    concentracion = c(45, 67, 89),
+    temperatura = c(25, 30, 35)
+)</pre>
+                    </div>
+
+                    <h3>Estructura típica de ejercicios</h3>
+                    <div class="code-snippet">
+<pre># 1. Cargar/crear datos
+datos <- c(...)
+
+# 2. Validar datos (opcional)
+if (any(is.na(datos))) {
+    print("Hay datos faltantes")
+}
+
+# 3. Procesar con bucle
+for (valor in datos) {
+    # Aplicarfórmula o lógica
+    resultado <- calcular_algo(valor)
+    
+    # Mostrar resultado
+    print(paste("Valor:", valor, "-> Resultado:", resultado))
+}
+
+# 4. Resumen final
+print("Procesamiento completado")</pre>
+                    </div>
+
+                    <h3>Consejos para el laboratorio</h3>
+                    <div class="success-box">
+                        <p><strong>Para tener éxito:</strong></p>
+                        <ul>
+                            <li><strong>Lee despacio:</strong> Entiende qué pide cada ejercicio</li>
+                            <li><strong>Empieza simple:</strong> Prueba con 2-3 valores primero</li>
+                            <li><strong>Usa print():</strong> Para ver qué está pasando</li>
+                            <li><strong>Pide ayuda:</strong> Si algo no funciona</li>
+                            <li><strong>Experimenta:</strong> Cambia valores y observa</li>
+                        </ul>
+                    </div>
+
+                    <h3>Preparación previa</h3>
+                    <ul>
+                        <li>Repasar las fórmulas químicas básicas</li>
+                        <li>Practicar crear vectores en R</li>
+                        <li>Recordar operaciones matemáticas básicas</li>
+                        <li>Traer calculadora (por si acaso)</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <p><strong>Recordatorio importante:</strong> En el laboratorio trabajaremos con R Markdown, así que verás código y resultados en el mismo documento</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">13 / 14</div>
+        </div>
+
+        <!-- Slide 14: Resumen y Próxima Clase -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
             <h2>Resumen y próxima clase</h2>
@@ -3001,83 +1531,71 @@ monitoreo_calidad_continuo <- function() {
                 <div>
                     <h3>Lo que aprendimos hoy</h3>
                     <ul>
-                        <li><strong>Fundamentos de iteración:</strong> for, while y sus aplicaciones químicas</li>
-                        <li><strong>Procesamiento automatizado:</strong> Múltiples muestras y lotes químicos</li>
-                        <li><strong>Control de procesos:</strong> Optimización y monitoreo en tiempo real</li>
-                        <li><strong>Análisis cinético:</strong> Determinación automática de constantes</li>
-                        <li><strong>Espectroscopia automatizada:</strong> Procesamiento de múltiples espectros</li>
-                        <li><strong>Calibración de instrumentos:</strong> Validación y certificación automática</li>
-                        <li><strong>Optimización de código:</strong> Mejores prácticas para eficiencia</li>
-                        <li><strong>Integración de sistemas:</strong> LIMS, bases de datos y notificaciones</li>
+                        <li><strong>Concepto de iteración:</strong> Repetir procesos automáticamente</li>
+                        <li><strong>Bucle for:</strong> Para número conocido de repeticiones</li>
+                        <li><strong>Bucle while:</strong> Para número desconocido de repeticiones</li>
+                        <li><strong>Aplicaciones químicas:</strong> Cálculos con múltiples muestras</li>
+                        <li><strong>Errores comunes:</strong> Cómo identificarlos y evitarlos</li>
+                        <li><strong>Debugging básico:</strong> Técnicas para encontrar problemas</li>
+                        <li><strong>Cuándo usar bucles:</strong> vs. otras alternativas más simples</li>
                     </ul>
 
-                    <h3>Impacto en la industria química</h3>
-                    <div class="chemistry-example">
-                        <p><strong>Beneficios cuantificables:</strong></p>
+                    <h3>Conceptos clave para recordar</h3>
+                    <div class="simple-example">
                         <ul>
-                            <li><strong>Reducción de tiempo:</strong> 85% menos tiempo en análisis rutinarios</li>
-                            <li><strong>Mejora en precisión:</strong> Eliminación de errores humanos</li>
-                            <li><strong>Trazabilidad completa:</strong> Registro automático de decisiones</li>
-                            <li><strong>Escalabilidad:</strong> Mismo código para 10 o 10,000 muestras</li>
-                            <li><strong>Consistencia:</strong> Criterios objetivos siempre aplicados</li>
+                            <li><strong>for:</strong> "Para cada elemento en mi lista"</li>
+                            <li><strong>while:</strong> "Mientras se cumpla esta condición"</li>
+                            <li><strong>Validación:</strong> Siempre verificar datos antes de procesar</li>
+                            <li><strong>Seguridad:</strong> Evitar bucles infinitos</li>
+                            <li><strong>Simplicidad:</strong> No usar bucles para operaciones simples</li>
                         </ul>
                     </div>
 
-                    <h3>Conceptos clave para recordar</h3>
-                    <div class="success-box">
-                        <ul>
-                            <li>Las sentencias iterativas son esenciales para el análisis químico moderno</li>
-                            <li>La elección entre for y while depende del conocimiento previo de iteraciones</li>
-                            <li>La optimización del código puede acelerar análisis en órdenes de magnitud</li>
-                            <li>La automatización permite enfocarse en interpretación, no en cálculos</li>
-                        </ul>
+                    <h3>Impacto en tu carrera de química</h3>
+                    <div class="performance-highlight">
+                        "Las sentencias iterativas te permiten procesar automáticamente datos de laboratorio, convirtiendo horas de cálculos manuales en segundos de computación precisa"
                     </div>
                 </div>
                 <div>
                     <h3>Próxima clase: declaración de funciones</h3>
+                    <p><strong>¿Qué aprenderemos?</strong></p>
                     <ul>
-                        <li><strong>Funciones personalizadas:</strong> Crear herramientas específicas para química</li>
-                        <li><strong>Parámetros y argumentos:</strong> Flexibilidad en análisis químicos</li>
-                        <li><strong>Valores de retorno:</strong> Estructurar resultados complejos</li>
-                        <li><strong>Scope y ambientes:</strong> Gestión de variables en funciones</li>
-                        <li><strong>Funciones anidadas:</strong> Modularidad en análisis complejos</li>
-                        <li><strong>Documentación de funciones:</strong> Crear bibliotecas reutilizables</li>
-                        <li><strong>Laboratorio práctico:</strong> Biblioteca de funciones químicas</li>
+                        <li><strong>Crear funciones personalizadas:</strong> Para cálculos químicos específicos</li>
+                        <li><strong>Parámetros de entrada:</strong> Hacer funciones flexibles</li>
+                        <li><strong>Valores de retorno:</strong> Obtener resultados de las funciones</li>
+                        <li><strong>Reutilización de código:</strong> Escribir una vez, usar muchas veces</li>
+                        <li><strong>Funciones para química:</strong> Molaridad, diluciones, conversiones</li>
+                        <li><strong>Organización del código:</strong> Mantener todo ordenado</li>
                     </ul>
 
-                    <h3>Tarea para la próxima clase</h3>
+                    <h3>Tarea para casa</h3>
                     <div class="warning-box">
-                        <p><strong>Ejercicio: análisis automatizado de laboratorio</strong></p>
-                        <ul>
-                            <li>Implementar bucle for para procesar 20 muestras químicas</li>
-                            <li>Usar while para optimización de condiciones de reacción</li>
-                            <li>Crear sistema de alertas para valores fuera de especificación</li>
-                            <li>Generar reporte automático con estadísticas</li>
-                            <li>Documentar tiempo ahorrado vs. proceso manual</li>
-                        </ul>
+                        <p><strong>Ejercicio práctico:</strong></p>
+                        <ol>
+                            <li>Crear un vector con 5 valores de pH diferentes</li>
+                            <li>Usar bucle for para clasificar cada pH como ácido, neutro o básico</li>
+                            <li>Crear un bucle while que simule agregar base hasta alcanzar pH 7</li>
+                            <li>Subir el código a la plataforma del curso</li>
+                        </ol>
                     </div>
 
-                    <h3>Preparación para laboratorio</h3>
+                    <h3>Para el próximo laboratorio</h3>
                     <ul>
-                        <li>Traer datos de experimentos propios (opcional)</li>
-                        <li>Revisar conceptos de funciones en programación</li>
-                        <li>Instalar paquetes requeridos para clase práctica</li>
-                        <li>Preparar preguntas sobre casos específicos de su área</li>
+                        <li>Practicar los ejemplos de hoy en R</li>
+                        <li>Repasar cómo crear vectores y data frames</li>
+                        <li>Pensar en cálculos repetitivos de tu área</li>
+                        <li>Traer datos propios si los tienes (opcional)</li>
                     </ul>
-
-                    <div class="performance-highlight">
-                        "La automatización con sentencias iterativas transforma el laboratorio químico de un entorno de cálculos manuales repetitivos a un centro de análisis inteligente y eficiente"
-                    </div>
 
                     <div style="margin-top: 30px; text-align: center; padding: 20px; background: linear-gradient(145deg, #2c3e50, #34495e); border-radius: 15px; color: white;">
                         <h3 style="color: white; margin-bottom: 15px;">¡Gracias por su atención!</h3>
                         <p style="color: white; margin: 0; font-size: 1.1em;">
-                            ¿Preguntas sobre automatización en análisis químico?
+                            ¿Preguntas sobre sentencias iterativas?
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="slide-number">16 / 16</div>
+            <div class="slide-number">14 / 14</div>
         </div>
     </div>
 
