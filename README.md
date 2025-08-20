@@ -50,80 +50,22 @@ Proporcionar a estudiantes de diferentes áreas disciplinarias los conocimientos
 - Creación de gráficos
 - Manejo de archivos
 
-## 📁 Estructura del Repositorio
-
-```
-eiy403-introduccion-analisis-datos/
-│
-├── README.md
-├── index.html                     # Página principal del curso
-│
-├── presentaciones/                # Presentaciones semanales
-│   ├── semana-01/
-│   ├── semana-02/
-│   └── ...
-│
-├── notebooks/                     # Laboratorios y notebooks
-│   ├── laboratorio-01/
-│   ├── laboratorio-02/
-│   └── ...
-│
-├── tareas/                        # Tareas y ejercicios
-│   ├── tarea-01/
-│   ├── tarea-02/
-│   └── ...
-│
-├── datasets/                      # Conjuntos de datos para práctica
-│   ├── ejemplos/
-│   ├── proyectos/
-│   └── recursos/
-│
-└── recursos/                      # Material adicional
-    ├── referencias/
-    ├── guias-instalacion/
-    └── templates/
-```
-
 ## 🔗 Acceso a los Materiales
 
 **🌐 Sitio Web del Curso:** [https://JordyAB00.github.io/eiy403-introduccion-analisis-datos](https://JordyAB00.github.io/eiy403-introduccion-analisis-datos)
-
-### Presentaciones por Semana
-
-| Semana | Tema | Presentación | Notebook | Tarea |
-|--------|------|--------------|----------|-------|
-| 1-2 | Fundamentos del Análisis de Datos | [📊 Ver](presentaciones/semana-01/) | - | [📝 Tarea #1](tareas/tarea-01/) |
-| 3 | Entorno de Trabajo y Sintaxis | [📊 Ver](presentaciones/semana-02/) | [💻 Lab #1](notebooks/laboratorio-01/) | [📝 Tarea #2](tareas/tarea-02/) |
-| 4 | Estructuras de Control | [📊 Ver](presentaciones/semana-03/) | [💻 Lab #2](notebooks/laboratorio-02/) | [📝 Tarea #3](tareas/tarea-03/) |
-| 5 | Funciones y Librerías | [📊 Ver](presentaciones/semana-04/) | [💻 Lab #3](notebooks/laboratorio-03/) | - |
-| 6-7 | Visualización de Datos | [📊 Ver](presentaciones/semana-05/) | [💻 Lab #4](notebooks/laboratorio-04/) | [📝 Tarea #4](tareas/tarea-04/) |
-| 8-9 | Manejo de Archivos | [📊 Ver](presentaciones/semana-06/) | [💻 Lab #5](notebooks/laboratorio-05/) | [📝 Tarea #5](tareas/tarea-05/) |
-| 10-11 | Análisis Estadístico Avanzado | [📊 Ver](presentaciones/semana-07/) | [💻 Lab #6](notebooks/laboratorio-06/) | - |
-| 12-13 | Proyecto Integrador | - | [💻 Lab #7](notebooks/laboratorio-07/) | - |
 
 ## 📊 Evaluación
 
 | Rubro | Porcentaje | Descripción |
 |-------|------------|-------------|
-| **Laboratorios** | 40% | 8 laboratorios en clase (5% cada uno) |
+| **Laboratorios** | 40% | 4 laboratorios en clase (10% cada uno) |
 | **Investigación** | 25% | Proyecto de investigación del área disciplinaria |
 | **Tareas** | 25% | 5 tareas de estudio independiente (5% cada una) |
 | **Presentación** | 10% | Presentación del proyecto final |
 | **Total** | **100%** | Nota mínima de aprobación: 70% |
 
 ## 🛠️ Herramientas y Software
-
-### Opción A: Python
-- **Python 3.8+**
-- **Jupyter Notebook** o **Google Colab**
-- **Librerías principales:**
-  - `pandas` - Manipulación de datos
-  - `numpy` - Computación numérica
-  - `matplotlib` - Visualización básica
-  - `seaborn` - Visualización estadística
-  - `scipy` - Análisis estadístico
-
-### Opción B: R
+### R
 - **R 4.0+**
 - **RStudio**
 - **Librerías principales:**
@@ -167,7 +109,7 @@ Este material está disponible bajo la [Licencia Creative Commons Attribution 4.
 
 ## 🔄 Actualizaciones
 
-- **Última actualización:** 29/07/2025
+- **Última actualización:** 20/08/2025
 - **Versión:** 1.0
 - **Estado:** En desarrollo activo
 
