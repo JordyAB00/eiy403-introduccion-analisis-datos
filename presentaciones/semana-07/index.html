@@ -1917,152 +1917,7 @@ test_suite_estadisticas()</pre>
             <div class="slide-number">14 / 16</div>
         </div>
 
-        <!-- Slide 15: Proyecto integrador -->
-        <div class="slide">
-            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
-            <h2>Proyecto integrador: creando tu toolkit personal</h2>
-            
-            <div class="two-column">
-                <div>
-                    <h3>Desafío: crear funciones para tu disciplina</h3>
-                    
-                    <h4>Ejemplos de funciones útiles por carrera</h4>
-                    
-                    <div class="example-card">
-                        <div class="discipline-tag">Psicología</div>
-                        <div class="example-title">Análisis de escalas</div>
-                        <ul>
-                            <li><code>calcular_alfa_cronbach()</code></li>
-                            <li><code>analizar_escala_likert()</code></li>
-                            <li><code>detectar_respuestas_extremas()</code></li>
-                            <li><code>calcular_percentiles_normativos()</code></li>
-                        </ul>
-                    </div>
-
-                    <div class="example-card">
-                        <div class="discipline-tag">Economía</div>
-                        <div class="example-title">Indicadores económicos</div>
-                        <ul>
-                            <li><code>calcular_inflacion_acumulada()</code></li>
-                            <li><code>analizar_elasticidad()</code></li>
-                            <li><code>valor_presente_neto()</code></li>
-                            <li><code>indice_gini()</code></li>
-                        </ul>
-                    </div>
-
-                    <div class="example-card">
-                        <div class="discipline-tag">Biología</div>
-                        <div class="example-title">Análisis poblacional</div>
-                        <ul>
-                            <li><code>calcular_tasa_crecimiento()</code></li>
-                            <li><code>modelo_logistico()</code></li>
-                            <li><code>diversidad_shannon()</code></li>
-                            <li><code>analizar_supervivencia()</code></li>
-                        </ul>
-                    </div>
-
-                    <h3>Template de función profesional</h3>
-                    <div class="code-snippet">
-<pre>#' Título descriptivo de la función
-#'
-#' Descripción detallada de qué hace la función
-#' y cuándo es útil usarla
-#'
-#' @param parametro1 Descripción del primer parámetro
-#' @param parametro2 Descripción del segundo parámetro
-#' @return Descripción de qué devuelve
-#' @examples
-#' mi_funcion(ejemplo1, ejemplo2)
-#' @author Tu nombre
-#' @export
-mi_funcion <- function(parametro1, parametro2) {
-    # 1. Validación de entrada
-    
-    # 2. Procesamiento principal
-    
-    # 3. Validación de salida
-    
-    # 4. Retorno de resultado
-    return(resultado)
-}</pre>
-                    </div>
-                </div>
-                <div>
-                    <h3>Ejercicio práctico</h3>
-                    
-                    <div class="info-box">
-                        <p><strong>Tarea para el notebook:</strong> Cada estudiante creará 3 funciones útiles para su área de estudio</p>
-                    </div>
-
-                    <h4>Requisitos mínimos</h4>
-                    <ul>
-                        <li><strong>Función 1:</strong> Conversión o transformación de datos</li>
-                        <li><strong>Función 2:</strong> Cálculo estadístico específico</li>
-                        <li><strong>Función 3:</strong> Análisis o clasificación</li>
-                    </ul>
-
-                    <h4>Criterios de evaluación</h4>
-                    <ul>
-                        <li><strong>Funcionalidad:</strong> La función hace lo que promete</li>
-                        <li><strong>Validación:</strong> Maneja errores apropiadamente</li>
-                        <li><strong>Documentación:</strong> Código bien comentado</li>
-                        <li><strong>Testing:</strong> Incluye ejemplos de uso</li>
-                        <li><strong>Relevancia:</strong> Útil para la disciplina</li>
-                    </ul>
-
-                    <h4>Ejemplo: función para agronomía</h4>
-                    <div class="code-snippet">
-<pre>#' Calcular días grado (growing degree days)
-#'
-#' Calcula la acumulación de calor para 
-#' predicción de desarrollo de cultivos
-#'
-#' @param temp_max Temperatura máxima diaria (°C)
-#' @param temp_min Temperatura mínima diaria (°C)
-#' @param temp_base Temperatura base del cultivo (°C)
-#' @return Días grado acumulados
-#' @examples
-#' calcular_dias_grado(25, 15, 10)
-calcular_dias_grado <- function(temp_max, temp_min, temp_base = 10) {
-    # Validar entrada
-    if (any(temp_max < temp_min)) {
-        stop("Temperatura máxima debe ser mayor que mínima")
-    }
-    
-    # Temperatura promedio
-    temp_promedio <- (temp_max + temp_min) / 2
-    
-    # Días grado (no puede ser negativo)
-    dias_grado <- pmax(temp_promedio - temp_base, 0)
-    
-    return(round(dias_grado, 2))
-}
-
-# Test de la función
-test_dias_grado <- function() {
-    # Caso normal
-    resultado1 <- calcular_dias_grado(25, 15, 10)
-    assert_equal(resultado1, 10, mensaje = "Cálculo básico")
-    
-    # Caso con temperatura por debajo de base
-    resultado2 <- calcular_dias_grado(8, 2, 10)
-    assert_equal(resultado2, 0, mensaje = "Temperatura bajo base")
-    
-    cat("✓ Función días grado validada\n")
-}
-
-test_dias_grado()</pre>
-                    </div>
-
-                    <div class="success-box">
-                        <p><strong>Meta:</strong> Al final de esta clase, tendrás un conjunto de funciones personalizadas que podrás usar en tu carrera profesional</p>
-                    </div>
-                </div>
-            </div>
-            <div class="slide-number">15 / 16</div>
-        </div>
-
-        <!-- Slide 16: Resumen y próxima clase -->
+        <!-- Slide 15: Resumen y próxima clase -->
         <div class="slide">
             <div class="universidad-header">Universidad Nacional de Costa Rica</div>
             <h2>Resumen y próxima clase</h2>
@@ -2100,17 +1955,6 @@ test_dias_grado()</pre>
                     </ul>
                 </div>
                 <div>
-                    <h3>Próxima clase: notebook de funciones y librerías</h3>
-                    <p><strong>Trabajo práctico intensivo:</strong></p>
-                    <ul>
-                        <li><strong>Creación guiada:</strong> Desarrollar funciones paso a paso</li>
-                        <li><strong>Testing en vivo:</strong> Validar funciones en tiempo real</li>
-                        <li><strong>Casos reales:</strong> Problemas auténticos de diferentes disciplinas</li>
-                        <li><strong>Toolkit personal:</strong> Cada estudiante crea su colección</li>
-                        <li><strong>Librerías especializadas:</strong> Explorar herramientas avanzadas</li>
-                        <li><strong>Proyecto integrador:</strong> Aplicar todo lo aprendido</li>
-                    </ul>
-
                     <h3>Para prepararse</h3>
                     <ul>
                         <li>Pensar en 3 tareas repetitivas de tu carrera</li>
@@ -2140,7 +1984,7 @@ test_dias_grado()</pre>
                     </div>
                 </div>
             </div>
-            <div class="slide-number">16 / 16</div>
+            <div class="slide-number">15 / 15</div>
         </div>
 
     </div>
