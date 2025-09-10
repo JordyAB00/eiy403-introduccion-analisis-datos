@@ -1,0 +1,2189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - Clase 7: Funciones y Librerías en R</title>
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+        }
+
+        .code-snippet {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+            overflow-x: auto;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #ffe6e6, #ffcccc);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .success-box {
+            background: linear-gradient(145deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .function-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
+            transition: transform 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .function-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.2);
+        }
+
+        .function-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .library-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .library-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .best-practices {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
+        }
+
+        .practices-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .example-card {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            border: 2px solid #17a2b8;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.1);
+        }
+
+        .example-title {
+            color: #17a2b8;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .discipline-tag {
+            background: #17a2b8;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="home-btn">← Volver al inicio</a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>EIY403</h1>
+            <p class="subtitle" style="text-align: center;">Introducción al análisis de datos para otras carreras</p>
+            <div class="info"><strong>Clase 7:</strong> Funciones y librerías en R</div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            <div class="info"><strong>Escuela de Informática y Computación</strong></div>
+            
+            <!-- Imagen del curso -->
+            <div style="margin: 30px 0; display: flex; justify-content: center;">
+                <img src="../../assets/images/presentaciones/ChatGPT%20Image%2029%20jul%202025%2C%2006_57_31%20p.m..png" 
+                     alt="Funciones y librerías en R" 
+                     style="max-width: 500px; width: 100%; height: auto; border-radius: 10px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+            </div>
+            
+            <div class="slide-number">1 / 16</div>
+        </div>
+
+        <!-- Slide 2: Agenda de la Clase -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Agenda de la clase</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Bloque 1: Funciones en R</h3>
+                    <ul>
+                        <li>¿Por qué crear funciones propias?</li>
+                        <li>Anatomía de una función</li>
+                        <li>Creación paso a paso</li>
+                        <li>Parámetros y valores de retorno</li>
+                        <li>Funciones para diferentes disciplinas</li>
+                    </ul>
+                    
+                    <h3>Bloque 2: Variables en funciones</h3>
+                    <ul>
+                        <li>Alcance de variables (scope)</li>
+                        <li>Variables locales vs globales</li>
+                        <li>Buenas prácticas en naming</li>
+                        <li>Debugging de funciones</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Bloque 3: Librerías esenciales</h3>
+                    <ul>
+                        <li>¿Qué son las librerías?</li>
+                        <li>Instalación y carga</li>
+                        <li>Librerías para estadísticas básicas</li>
+                        <li>Funciones estadísticas útiles</li>
+                    </ul>
+                    
+                    <h3>Bloque 4: Aplicaciones interdisciplinarias</h3>
+                    <ul>
+                        <li>Funciones para ciencias naturales</li>
+                        <li>Análisis de datos económicos</li>
+                        <li>Aplicaciones en ciencias sociales</li>
+                        <li>Herramientas para ingeniería</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">2 / 16</div>
+        </div>
+
+        <!-- Slide 3: ¿Por qué crear funciones? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Por qué crear nuestras propias funciones?</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="background: linear-gradient(145deg, #a73c3c, #8b2f2f); color: white; padding: 30px; border-radius: 15px; font-size: 1.3em; font-weight: 600; box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);">
+                    "Las funciones nos permiten automatizar tareas repetitivas y crear herramientas personalizadas para nuestro campo de estudio"
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Ventajas de crear funciones</h3>
+                    <ul>
+                        <li><strong>Reutilización:</strong> Escribir una vez, usar muchas veces</li>
+                        <li><strong>Organización:</strong> Código más limpio y estructurado</li>
+                        <li><strong>Mantenimiento:</strong> Cambios centralizados</li>
+                        <li><strong>Legibilidad:</strong> Nombres descriptivos vs. código repetido</li>
+                        <li><strong>Testing:</strong> Probar componentes individuales</li>
+                        <li><strong>Colaboración:</strong> Compartir herramientas con colegas</li>
+                    </ul>
+
+                    <h3>Casos típicos universitarios</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Ciencias:</strong> Conversiones de unidades repetitivas</li>
+                            <li><strong>Economía:</strong> Cálculos de indicadores específicos</li>
+                            <li><strong>Psicología:</strong> Análisis de escalas y cuestionarios</li>
+                            <li><strong>Ingeniería:</strong> Fórmulas técnicas complejas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplo: sin función vs con función</h3>
+                    
+                    <h4>Sin función (repetitivo)</h4>
+                    <div class="code-snippet">
+<pre># Convertir múltiples temperaturas
+temp1_k <- (temp1_c + 273.15)
+temp2_k <- (temp2_c + 273.15)
+temp3_k <- (temp3_c + 273.15)
+temp4_k <- (temp4_c + 273.15)
+# ... y así sucesivamente</pre>
+                    </div>
+
+                    <h4>Con función (elegante)</h4>
+                    <div class="code-snippet">
+<pre># Crear función una vez
+celsius_a_kelvin <- function(celsius) {
+    kelvin <- celsius + 273.15
+    return(kelvin)
+}
+
+# Usar múltiples veces
+temp1_k <- celsius_a_kelvin(temp1_c)
+temp2_k <- celsius_a_kelvin(temp2_c)
+temp3_k <- celsius_a_kelvin(temp3_c)
+temp4_k <- celsius_a_kelvin(temp4_c)</pre>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Resultado:</strong> Menos código, más claro, menos errores</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">3 / 16</div>
+        </div>
+
+        <!-- Slide 4: Anatomía de una función -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Anatomía de una función en R</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Estructura básica</h3>
+                    <div class="code-snippet">
+<pre>nombre_funcion <- function(parametro1, parametro2) {
+    # Cuerpo de la función
+    resultado <- parametro1 + parametro2
+    
+    # Valor de retorno
+    return(resultado)
+}</pre>
+                    </div>
+
+                    <h3>Componentes esenciales</h3>
+                    <ul>
+                        <li><strong>Nombre:</strong> Identificador único y descriptivo</li>
+                        <li><strong>function():</strong> Palabra clave que define la función</li>
+                        <li><strong>Parámetros:</strong> Variables de entrada (argumentos)</li>
+                        <li><strong>Cuerpo:</strong> Código que realiza el trabajo</li>
+                        <li><strong>return():</strong> Valor que devuelve la función</li>
+                    </ul>
+
+                    <h3>Convenciones de nombres</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Descriptivos:</strong> <code>calcular_promedio</code> mejor que <code>calc</code></li>
+                            <li><strong>Snake case:</strong> <code>convertir_unidades</code></li>
+                            <li><strong>Verbos:</strong> <code>calcular</code>, <code>convertir</code>, <code>analizar</code></li>
+                            <li><strong>Sin espacios:</strong> <code>promedio_ponderado</code></li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplo detallado: función para biología</h3>
+                    <div class="code-snippet">
+<pre># Función para calcular IMC
+calcular_imc <- function(peso_kg, altura_m) {
+    # Validar datos de entrada
+    if (peso_kg <= 0 || altura_m <= 0) {
+        return("Error: valores deben ser positivos")
+    }
+    
+    # Cálculo del IMC
+    imc <- peso_kg / (altura_m^2)
+    
+    # Clasificación
+    if (imc < 18.5) {
+        categoria <- "Bajo peso"
+    } else if (imc < 25) {
+        categoria <- "Normal"
+    } else if (imc < 30) {
+        categoria <- "Sobrepeso"
+    } else {
+        categoria <- "Obesidad"
+    }
+    
+    # Resultado detallado
+    resultado <- list(
+        imc = round(imc, 2),
+        categoria = categoria
+    )
+    
+    return(resultado)
+}
+
+# Uso de la función
+resultado <- calcular_imc(70, 1.75)
+print(resultado)</pre>
+                    </div>
+
+                    <h3>Tipos de retorno</h3>
+                    <ul>
+                        <li><strong>Número único:</strong> <code>return(42)</code></li>
+                        <li><strong>Vector:</strong> <code>return(c(1, 2, 3))</code></li>
+                        <li><strong>Lista:</strong> <code>return(list(media=5, sd=2))</code></li>
+                        <li><strong>Data frame:</strong> <code>return(data.frame(...))</code></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">4 / 16</div>
+        </div>
+
+        <!-- Slide 5: Parámetros y argumentos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Parámetros: la entrada de nuestras funciones</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Tipos de parámetros</h3>
+                    
+                    <h4>Parámetros obligatorios</h4>
+                    <div class="code-snippet">
+<pre># Función con parámetros obligatorios
+calcular_velocidad <- function(distancia, tiempo) {
+    velocidad <- distancia / tiempo
+    return(velocidad)
+}
+
+# Uso: AMBOS parámetros requeridos
+vel <- calcular_velocidad(100, 10)  # OK
+# vel <- calcular_velocidad(100)    # Error!</pre>
+                    </div>
+
+                    <h4>Parámetros con valores por defecto</h4>
+                    <div class="code-snippet">
+<pre># Función con valores por defecto
+calcular_interes <- function(capital, tasa, tiempo = 1) {
+    interes <- capital * tasa * tiempo
+    return(interes)
+}
+
+# Uso flexible
+int1 <- calcular_interes(1000, 0.05)     # tiempo = 1
+int2 <- calcular_interes(1000, 0.05, 2)  # tiempo = 2</pre>
+                    </div>
+
+                    <h4>Múltiples valores de retorno</h4>
+                    <div class="code-snippet">
+<pre># Función que devuelve múltiples estadísticas
+analizar_datos <- function(datos) {
+    resultado <- list(
+        media = mean(datos),
+        mediana = median(datos),
+        desviacion = sd(datos),
+        maximo = max(datos),
+        minimo = min(datos)
+    )
+    return(resultado)
+}
+
+# Uso
+numeros <- c(10, 20, 30, 40, 50)
+stats <- analizar_datos(numeros)
+print(stats$media)     # Acceso individual
+print(stats$mediana)   # Acceso individual</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplos interdisciplinarios</h3>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Economía</div>
+                        <div class="example-title">Cálculo de inflación</div>
+                        <div class="code-snippet">
+<pre>calcular_inflacion <- function(precio_inicial, 
+                                precio_final, 
+                                mostrar_porcentaje = TRUE) {
+    inflacion <- (precio_final - precio_inicial) / precio_inicial
+    
+    if (mostrar_porcentaje) {
+        return(inflacion * 100)
+    } else {
+        return(inflacion)
+    }
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Psicología</div>
+                        <div class="example-title">Análisis de escala Likert</div>
+                        <div class="code-snippet">
+<pre>analizar_likert <- function(respuestas, escala_min = 1, escala_max = 5) {
+    # Validar que las respuestas estén en el rango
+    validas <- respuestas >= escala_min & respuestas <= escala_max
+    
+    if (!all(validas)) {
+        warning("Algunas respuestas están fuera del rango")
+    }
+    
+    resultado <- list(
+        promedio = mean(respuestas, na.rm = TRUE),
+        moda = as.numeric(names(sort(table(respuestas), 
+                                     decreasing = TRUE)[1])),
+        frecuencias = table(respuestas)
+    )
+    
+    return(resultado)
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Importante:</strong> Siempre valida los datos de entrada para evitar errores inesperados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5 / 16</div>
+        </div>
+
+        <!-- Slide 6: Variables y scope -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Variables en funciones: scope y buenas prácticas</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Alcance de variables (scope)</h3>
+                    
+                    <h4>Variables locales</h4>
+                    <div class="code-snippet">
+<pre># Variables locales - solo existen dentro de la función
+mi_funcion <- function(x) {
+    variable_local <- x * 2    # Solo existe aquí
+    return(variable_local)
+}
+
+resultado <- mi_funcion(5)
+print(resultado)              # 10
+# print(variable_local)       # Error! No existe fuera</pre>
+                    </div>
+
+                    <h4>Variables globales</h4>
+                    <div class="code-snippet">
+<pre># Variable global - accesible desde cualquier lugar
+variable_global <- 100
+
+mi_funcion2 <- function(x) {
+    # Puede acceder a la variable global
+    resultado <- x + variable_global
+    return(resultado)
+}
+
+print(mi_funcion2(5))         # 105</pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Cuidado:</strong> Evita modificar variables globales dentro de funciones. Puede causar comportamientos inesperados.</p>
+                    </div>
+
+                    <h4>Buena práctica: pasar todo como parámetros</h4>
+                    <div class="code-snippet">
+<pre># Mejor práctica
+calcular_con_base <- function(x, base) {
+    resultado <- x + base
+    return(resultado)
+}
+
+# Uso explícito
+print(calcular_con_base(5, 100))  # 105</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Convenciones de nombres</h3>
+                    
+                    <h4>Para variables</h4>
+                    <ul>
+                        <li><strong>Descriptivas:</strong> <code>temperatura_inicial</code> no <code>t1</code></li>
+                        <li><strong>Snake case:</strong> <code>precio_producto</code></li>
+                        <li><strong>Sin abreviaciones:</strong> <code>concentracion</code> no <code>conc</code></li>
+                        <li><strong>Consistentes:</strong> Mismo estilo en todo el código</li>
+                    </ul>
+
+                    <h4>Para funciones</h4>
+                    <ul>
+                        <li><strong>Verbos de acción:</strong> <code>calcular_</code>, <code>convertir_</code></li>
+                        <li><strong>Específicas:</strong> <code>calcular_promedio_ponderado</code></li>
+                        <li><strong>Sin redundancia:</strong> <code>analizar_datos</code> no <code>funcion_analizar_datos</code></li>
+                    </ul>
+
+                    <h3>Debugging de funciones</h3>
+                    <div class="code-snippet">
+<pre># Función con debugging
+calcular_nota_final <- function(parciales, proyecto, participacion) {
+    # Debug: mostrar valores de entrada
+    cat("Parciales:", parciales, "\n")
+    cat("Proyecto:", proyecto, "\n")
+    cat("Participación:", participacion, "\n")
+    
+    # Validación
+    if (any(c(parciales, proyecto, participacion) < 0 | 
+            c(parciales, proyecto, participacion) > 100)) {
+        return("Error: notas deben estar entre 0 y 100")
+    }
+    
+    # Cálculo
+    nota_final <- (parciales * 0.6) + (proyecto * 0.3) + (participacion * 0.1)
+    
+    # Debug: mostrar resultado
+    cat("Nota final calculada:", nota_final, "\n")
+    
+    return(round(nota_final, 2))
+}</pre>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Tip:</strong> Usa <code>cat()</code> o <code>print()</code> para seguir el flujo de tu función durante el desarrollo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 16</div>
+        </div>
+
+        <!-- Slide 7: Introducción a librerías -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Librerías en R: ampliando nuestras herramientas</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="background: linear-gradient(145deg, #34495e, #2c3e50); color: white; padding: 30px; border-radius: 15px; font-size: 1.3em; font-weight: 600; box-shadow: 0 10px 30px rgba(52, 73, 94, 0.3);">
+                    "Las librerías son colecciones de funciones especializadas creadas por la comunidad global de R"
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>¿Qué son las librerías?</h3>
+                    <ul>
+                        <li><strong>Paquetes de funciones:</strong> Herramientas especializadas</li>
+                        <li><strong>Código compartido:</strong> Desarrollado por expertos</li>
+                        <li><strong>Documentación incluida:</strong> Manuales y ejemplos</li>
+                        <li><strong>Actualizaciones regulares:</strong> Mejoras continuas</li>
+                        <li><strong>Gratis y open source:</strong> Acceso libre</li>
+                    </ul>
+
+                    <h3>Flujo de trabajo con librerías</h3>
+                    <div class="function-card">
+                        <div class="function-title">1. Instalación (una sola vez)</div>
+                        <div class="code-snippet">
+<pre># Instalar desde CRAN
+install.packages("nombre_libreria")
+
+# Instalar múltiples
+install.packages(c("ggplot2", "dplyr", "readr"))</pre>
+                        </div>
+                    </div>
+
+                    <div class="function-card">
+                        <div class="function-title">2. Carga (cada sesión)</div>
+                        <div class="code-snippet">
+<pre># Cargar librería
+library(nombre_libreria)
+
+# Verificar si está instalada
+if (!require(ggplot2)) {
+    install.packages("ggplot2")
+    library(ggplot2)
+}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Librerías esenciales para principiantes</h3>
+                    
+                    <div class="library-card">
+                        <div class="library-title">Base R</div>
+                        <p><strong>Incluidas por defecto:</strong></p>
+                        <ul>
+                            <li><code>stats</code> - Funciones estadísticas</li>
+                            <li><code>utils</code> - Utilidades generales</li>
+                            <li><code>graphics</code> - Gráficos básicos</li>
+                        </ul>
+                    </div>
+
+                    <div class="library-card">
+                        <div class="library-title">Para estadísticas</div>
+                        <ul>
+                            <li><code>psych</code> - Análisis psicométrico</li>
+                            <li><code>car</code> - Análisis de regresión</li>
+                            <li><code>moments</code> - Momentos estadísticos</li>
+                        </ul>
+                    </div>
+
+                    <div class="library-card">
+                        <div class="library-title">Para visualización</div>
+                        <ul>
+                            <li><code>ggplot2</code> - Gráficos avanzados</li>
+                            <li><code>plotly</code> - Gráficos interactivos</li>
+                            <li><code>corrplot</code> - Matrices de correlación</li>
+                        </ul>
+                    </div>
+
+                    <div class="library-card">
+                        <div class="library-title">Para manipulación de datos</div>
+                        <ul>
+                            <li><code>dplyr</code> - Manipulación de data frames</li>
+                            <li><code>readr</code> - Lectura de archivos</li>
+                            <li><code>tidyr</code> - Organización de datos</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>CRAN:</strong> Comprehensive R Archive Network - repositorio oficial con más de 18,000 librerías</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">7 / 16</div>
+        </div>
+
+        <!-- Slide 8: Funciones estadísticas básicas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Funciones estadísticas esenciales</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Funciones base de R</h3>
+                    
+                    <h4>Medidas de tendencia central</h4>
+                    <div class="code-snippet">
+<pre># Datos de ejemplo
+datos <- c(10, 15, 20, 25, 30, 35, 40)
+
+# Medidas básicas
+media <- mean(datos)           # Media aritmética
+mediana <- median(datos)       # Mediana
+moda <- names(table(datos))[table(datos) == max(table(datos))]
+
+print(paste("Media:", media))
+print(paste("Mediana:", mediana))</pre>
+                    </div>
+
+                    <h4>Valores extremos y posición</h4>
+                    <div class="code-snippet">
+<pre># Extremos
+minimo <- min(datos)
+maximo <- max(datos)
+rango <- max(datos) - min(datos)
+
+# Cuartiles y percentiles
+cuartiles <- quantile(datos, c(0.25, 0.5, 0.75))
+percentil_90 <- quantile(datos, 0.90)
+
+# Resumen completo
+resumen <- summary(datos)
+print(resumen)</pre>
+                    </div>
+
+                    <h4>Medidas de dispersión</h4>
+                    <div class="code-snippet">
+<pre># Variabilidad
+varianza <- var(datos)         # Varianza muestral
+desv_estandar <- sd(datos)     # Desviación estándar
+coef_variacion <- sd(datos) / mean(datos) * 100
+
+# Rango intercuartílico
+iqr <- IQR(datos)
+
+print(paste("CV:", round(coef_variacion, 2), "%"))</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Funciones útiles por disciplina</h3>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Biología</div>
+                        <div class="example-title">Análisis de poblaciones</div>
+                        <div class="code-snippet">
+<pre># Datos de población de especies
+poblacion <- c(120, 135, 142, 158, 163, 170, 185, 192)
+
+# Tasa de crecimiento
+tasa_crecimiento <- diff(poblacion) / poblacion[-length(poblacion)] * 100
+
+# Tendencia
+tendencia <- lm(poblacion ~ seq_along(poblacion))
+print(summary(tendencia)$coefficients[2,1])  # Pendiente</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Economía</div>
+                        <div class="example-title">Análisis de precios</div>
+                        <div class="code-snippet">
+<pre># Precios de productos
+precios <- c(1200, 1250, 1180, 1300, 1275, 1320, 1290)
+
+# Volatilidad (coeficiente de variación)
+volatilidad <- sd(precios) / mean(precios) * 100
+
+# Detección de outliers
+Q1 <- quantile(precios, 0.25)
+Q3 <- quantile(precios, 0.75)
+outliers <- precios[precios < Q1 - 1.5*IQR(precios) | 
+                   precios > Q3 + 1.5*IQR(precios)]
+
+print(paste("Volatilidad:", round(volatilidad, 2), "%"))
+print(paste("Outliers encontrados:", length(outliers)))</pre>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Educación</div>
+                        <div class="example-title">Análisis de calificaciones</div>
+                        <div class="code-snippet">
+<pre># Notas de estudiantes
+notas <- c(85, 92, 78, 88, 91, 84, 89, 95, 82, 90)
+
+# Distribución de notas
+aprobados <- sum(notas >= 70)
+porcentaje_aprobacion <- aprobados / length(notas) * 100
+
+# Clasificación
+excelente <- sum(notas >= 90)
+bueno <- sum(notas >= 80 & notas < 90)
+regular <- sum(notas >= 70 & notas < 80)
+
+print(paste("Aprobación:", porcentaje_aprobacion, "%"))
+print(paste("Excelente:", excelente, "estudiantes"))</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">8 / 16</div>
+        </div>
+
+        <!-- Slide 9: Librerías especializadas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Librerías especializadas por área</h2>
+            
+            <div class="library-grid">
+                <div class="library-card">
+                    <div class="library-title">Psych - Análisis psicológico</div>
+                    <div class="code-snippet">
+<pre># Instalar y cargar
+# install.packages("psych")
+library(psych)
+
+# Análisis descriptivo completo
+datos_psico <- c(4, 5, 3, 4, 5, 2, 4, 3, 5, 4)
+describe(datos_psico)
+
+# Alfa de Cronbach (confiabilidad)
+# Para escalas múltiples
+escala <- data.frame(
+    item1 = c(4, 5, 3, 4, 5),
+    item2 = c(3, 4, 4, 3, 5),
+    item3 = c(4, 4, 3, 4, 4)
+)
+alpha(escala)</pre>
+                    </div>
+                </div>
+
+                <div class="library-card">
+                    <div class="library-title">Moments - Momentos estadísticos</div>
+                    <div class="code-snippet">
+<pre># install.packages("moments")
+library(moments)
+
+datos <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+# Asimetría (skewness)
+asimetria <- skewness(datos)
+print(paste("Asimetría:", round(asimetria, 3)))
+
+# Curtosis (kurtosis)
+curtosis <- kurtosis(datos)
+print(paste("Curtosis:", round(curtosis, 3)))
+
+# Interpretación automática
+if (abs(asimetria) < 0.5) {
+    print("Distribución simétrica")
+} else {
+    print("Distribución asimétrica")
+}</pre>
+                    </div>
+                </div>
+
+                <div class="library-card">
+                    <div class="library-title">Agricolae - Diseño experimental</div>
+                    <div class="code-snippet">
+<pre># Para estudiantes de agronomía/biología
+# install.packages("agricolae")
+library(agricolae)
+
+# Diseño completamente aleatorizado
+tratamientos <- c("Control", "Fertilizante_A", "Fertilizante_B")
+repeticiones <- 4
+
+diseño <- design.crd(tratamientos, repeticiones)
+print(diseño$book)
+
+# Análisis de varianza para experimentos
+# rendimiento <- c(10, 12, 15, 11, 14, 16, 13, 15, 18, 16, 17, 19)
+# tratamiento <- rep(tratamientos, each = 4)
+# modelo <- aov(rendimiento ~ tratamiento)
+# LSD.test(modelo, "tratamiento")</pre>
+                    </div>
+                </div>
+
+                <div class="library-card">
+                    <div class="library-title">Quantmod - Análisis financiero</div>
+                    <div class="code-snippet">
+<pre># Para estudiantes de economía/finanzas
+# install.packages("quantmod")
+library(quantmod)
+
+# Simulación de precios (datos reales requieren internet)
+precios <- c(100, 102, 98, 105, 107, 103, 110, 108, 112, 115)
+fechas <- seq(as.Date("2025-01-01"), by="day", length.out=10)
+
+# Retornos diarios
+retornos <- diff(log(precios)) * 100
+
+# Media y volatilidad de retornos
+media_retorno <- mean(retornos)
+volatilidad <- sd(retornos)
+
+print(paste("Retorno promedio:", round(media_retorno, 2), "%"))
+print(paste("Volatilidad:", round(volatilidad, 2), "%"))</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <div class="practices-title">Consejos para elegir librerías</div>
+                <ul>
+                    <li><strong>Popularidad:</strong> Revisa el número de descargas en CRAN</li>
+                    <li><strong>Documentación:</strong> Busca librerías con buenos manuales</li>
+                    <li><strong>Mantenimiento:</strong> Verifica que tengan actualizaciones recientes</li>
+                    <li><strong>Comunidad:</strong> Prefiere librerías con soporte activo</li>
+                    <li><strong>Compatibilidad:</strong> Asegúrate de que funcionen con tu versión de R</li>
+                </ul>
+            </div>
+            <div class="slide-number">9 / 16</div>
+        </div>
+
+        <!-- Slide 10: Casos prácticos interdisciplinarios -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Casos prácticos: funciones para diferentes disciplinas</h2>
+            
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="discipline-tag">Física</div>
+                    <div class="example-title">Conversiones de unidades</div>
+                    <div class="code-snippet">
+<pre># Función para conversiones múltiples
+convertir_energia <- function(valor, de, a) {
+    # Factor de conversión a Joules
+    a_joules <- list(
+        "cal" = 4.184,      # calorías
+        "kcal" = 4184,      # kilocalorías
+        "eV" = 1.602e-19,   # electronvolts
+        "J" = 1             # joules
+    )
+    
+    # Convertir a joules primero, luego a unidad final
+    joules <- valor * a_joules[[de]]
+    resultado <- joules / a_joules[[a]]
+    
+    return(round(resultado, 6))
+}
+
+# Ejemplos de uso
+cal_a_joules <- convertir_energia(100, "cal", "J")
+print(paste("100 cal =", cal_a_joules, "J"))
+
+ev_a_cal <- convertir_energia(1, "eV", "cal")
+print(paste("1 eV =", ev_a_cal, "cal"))</pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <div class="discipline-tag">Administración</div>
+                    <div class="example-title">Análisis financiero básico</div>
+                    <div class="code-snippet">
+<pre># Función para análisis de rentabilidad
+analisis_inversion <- function(inversion_inicial, flujos_anuales, tasa_descuento) {
+    # Valor presente neto (VPN)
+    periodos <- 1:length(flujos_anuales)
+    flujos_descontados <- flujos_anuales / (1 + tasa_descuento)^periodos
+    vpn <- sum(flujos_descontados) - inversion_inicial
+    
+    # Tasa interna de retorno (aproximación)
+    # Función simple para encontrar TIR
+    tir_aprox <- function(tasa) {
+        flujos_desc <- flujos_anuales / (1 + tasa)^periodos
+        abs(sum(flujos_desc) - inversion_inicial)
+    }
+    
+    # Buscar TIR entre 0% y 50%
+    tasas <- seq(0, 0.5, 0.001)
+    tir <- tasas[which.min(sapply(tasas, tir_aprox))]
+    
+    # Periodo de recuperación
+    flujos_acum <- cumsum(flujos_anuales)
+    periodo_recup <- which(flujos_acum >= inversion_inicial)[1]
+    
+    resultado <- list(
+        vpn = round(vpn, 2),
+        tir = round(tir * 100, 2),
+        periodo_recuperacion = periodo_recup,
+        recomendacion = ifelse(vpn > 0, "ACEPTAR", "RECHAZAR")
+    )
+    
+    return(resultado)
+}
+
+# Ejemplo: inversión de $10,000 con flujos de $3,000 anuales por 5 años
+resultado <- analisis_inversion(10000, rep(3000, 5), 0.10)
+print(resultado)</pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <div class="discipline-tag">Geografía</div>
+                    <div class="example-title">Análisis de coordenadas</div>
+                    <div class="code-snippet">
+<pre># Función para calcular distancia entre coordenadas
+distancia_geografica <- function(lat1, lon1, lat2, lon2, unidad = "km") {
+    # Fórmula de Haversine
+    rad <- pi / 180
+    
+    dlat <- (lat2 - lat1) * rad
+    dlon <- (lon2 - lon1) * rad
+    
+    a <- sin(dlat/2)^2 + cos(lat1 * rad) * cos(lat2 * rad) * sin(dlon/2)^2
+    c <- 2 * atan2(sqrt(a), sqrt(1-a))
+    
+    radio_tierra <- ifelse(unidad == "km", 6371, 3959)  # km o millas
+    distancia <- radio_tierra * c
+    
+    return(round(distancia, 2))
+}
+
+# Ejemplo: San José a Cartago (aproximado)
+san_jose <- c(9.9281, -84.0907)
+cartago <- c(9.8644, -83.9186)
+
+dist <- distancia_geografica(san_jose[1], san_jose[2], 
+                             cartago[1], cartago[2])
+print(paste("Distancia San José - Cartago:", dist, "km"))</pre>
+                    </div>
+                </div>
+
+                <div class="example-card">
+                    <div class="discipline-tag">Sociología</div>
+                    <div class="example-title">Análisis de encuestas</div>
+                    <div class="code-snippet">
+<pre># Función para analizar escalas de satisfacción
+analizar_satisfaccion <- function(respuestas, etiquetas = NULL) {
+    if (is.null(etiquetas)) {
+        etiquetas <- c("Muy insatisfecho", "Insatisfecho", "Neutral", 
+                      "Satisfecho", "Muy satisfecho")
+    }
+    
+    # Estadísticas básicas
+    media <- mean(respuestas, na.rm = TRUE)
+    mediana <- median(respuestas, na.rm = TRUE)
+    
+    # Distribución de frecuencias
+    frecuencias <- table(respuestas)
+    porcentajes <- prop.table(frecuencias) * 100
+    
+    # Indicadores clave
+    satisfechos <- sum(respuestas >= 4, na.rm = TRUE)
+    total_validos <- sum(!is.na(respuestas))
+    porcentaje_satisfaccion <- (satisfechos / total_validos) * 100
+    
+    # Nivel de consenso (baja dispersión = alto consenso)
+    consenso <- ifelse(sd(respuestas, na.rm = TRUE) < 1, "Alto", "Bajo")
+    
+    resultado <- list(
+        media = round(media, 2),
+        mediana = mediana,
+        frecuencias = as.vector(frecuencias),
+        porcentajes = round(as.vector(porcentajes), 1),
+        satisfaccion_general = round(porcentaje_satisfaccion, 1),
+        nivel_consenso = consenso,
+        interpretacion = etiquetas[round(media)]
+    )
+    
+    return(resultado)
+}
+
+# Ejemplo: encuesta de satisfacción con un servicio
+respuestas <- c(4, 5, 3, 4, 5, 2, 4, 3, 5, 4, 4, 5, 3, 4, 4)
+resultado <- analizar_satisfaccion(respuestas)
+print(paste("Satisfacción promedio:", resultado$interpretacion))
+print(paste("% Satisfechos:", resultado$satisfaccion_general, "%"))</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">10 / 16</div>
+        </div>
+
+        <!-- Slide 11: Funciones avanzadas con validación -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Funciones robustas: validación y manejo de errores</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Validación de entrada</h3>
+                    <div class="code-snippet">
+<pre># Función robusta para cálculo de IMC
+calcular_imc_robusto <- function(peso, altura, unidad_peso = "kg", unidad_altura = "m") {
+    # Validar tipos de datos
+    if (!is.numeric(peso) || !is.numeric(altura)) {
+        stop("Peso y altura deben ser números")
+    }
+    
+    # Validar valores positivos
+    if (peso <= 0 || altura <= 0) {
+        stop("Peso y altura deben ser valores positivos")
+    }
+    
+    # Conversiones de unidades
+    if (unidad_peso == "lb") {
+        peso <- peso * 0.453592  # libras a kg
+    }
+    
+    if (unidad_altura == "cm") {
+        altura <- altura / 100  # cm a metros
+    } else if (unidad_altura == "ft") {
+        altura <- altura * 0.3048  # pies a metros
+    }
+    
+    # Validar rangos razonables
+    if (peso < 1 || peso > 500) {
+        warning("Peso fuera del rango típico (1-500 kg)")
+    }
+    
+    if (altura < 0.3 || altura > 3.0) {
+        warning("Altura fuera del rango típico (0.3-3.0 m)")
+    }
+    
+    # Cálculo
+    imc <- peso / (altura^2)
+    
+    # Clasificación según OMS
+    clasificacion <- case_when(
+        imc < 18.5 ~ "Bajo peso",
+        imc < 25 ~ "Normal",
+        imc < 30 ~ "Sobrepeso",
+        imc < 35 ~ "Obesidad clase I",
+        imc < 40 ~ "Obesidad clase II",
+        TRUE ~ "Obesidad clase III"
+    )
+    
+    # Usar función base si case_when no está disponible
+    if (!exists("case_when")) {
+        if (imc < 18.5) {
+            clasificacion <- "Bajo peso"
+        } else if (imc < 25) {
+            clasificacion <- "Normal"
+        } else if (imc < 30) {
+            clasificacion <- "Sobrepeso"
+        } else if (imc < 35) {
+            clasificacion <- "Obesidad clase I"
+        } else if (imc < 40) {
+            clasificacion <- "Obesidad clase II"
+        } else {
+            clasificacion <- "Obesidad clase III"
+        }
+    }
+    
+    resultado <- list(
+        imc = round(imc, 2),
+        clasificacion = clasificacion,
+        peso_usado_kg = round(peso, 2),
+        altura_usada_m = round(altura, 2)
+    )
+    
+    return(resultado)
+}</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Manejo de errores con try/catch</h3>
+                    <div class="code-snippet">
+<pre># Función segura para lectura de archivos
+leer_datos_seguro <- function(archivo) {
+    resultado <- tryCatch({
+        # Intentar leer el archivo
+        datos <- read.csv(archivo, stringsAsFactors = FALSE)
+        
+        # Validar que no esté vacío
+        if (nrow(datos) == 0) {
+            warning("El archivo está vacío")
+            return(NULL)
+        }
+        
+        # Retornar datos con información adicional
+        list(
+            datos = datos,
+            filas = nrow(datos),
+            columnas = ncol(datos),
+            exito = TRUE,
+            mensaje = "Archivo leído exitosamente"
+        )
+        
+    }, error = function(e) {
+        # En caso de error
+        list(
+            datos = NULL,
+            filas = 0,
+            columnas = 0,
+            exito = FALSE,
+            mensaje = paste("Error al leer archivo:", e$message)
+        )
+    })
+    
+    return(resultado)
+}
+
+# Uso de la función
+# resultado <- leer_datos_seguro("datos.csv")
+# if (resultado$exito) {
+#     print("Datos cargados correctamente")
+#     print(head(resultado$datos))
+# } else {
+#     print(resultado$mensaje)
+# }</pre>
+                    </div>
+
+                    <h3>Funciones con múltiples métodos</h3>
+                    <div class="code-snippet">
+<pre># Función para calcular promedio con diferentes métodos
+calcular_promedio_avanzado <- function(datos, metodo = "aritmetico", 
+                                       na.rm = TRUE, trim = 0) {
+    # Validar datos
+    if (!is.numeric(datos)) {
+        stop("Los datos deben ser numéricos")
+    }
+    
+    # Remover NA si se solicita
+    if (na.rm) {
+        datos <- datos[!is.na(datos)]
+    }
+    
+    # Verificar que quedan datos
+    if (length(datos) == 0) {
+        return(NA)
+    }
+    
+    # Calcular según el método
+    resultado <- switch(metodo,
+        "aritmetico" = mean(datos, trim = trim),
+        "geometrico" = exp(mean(log(datos[datos > 0]))),
+        "armonico" = 1/mean(1/datos[datos != 0]),
+        "mediana" = median(datos),
+        "trimmed" = mean(datos, trim = 0.1),
+        {
+            warning("Método no reconocido, usando aritmético")
+            mean(datos)
+        }
+    )
+    
+    return(round(resultado, 4))
+}
+
+# Ejemplos de uso
+datos_ejemplo <- c(10, 20, 30, 15, 25)
+
+# Diferentes métodos
+media_arit <- calcular_promedio_avanzado(datos_ejemplo, "aritmetico")
+media_geom <- calcular_promedio_avanzado(datos_ejemplo, "geometrico")
+mediana <- calcular_promedio_avanzado(datos_ejemplo, "mediana")
+
+print(paste("Media aritmética:", media_arit))
+print(paste("Media geométrica:", media_geom))
+print(paste("Mediana:", mediana))</pre>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Importante:</strong> Siempre incluye validación de datos y manejo de errores en funciones que serán usadas por otros</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">11 / 16</div>
+        </div>
+
+        <!-- Slide 12: Creación de librerías propias -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Organizando funciones: hacia tus propias librerías</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Creación de archivos de funciones</h3>
+                    <div class="code-snippet">
+<pre># Archivo: funciones_quimica.R
+
+# Función para conversión de concentraciones
+molar_a_ppm <- function(molaridad, peso_molecular) {
+    ppm <- molaridad * peso_molecular * 1000
+    return(ppm)
+}
+
+# Función para pH a concentración H+
+ph_a_concentracion <- function(ph) {
+    concentracion_h <- 10^(-ph)
+    return(concentracion_h)
+}
+
+# Función para calcular diluciones
+calcular_dilucion <- function(c1, v1, c2) {
+    # C1*V1 = C2*V2
+    v2 <- (c1 * v1) / c2
+    return(v2)
+}
+
+# Función para validar rangos químicos
+validar_ph <- function(ph) {
+    if (ph < 0 || ph > 14) {
+        warning("pH fuera del rango normal (0-14)")
+        return(FALSE)
+    }
+    return(TRUE)
+}</pre>
+                    </div>
+
+                    <h3>Cargar funciones personalizadas</h3>
+                    <div class="code-snippet">
+<pre># Cargar todas las funciones del archivo
+source("funciones_quimica.R")
+
+# Ahora puedes usar las funciones
+concentracion_nacl <- molar_a_ppm(0.1, 58.44)
+print(paste("NaCl 0.1M =", concentracion_nacl, "ppm"))
+
+volumen_final <- calcular_dilucion(1, 10, 0.1)
+print(paste("Volumen final:", volumen_final, "mL"))</pre>
+                    </div>
+
+                    <h3>Documentación de funciones</h3>
+                    <div class="code-snippet">
+<pre>#' Convertir molaridad a partes por millón
+#'
+#' Esta función convierte una concentración en molaridad
+#' a partes por millón (ppm)
+#'
+#' @param molaridad Concentración en mol/L
+#' @param peso_molecular Peso molecular del compuesto en g/mol
+#' @return Concentración en ppm
+#' @examples
+#' molar_a_ppm(0.1, 58.44)  # NaCl 0.1M
+#' @export
+molar_a_ppm <- function(molaridad, peso_molecular) {
+    # Validar entrada
+    if (!is.numeric(molaridad) || !is.numeric(peso_molecular)) {
+        stop("Molaridad y peso molecular deben ser números")
+    }
+    
+    if (molaridad < 0 || peso_molecular <= 0) {
+        stop("Valores deben ser positivos")
+    }
+    
+    ppm <- molaridad * peso_molecular * 1000
+    return(round(ppm, 2))
+}</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Organización por módulos temáticos</h3>
+                    
+                    <h4>Archivo: estadisticas_educacion.R</h4>
+                    <div class="code-snippet">
+<pre># Funciones para análisis educativo
+
+calcular_promedio_ponderado <- function(notas, pesos) {
+    if (length(notas) != length(pesos)) {
+        stop("Notas y pesos deben tener la misma longitud")
+    }
+    
+    if (sum(pesos) != 1) {
+        warning("Los pesos no suman 1, normalizando...")
+        pesos <- pesos / sum(pesos)
+    }
+    
+    promedio <- sum(notas * pesos)
+    return(round(promedio, 2))
+}
+
+analizar_desercion <- function(matriculados, graduados) {
+    tasa_graduacion <- (graduados / matriculados) * 100
+    tasa_desercion <- 100 - tasa_graduacion
+    
+    return(list(
+        graduacion = round(tasa_graduacion, 2),
+        desercion = round(tasa_desercion, 2)
+    ))
+}
+
+clasificar_rendimiento <- function(promedio) {
+    if (promedio >= 90) return("Excelente")
+    if (promedio >= 80) return("Muy bueno")
+    if (promedio >= 70) return("Bueno")
+    if (promedio >= 60) return("Regular")
+    return("Deficiente")
+}</pre>
+                    </div>
+
+                    <h4>Archivo: analisis_economico.R</h4>
+                    <div class="code-snippet">
+<pre># Funciones para análisis económico
+
+calcular_inflacion_anual <- function(precios_inicial, precios_final) {
+    inflacion <- ((precios_final - precios_inicial) / precios_inicial) * 100
+    return(round(inflacion, 2))
+}
+
+valor_presente <- function(valor_futuro, tasa, periodos) {
+    vp <- valor_futuro / (1 + tasa)^periodos
+    return(round(vp, 2))
+}
+
+indice_precios <- function(precios_actuales, precios_base, base = 100) {
+    indice <- (precios_actuales / precios_base) * base
+    return(round(indice, 2))
+}</pre>
+                    </div>
+
+                    <h3>Mejores prácticas</h3>
+                    <div class="best-practices">
+                        <ul>
+                            <li><strong>Un archivo por tema:</strong> Funciones relacionadas juntas</li>
+                            <li><strong>Nombres descriptivos:</strong> Para archivos y funciones</li>
+                            <li><strong>Documentación completa:</strong> Qué hace, parámetros, ejemplos</li>
+                            <li><strong>Validación consistente:</strong> Verificar datos de entrada</li>
+                            <li><strong>Testing:</strong> Probar con datos conocidos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">12 / 16</div>
+        </div>
+
+        <!-- Slide 13: Funciones vectorizadas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Funciones vectorizadas: procesamiento eficiente</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>¿Qué son las funciones vectorizadas?</h3>
+                    <p>Funciones que pueden operar sobre vectores completos de una vez, en lugar de elemento por elemento.</p>
+
+                    <h4>Comparación: bucle vs vectorización</h4>
+                    <div class="code-snippet">
+<pre># Método con bucle (lento)
+temperaturas_c <- c(20, 25, 30, 35, 40)
+temperaturas_k <- numeric(length(temperaturas_c))
+
+for (i in 1:length(temperaturas_c)) {
+    temperaturas_k[i] <- temperaturas_c[i] + 273.15
+}
+
+# Método vectorizado (rápido)
+temperaturas_k <- temperaturas_c + 273.15
+
+print(temperaturas_k)</pre>
+                    </div>
+
+                    <h3>Crear funciones vectorizadas</h3>
+                    <div class="code-snippet">
+<pre># Función que ya es vectorizada
+convertir_temperatura <- function(temp_c) {
+    # Automáticamente funciona con vectores
+    temp_k <- temp_c + 273.15
+    return(temp_k)
+}
+
+# Función que requiere vectorización
+clasificar_temperatura_simple <- function(temp) {
+    if (temp < 0) return("Congelación")
+    if (temp < 25) return("Frío")
+    if (temp < 35) return("Moderado")
+    return("Caliente")
+}
+
+# Vectorizar función no vectorizada
+clasificar_temperatura <- Vectorize(clasificar_temperatura_simple)
+
+# Uso vectorizado
+temps <- c(-5, 10, 20, 30, 40)
+clasificaciones <- clasificar_temperatura(temps)
+print(clasificaciones)</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Funciones vectorizadas útiles</h3>
+
+                    <h4>Para aplicar a columnas</h4>
+                    <div class="code-snippet">
+<pre># Datos de ejemplo
+estudiantes <- data.frame(
+    nombre = c("Ana", "Luis", "María", "Pedro"),
+    parcial1 = c(85, 90, 78, 92),
+    parcial2 = c(88, 87, 82, 89),
+    proyecto = c(90, 95, 85, 88)
+)
+
+# Aplicar función a columnas numéricas
+promedios <- apply(estudiantes[, 2:4], 1, mean)
+estudiantes$promedio <- round(promedios, 1)
+
+# Función para clasificar múltiples estudiantes
+clasificar_multiples <- function(promedios) {
+    ifelse(promedios >= 90, "Excelente",
+           ifelse(promedios >= 80, "Muy bueno",
+                  ifelse(promedios >= 70, "Bueno", "Regular")))
+}
+
+estudiantes$categoria <- clasificar_multiples(estudiantes$promedio)
+print(estudiantes)</pre>
+                    </div>
+
+                    <h4>Para análisis por grupos</h4>
+                    <div class="code-snippet">
+<pre># Análisis de datos por grupos
+datos_ventas <- data.frame(
+    region = rep(c("Norte", "Sur", "Este", "Oeste"), each = 3),
+    mes = rep(c("Ene", "Feb", "Mar"), 4),
+    ventas = c(100, 120, 110, 90, 95, 105, 
+               85, 100, 95, 110, 125, 115)
+)
+
+# Calcular promedio por región (vectorizado)
+promedio_por_region <- tapply(datos_ventas$ventas, 
+                              datos_ventas$region, 
+                              mean)
+
+# Función personalizada para análisis completo
+analisis_por_grupo <- function(valores, grupos) {
+    resultado <- list(
+        promedio = tapply(valores, grupos, mean),
+        maximo = tapply(valores, grupos, max),
+        minimo = tapply(valores, grupos, min),
+        cv = tapply(valores, grupos, function(x) sd(x)/mean(x)*100)
+    )
+    return(resultado)
+}
+
+analisis <- analisis_por_grupo(datos_ventas$ventas, datos_ventas$region)
+print(analisis$promedio)</pre>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Ventaja:</strong> Las funciones vectorizadas son mucho más rápidas y eficientes que los bucles, especialmente con grandes conjuntos de datos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">13 / 16</div>
+        </div>
+
+        <!-- Slide 14: Debugging y testing -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Debugging y testing de funciones</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Técnicas de debugging</h3>
+                    
+                    <h4>Mensajes informativos</h4>
+                    <div class="code-snippet">
+<pre># Función con debugging incorporado
+calcular_estadisticas_debug <- function(datos, mostrar_proceso = FALSE) {
+    if (mostrar_proceso) {
+        cat("Iniciando análisis de", length(datos), "observaciones\n")
+    }
+    
+    # Verificar datos faltantes
+    datos_limpios <- datos[!is.na(datos)]
+    faltantes <- length(datos) - length(datos_limpios)
+    
+    if (mostrar_proceso && faltantes > 0) {
+        cat("Removidos", faltantes, "valores faltantes\n")
+    }
+    
+    # Calcular estadísticas
+    if (mostrar_proceso) {
+        cat("Calculando estadísticas...\n")
+    }
+    
+    media <- mean(datos_limpios)
+    mediana <- median(datos_limpios)
+    desv <- sd(datos_limpios)
+    
+    if (mostrar_proceso) {
+        cat("Proceso completado exitosamente\n")
+    }
+    
+    return(list(media = media, mediana = mediana, sd = desv))
+}
+
+# Uso con debugging
+resultado <- calcular_estadisticas_debug(c(1, 2, NA, 4, 5), 
+                                         mostrar_proceso = TRUE)</pre>
+                    </div>
+
+                    <h4>Función browser() para debugging interactivo</h4>
+                    <div class="code-snippet">
+<pre># Función con punto de parada para debugging
+funcion_compleja <- function(x, y, z) {
+    resultado1 <- x + y
+    
+    # Punto de parada para inspección
+    # browser()  # Descomenta para debugging interactivo
+    
+    resultado2 <- resultado1 * z
+    
+    if (resultado2 > 100) {
+        browser()  # Parada condicional
+    }
+    
+    return(resultado2)
+}
+
+# Durante debugging podrás:
+# - Ver valores de variables
+# - Ejecutar código paso a paso
+# - Modificar variables temporalmente</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Testing de funciones</h3>
+                    
+                    <h4>Tests básicos</h4>
+                    <div class="code-snippet">
+<pre># Función para testing
+test_conversion_temperatura <- function() {
+    # Test 1: Casos conocidos
+    resultado1 <- celsius_a_kelvin(0)
+    if (abs(resultado1 - 273.15) > 0.001) {
+        stop("Error: 0°C debe ser 273.15K")
+    }
+    
+    # Test 2: Vectorización
+    resultado2 <- celsius_a_kelvin(c(0, 100))
+    esperado <- c(273.15, 373.15)
+    if (!all(abs(resultado2 - esperado) < 0.001)) {
+        stop("Error en vectorización")
+    }
+    
+    # Test 3: Casos extremos
+    resultado3 <- celsius_a_kelvin(-273.15)
+    if (abs(resultado3 - 0) > 0.001) {
+        stop("Error: -273.15°C debe ser 0K")
+    }
+    
+    cat("Todos los tests pasaron exitosamente\n")
+    return(TRUE)
+}
+
+# Ejecutar tests
+test_conversion_temperatura()</pre>
+                    </div>
+
+                    <h4>Tests con validación automática</h4>
+                    <div class="code-snippet">
+<pre># Función helper para tests
+assert_equal <- function(actual, esperado, tolerancia = 0.001, mensaje = "") {
+    if (!all(abs(actual - esperado) < tolerancia)) {
+        stop(paste("Test falló:", mensaje, 
+                  "\nEsperado:", esperado, 
+                  "\nObtenido:", actual))
+    }
+    cat("✓ Test pasó:", mensaje, "\n")
+}
+
+# Suite de tests para función estadística
+test_suite_estadisticas <- function() {
+    cat("Ejecutando suite de tests...\n\n")
+    
+    # Datos de prueba
+    datos_test <- c(10, 20, 30, 40, 50)
+    
+    # Test media
+    resultado_media <- mean(datos_test)
+    assert_equal(resultado_media, 30, mensaje = "Cálculo de media")
+    
+    # Test desviación estándar
+    resultado_sd <- sd(datos_test)
+    assert_equal(resultado_sd, 15.81139, mensaje = "Cálculo de SD")
+    
+    # Test con datos faltantes
+    datos_na <- c(10, 20, NA, 40, 50)
+    resultado_na <- mean(datos_na, na.rm = TRUE)
+    assert_equal(resultado_na, 30, mensaje = "Media con NA")
+    
+    cat("\n🎉 Todos los tests completados exitosamente!\n")
+}
+
+# Ejecutar suite completa
+test_suite_estadisticas()</pre>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Buena práctica:</strong> Crea tests para cada función que escribas. Te ahorrará tiempo detectando errores temprano</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">14 / 16</div>
+        </div>
+
+        <!-- Slide 15: Proyecto integrador -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Proyecto integrador: creando tu toolkit personal</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Desafío: crear funciones para tu disciplina</h3>
+                    
+                    <h4>Ejemplos de funciones útiles por carrera</h4>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Psicología</div>
+                        <div class="example-title">Análisis de escalas</div>
+                        <ul>
+                            <li><code>calcular_alfa_cronbach()</code></li>
+                            <li><code>analizar_escala_likert()</code></li>
+                            <li><code>detectar_respuestas_extremas()</code></li>
+                            <li><code>calcular_percentiles_normativos()</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Economía</div>
+                        <div class="example-title">Indicadores económicos</div>
+                        <ul>
+                            <li><code>calcular_inflacion_acumulada()</code></li>
+                            <li><code>analizar_elasticidad()</code></li>
+                            <li><code>valor_presente_neto()</code></li>
+                            <li><code>indice_gini()</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Biología</div>
+                        <div class="example-title">Análisis poblacional</div>
+                        <ul>
+                            <li><code>calcular_tasa_crecimiento()</code></li>
+                            <li><code>modelo_logistico()</code></li>
+                            <li><code>diversidad_shannon()</code></li>
+                            <li><code>analizar_supervivencia()</code></li>
+                        </ul>
+                    </div>
+
+                    <h3>Template de función profesional</h3>
+                    <div class="code-snippet">
+<pre>#' Título descriptivo de la función
+#'
+#' Descripción detallada de qué hace la función
+#' y cuándo es útil usarla
+#'
+#' @param parametro1 Descripción del primer parámetro
+#' @param parametro2 Descripción del segundo parámetro
+#' @return Descripción de qué devuelve
+#' @examples
+#' mi_funcion(ejemplo1, ejemplo2)
+#' @author Tu nombre
+#' @export
+mi_funcion <- function(parametro1, parametro2) {
+    # 1. Validación de entrada
+    
+    # 2. Procesamiento principal
+    
+    # 3. Validación de salida
+    
+    # 4. Retorno de resultado
+    return(resultado)
+}</pre>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejercicio práctico</h3>
+                    
+                    <div class="info-box">
+                        <p><strong>Tarea para el notebook:</strong> Cada estudiante creará 3 funciones útiles para su área de estudio</p>
+                    </div>
+
+                    <h4>Requisitos mínimos</h4>
+                    <ul>
+                        <li><strong>Función 1:</strong> Conversión o transformación de datos</li>
+                        <li><strong>Función 2:</strong> Cálculo estadístico específico</li>
+                        <li><strong>Función 3:</strong> Análisis o clasificación</li>
+                    </ul>
+
+                    <h4>Criterios de evaluación</h4>
+                    <ul>
+                        <li><strong>Funcionalidad:</strong> La función hace lo que promete</li>
+                        <li><strong>Validación:</strong> Maneja errores apropiadamente</li>
+                        <li><strong>Documentación:</strong> Código bien comentado</li>
+                        <li><strong>Testing:</strong> Incluye ejemplos de uso</li>
+                        <li><strong>Relevancia:</strong> Útil para la disciplina</li>
+                    </ul>
+
+                    <h4>Ejemplo: función para agronomía</h4>
+                    <div class="code-snippet">
+<pre>#' Calcular días grado (growing degree days)
+#'
+#' Calcula la acumulación de calor para 
+#' predicción de desarrollo de cultivos
+#'
+#' @param temp_max Temperatura máxima diaria (°C)
+#' @param temp_min Temperatura mínima diaria (°C)
+#' @param temp_base Temperatura base del cultivo (°C)
+#' @return Días grado acumulados
+#' @examples
+#' calcular_dias_grado(25, 15, 10)
+calcular_dias_grado <- function(temp_max, temp_min, temp_base = 10) {
+    # Validar entrada
+    if (any(temp_max < temp_min)) {
+        stop("Temperatura máxima debe ser mayor que mínima")
+    }
+    
+    # Temperatura promedio
+    temp_promedio <- (temp_max + temp_min) / 2
+    
+    # Días grado (no puede ser negativo)
+    dias_grado <- pmax(temp_promedio - temp_base, 0)
+    
+    return(round(dias_grado, 2))
+}
+
+# Test de la función
+test_dias_grado <- function() {
+    # Caso normal
+    resultado1 <- calcular_dias_grado(25, 15, 10)
+    assert_equal(resultado1, 10, mensaje = "Cálculo básico")
+    
+    # Caso con temperatura por debajo de base
+    resultado2 <- calcular_dias_grado(8, 2, 10)
+    assert_equal(resultado2, 0, mensaje = "Temperatura bajo base")
+    
+    cat("✓ Función días grado validada\n")
+}
+
+test_dias_grado()</pre>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Meta:</strong> Al final de esta clase, tendrás un conjunto de funciones personalizadas que podrás usar en tu carrera profesional</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">15 / 16</div>
+        </div>
+
+        <!-- Slide 16: Resumen y próxima clase -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Resumen y próxima clase</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Lo que aprendimos hoy</h3>
+                    <ul>
+                        <li><strong>Creación de funciones:</strong> Sintaxis, parámetros, valores de retorno</li>
+                        <li><strong>Variables y scope:</strong> Alcance local vs global</li>
+                        <li><strong>Librerías esenciales:</strong> Instalación, carga y uso básico</li>
+                        <li><strong>Funciones estadísticas:</strong> Herramientas para análisis de datos</li>
+                        <li><strong>Validación y testing:</strong> Crear funciones robustas</li>
+                        <li><strong>Aplicaciones interdisciplinarias:</strong> Funciones para diferentes carreras</li>
+                        <li><strong>Vectorización:</strong> Procesamiento eficiente de datos</li>
+                    </ul>
+
+                    <h3>Habilidades desarrolladas</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Automatización:</strong> Crear herramientas reutilizables</li>
+                            <li><strong>Organización:</strong> Estructurar código de manera limpia</li>
+                            <li><strong>Debugging:</strong> Encontrar y corregir errores</li>
+                            <li><strong>Documentación:</strong> Escribir código autodocumentado</li>
+                            <li><strong>Testing:</strong> Validar funcionamiento correcto</li>
+                        </ul>
+                    </div>
+
+                    <h3>Librerías que ahora conoces</h3>
+                    <ul>
+                        <li><strong>psych:</strong> Análisis psicométrico</li>
+                        <li><strong>moments:</strong> Asimetría y curtosis</li>
+                        <li><strong>agricolae:</strong> Diseño experimental</li>
+                        <li><strong>quantmod:</strong> Análisis financiero</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Próxima clase: notebook de funciones y librerías</h3>
+                    <p><strong>Trabajo práctico intensivo:</strong></p>
+                    <ul>
+                        <li><strong>Creación guiada:</strong> Desarrollar funciones paso a paso</li>
+                        <li><strong>Testing en vivo:</strong> Validar funciones en tiempo real</li>
+                        <li><strong>Casos reales:</strong> Problemas auténticos de diferentes disciplinas</li>
+                        <li><strong>Toolkit personal:</strong> Cada estudiante crea su colección</li>
+                        <li><strong>Librerías especializadas:</strong> Explorar herramientas avanzadas</li>
+                        <li><strong>Proyecto integrador:</strong> Aplicar todo lo aprendido</li>
+                    </ul>
+
+                    <h3>Para prepararse</h3>
+                    <ul>
+                        <li>Pensar en 3 tareas repetitivas de tu carrera</li>
+                        <li>Identificar cálculos que haces frecuentemente</li>
+                        <li>Revisar las funciones básicas de R</li>
+                        <li>Traer ejemplos de datos de tu disciplina</li>
+                    </ul>
+
+                    <h3>Conceptos clave para recordar</h3>
+                    <div class="best-practices">
+                        <div class="practices-title">Mantra del programador eficiente</div>
+                        <p style="text-align: center; font-size: 1.2em; color: #2c3e50; margin: 0;">
+                            <strong>"Don't Repeat Yourself (DRY): Si lo escribes dos veces, crea una función"</strong>
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(145deg, #a73c3c, #8b2f2f); border-radius: 15px; color: white; text-align: center;">
+                        <h3 style="color: white; margin-bottom: 15px;">Reflexión final</h3>
+                        <p style="color: white; margin: 0; font-size: 1.1em;">
+                            "Las funciones transforman código repetitivo en herramientas poderosas. Las librerías te conectan con el conocimiento colectivo de miles de desarrolladores. Juntas, te convierten en un analista de datos eficiente."
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p><strong>¡Gracias por su atención!</strong></p>
+                        <p>¿Preguntas sobre funciones o librerías?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">16 / 16</div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key=== 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
