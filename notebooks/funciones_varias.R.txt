@@ -1,0 +1,65 @@
+fibonacci <- function(n){
+  if (!is.numeric(n) || n < 0 || n != as.integer(n)){
+    return("Error: n debe ser un número entero positivo")
+  }
+  if (n == 0) return(0)
+  if (n == 1) return(1)
+  
+  a <- 0
+  b <- 1
+  
+  for (i in 2:n) {
+    c <- a + b
+    a <- b
+    b <- c
+  }
+  return(b)
+}
+
+
+fibonacci(9)
+
+derivada_polinomio <- function(coeficientes, exponentes){
+  if (length(coeficientes) != length(exponentes)){
+    return("Error: Debe haber el mismo número de coeficientes que de exponentes")
+  }
+  nuevos_coeficientes <- coeficientes * exponentes
+  nuevos_exponentes <- exponentes - 1
+  
+  validos <- nuevos_exponentes >= 0
+  
+  if (!any(validos)){
+    return("Derivada = 0")
+  }
+  
+  resultado <- data.frame(coeficiente = nuevos_coeficientes[validos],
+                          exponente = nuevos_exponentes[validos])
+  return(resultado)
+}
+
+derivada_polinomio(c(7),c(0))
+
+integracion_trapecio <- function(funcion, a, b, n = 100){
+  if (a >= b){
+    return("Error: a debe ser menor que b")
+  }
+  h <- (b-a)/n
+  x <- seq(a, b, by=h)
+  y <- sapply(x, funcion)
+  
+  integral <- h*(y[1]/2+sum(y[2:n])+y[n+1]/2)
+  return(round(integral,6))
+}
+
+integracion_trapecio(function(x) x^2,0,1,1000)
+
+
+
+
+
+
+
+
+
+
+
