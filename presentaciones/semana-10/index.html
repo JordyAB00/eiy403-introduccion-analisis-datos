@@ -1,0 +1,2478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - IA para Análisis de Datos</title>
+    <!-- MathJax Configuration -->
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+        }
+
+        .code-snippet {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+            overflow-x: auto;
+            text-align: left;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #ffe6e6, #ffcccc);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .success-box {
+            background: linear-gradient(145deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .ai-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
+            transition: transform 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .ai-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.2);
+        }
+
+        .ai-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .llm-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .llm-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .llm-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .best-practices {
+            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
+            border: 2px solid #a73c3c;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
+        }
+
+        .practices-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .example-card {
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            border: 2px solid #17a2b8;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.1);
+        }
+
+        .example-title {
+            color: #17a2b8;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .discipline-tag {
+            background: #17a2b8;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .prompt-template {
+            background: linear-gradient(145deg, #f0f8ff, #e6f3ff);
+            border: 2px solid #007bff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #007bff;
+            text-align: left;
+        }
+
+        .prompt-section {
+            margin-bottom: 15px;
+        }
+
+        .prompt-label {
+            color: #007bff;
+            font-weight: 700;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .quote-box {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);
+            margin: 30px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="home-btn">← Volver al inicio</a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>IA para Análisis de Datos</h1>
+            <p class="subtitle" style="text-align: center;">Guía completa de prompting para análisis de datos</p>
+            <div class="info"><strong>Curso:</strong> EIY403 - Introducción al análisis de datos</div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            <div class="info"><strong>Escuela de Informática y Computación</strong></div>
+            
+            <div class="quote-box" style="margin: 40px 0;">
+                "La IA es una herramienta poderosa para el análisis de datos. Aprender a usarla correctamente puede revolucionar tu manera de trabajar con información."
+            </div>
+            
+            <div class="slide-number">1 / 20</div>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Agenda de la presentación</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Parte I: Fundamentos</h3>
+                    <ul>
+                        <li>¿Qué es la IA para análisis de datos?</li>
+                        <li>Modelos principales (ChatGPT, Claude, Gemini, etc.)</li>
+                        <li>¿Por qué usar IA en nuestro trabajo analítico?</li>
+                        <li>Limitaciones y uso responsable</li>
+                    </ul>
+                    
+                    <h3>Parte II: Principios de prompting</h3>
+                    <ul>
+                        <li>Anatomía del prompt perfecto</li>
+                        <li>Estructura recomendada</li>
+                        <li>Contexto, datos, objetivos y restricciones</li>
+                        <li>Formatos de respuesta</li>
+                    </ul>
+
+                    <h3>Parte III: Técnicas avanzadas</h3>
+                    <ul>
+                        <li>Prompting por roles</li>
+                        <li>Prompting paso a paso</li>
+                        <li>Uso de ejemplos</li>
+                        <li>Iteración y refinamiento</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Parte IV: Casos de uso específicos</h3>
+                    <ul>
+                        <li>Generación de código (R, Python, SQL)</li>
+                        <li>Análisis exploratorio de datos</li>
+                        <li>Modelado estadístico</li>
+                        <li>Interpretación de resultados</li>
+                        <li>Comunicación de hallazgos</li>
+                    </ul>
+
+                    <h3>Parte V: Aplicaciones por disciplina</h3>
+                    <ul>
+                        <li>Análisis para química industrial</li>
+                        <li>Casos en biología y medicina</li>
+                        <li>Aplicaciones en economía</li>
+                        <li>Herramientas para ciencias sociales</li>
+                    </ul>
+
+                    <h3>Parte VI: Mejores prácticas</h3>
+                    <ul>
+                        <li>Templates reutilizables</li>
+                        <li>Documentación y reproducibilidad</li>
+                        <li>Ética y transparencia</li>
+                        <li>Desarrollo profesional continuo</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">2 / 20</div>
+        </div>
+
+        <!-- Slide 3: ¿Qué es la IA para análisis de datos? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Qué es la IA para análisis de datos?</h2>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="background: linear-gradient(145deg, #34495e, #2c3e50); color: white; padding: 30px; border-radius: 15px; font-size: 1.3em; font-weight: 600; box-shadow: 0 10px 30px rgba(52, 73, 94, 0.3);">
+                    "Modelos de lenguaje especializados que pueden asistir en todas las etapas del proceso analítico: desde la generación de código hasta la interpretación de resultados"
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Definición y alcance</h3>
+                    <ul>
+                        <li><strong>Asistentes inteligentes:</strong> No reemplazan al analista, lo potencian</li>
+                        <li><strong>Procesamiento de lenguaje natural:</strong> Entienden instrucciones en español</li>
+                        <li><strong>Conocimiento multidisciplinario:</strong> Estadística, programación, interpretación</li>
+                        <li><strong>Generación de código:</strong> Python, R, SQL, y más</li>
+                        <li><strong>Explicación conceptual:</strong> Traducen términos técnicos</li>
+                    </ul>
+
+                    <h3>Diferencias clave</h3>
+                    <div class="info-box">
+                        <p><strong>IA general vs IA para datos:</strong></p>
+                        <ul>
+                            <li><strong>General:</strong> "Escríbeme un poema"</li>
+                            <li><strong>Para datos:</strong> "Genera código R para un análisis de regresión múltiple con estas variables: edad, salario, experiencia"</li>
+                        </ul>
+                    </div>
+
+                    <h3>¿Qué NO es la IA para datos?</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Un oráculo:</strong> No adivina sin datos</li>
+                            <li><strong>Infalible:</strong> Requiere validación humana</li>
+                            <li><strong>Un reemplazo:</strong> Complementa, no sustituye</li>
+                            <li><strong>Una calculadora:</strong> Puede cometer errores matemáticos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Capacidades principales</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Generación de código</div>
+                        <p>Crea scripts completos en R, Python, SQL basados en descripciones en lenguaje natural</p>
+                        <div class="code-snippet">
+"Crea código R para calcular estadísticas descriptivas de un dataset llamado 'experimentos' con las columnas: temperatura, pH, concentracion"</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Análisis e interpretación</div>
+                        <p>Explica resultados estadísticos, identifica patrones, sugiere próximos pasos analíticos</p>
+                        <div class="code-snippet">
+"Tengo un p-valor de 0.03 en mi prueba t. ¿Qué significa esto en el contexto de mi experimento de efectividad de fertilizantes?"</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Resolución de problemas</div>
+                        <p>Depura errores de código, sugiere métodos estadísticos apropiados, optimiza procesos</p>
+                        <div class="code-snippet">
+"Mi código R da error 'object not found'. Aquí está mi script: [código]. ¿Cómo lo arreglo?"</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Educación personalizada</div>
+                        <p>Explica conceptos adapatados a tu nivel y disciplina específica</p>
+                        <div class="code-snippet">
+"Explícame qué es una regresión logística como si fuera un estudiante de química industrial"</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">3 / 20</div>
+        </div>
+
+        <!-- Slide 4: Modelos principales -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Modelos principales de IA</h2>
+            
+            <div class="llm-grid">
+                <div class="llm-card">
+                    <div class="llm-title">ChatGPT (OpenAI)</div>
+                    <p><strong>Fortalezas:</strong></p>
+                    <ul>
+                        <li>Excelente para código Python y R</li>
+                        <li>Amplio conocimiento general</li>
+                        <li>Interfaz web gratuita disponible</li>
+                        <li>Plugin Code Interpreter para análisis</li>
+                    </ul>
+                    <p><strong>Consideraciones:</strong></p>
+                    <ul>
+                        <li>Corte de conocimiento limitado</li>
+                        <li>Versión gratuita con restricciones</li>
+                    </ul>
+                </div>
+
+                <div class="llm-card">
+                    <div class="llm-title">Claude (Anthropic)</div>
+                    <p><strong>Fortalezas:</strong></p>
+                    <ul>
+                        <li>Excelente comprensión contextual</li>
+                        <li>Muy bueno para explicaciones detalladas</li>
+                        <li>Manejo superior de documentos largos</li>
+                        <li>Análisis crítico y metodológico</li>
+                    </ul>
+                    <p><strong>Consideraciones:</strong></p>
+                    <ul>
+                        <li>Menos plugins especializados</li>
+                        <li>Acceso limitado en algunas regiones</li>
+                    </ul>
+                </div>
+
+                <div class="llm-card">
+                    <div class="llm-title">Gemini (Google)</div>
+                    <p><strong>Fortalezas:</strong></p>
+                    <ul>
+                        <li>Integración con Google Colab</li>
+                        <li>Acceso a información actualizada</li>
+                        <li>Bueno para análisis de datos tabulares</li>
+                        <li>Manejo de múltiples idiomas</li>
+                    </ul>
+                    <p><strong>Consideraciones:</strong></p>
+                    <ul>
+                        <li>Menos especializado en código estadístico</li>
+                        <li>Variabilidad en calidad de respuestas</li>
+                    </ul>
+                </div>
+
+                <div class="llm-card">
+                    <div class="llm-title">Llama/DeepSeek/Otros</div>
+                    <p><strong>Fortalezas:</strong></p>
+                    <ul>
+                        <li>Opciones open source disponibles</li>
+                        <li>Personalización posible</li>
+                        <li>Sin restricciones de uso</li>
+                        <li>Comunidad activa de desarrollo</li>
+                    </ul>
+                    <p><strong>Consideraciones:</strong></p>
+                    <ul>
+                        <li>Requieren más configuración técnica</li>
+                        <li>Menor rendimiento que modelos comerciales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="best-practices">
+                <div class="practices-title">Principio clave: independencia de modelo</div>
+                <p>Las técnicas de prompting que aprenderás funcionan con <strong>cualquier modelo de IA</strong>. No te limites a uno solo: experimenta y encuentra el que mejor se adapte a tu estilo de trabajo y necesidades específicas.</p>
+            </div>
+
+            <div class="success-box">
+                <p><strong>Recomendación:</strong> Usa al menos dos modelos diferentes para tareas críticas. Si ambos llegan a conclusiones similares, aumenta tu confianza en el resultado.</p>
+            </div>
+            <div class="slide-number">4 / 20</div>
+        </div>
+
+        <!-- Slide 5: ¿Por qué usar IA? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Por qué usar IA en análisis de datos?</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Beneficios inmediatos</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Aceleración del proceso analítico</strong></p>
+                        <ul>
+                            <li>Código generado en segundos vs. horas de programación</li>
+                            <li>Depuración automática de errores</li>
+                            <li>Sugerencias de métodos estadísticos apropiados</li>
+                            <li>Interpretación instantánea de resultados</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Democratización del análisis</strong></p>
+                        <ul>
+                            <li>No necesitas ser experto en programación</li>
+                            <li>Acceso a técnicas estadísticas avanzadas</li>
+                            <li>Explicaciones adaptadas a tu nivel</li>
+                            <li>Reducción de la barrera técnica</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Apoyo en interpretación</div>
+                        <ul>
+                            <li>Traduce resultados técnicos a lenguaje comprensible</li>
+                            <li>Conecta hallazgos con el contexto de tu disciplina</li>
+                            <li>Sugiere implicaciones prácticas</li>
+                            <li>Identifica limitaciones del análisis</li>
+                        </ul>
+                    </div>
+
+                    <h3>Ejemplo práctico</h3>
+                    <div class="code-snippet">
+Antes: "Tengo datos de pH y necesito hacer análisis estadístico pero no sé programar"
+
+Con IA: "Genera código R para analizar la relación entre pH y crecimiento bacteriano en estos datos de laboratorio"
+
+Resultado: Código completo + interpretación + visualización en minutos
+</div>
+                </div>
+                <div>
+                    <h3>Ventajas para diferentes perfiles</h3>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Estudiante principiante</div>
+                        <div class="example-title">Aprendizaje acelerado</div>
+                        <ul>
+                            <li>Explora métodos sin miedo a "romper" algo</li>
+                            <li>Recibe explicaciones paso a paso</li>
+                            <li>Practica con datos reales inmediatamente</li>
+                            <li>Comprende conceptos a través de ejemplos</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Profesional ocupado</div>
+                        <div class="example-title">Eficiencia máxima</div>
+                        <ul>
+                            <li>Automatiza tareas repetitivas de análisis</li>
+                            <li>Genera reportes preliminares rápidamente</li>
+                            <li>Identifica patrones que podrían pasar desapercibidos</li>
+                            <li>Optimiza tiempo para decisiones estratégicas</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Investigador</div>
+                        <div class="example-title">Exploración avanzada</div>
+                        <ul>
+                            <li>Genera hipótesis alternativas</li>
+                            <li>Sugiere métodos estadísticos especializados</li>
+                            <li>Ayuda a interpretar resultados complejos</li>
+                            <li>Identifica sesgos metodológicos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Impacto en productividad</h3>
+                    <div class="quote-box">
+                        <strong>Caso real:</strong> Análisis que tomaba 3 días (leer documentación + escribir código + depurar + interpretar) ahora toma 3 horas con asistencia de IA
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Importante:</strong> La IA acelera el proceso, pero la validación y el juicio crítico siguen siendo responsabilidad del analista</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">5 / 20</div>
+        </div>
+
+        <!-- Slide 6: Limitaciones y uso responsable -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Limitaciones y uso responsable de la IA</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Limitaciones técnicas</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>No es infalible</strong></p>
+                        <ul>
+                            <li>Puede generar código con errores</li>
+                            <li>Las explicaciones pueden contener imprecisiones</li>
+                            <li>No siempre elige el método estadístico óptimo</li>
+                            <li>Puede "inventar" resultados si no se le proporcionan datos reales</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Conocimiento limitado</strong></p>
+                        <ul>
+                            <li>Corte de entrenamiento (no conoce desarrollos muy recientes)</li>
+                            <li>Puede no estar actualizado en métodos de vanguardia</li>
+                            <li>Limitaciones en conocimiento de dominio muy específico</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Sesgos algorítmicos</strong></p>
+                        <ul>
+                            <li>Refleja sesgos presentes en datos de entrenamiento</li>
+                            <li>Puede perpetuar prácticas estadísticas obsoletas</li>
+                            <li>Tendencia hacia métodos más populares vs. apropiados</li>
+                        </ul>
+                    </div>
+
+                    <h3>Riesgos de dependencia</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>Pérdida de habilidades básicas:</strong> Siempre mantén competencias fundamentales</li>
+                            <li><strong>Validación ciega:</strong> No asumas que todo lo generado es correcto</li>
+                            <li><strong>Falta de comprensión:</strong> Entiende qué hace el código antes de usarlo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Principios de uso responsable</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Verificación siempre necesaria</strong></p>
+                        <ul>
+                            <li>Prueba el código con datos conocidos</li>
+                            <li>Verifica resultados con métodos alternativos</li>
+                            <li>Consulta literatura especializada para validar interpretaciones</li>
+                            <li>Pide segunda opinión para análisis críticos</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Transparencia metodológica</strong></p>
+                        <ul>
+                            <li>Documenta cuándo y cómo usaste IA</li>
+                            <li>Incluye validaciones realizadas</li>
+                            <li>Menciona limitaciones del análisis</li>
+                            <li>Proporciona código completo y reproducible</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Privacidad y confidencialidad</strong></p>
+                        <ul>
+                            <li>No subas datos sensibles o confidenciales</li>
+                            <li>Usa datos sintéticos o anonimizados para examples</li>
+                            <li>Revisa políticas de privacidad de las plataformas</li>
+                            <li>Considera usar modelos locales para datos críticos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Regla de oro</h3>
+                    <div class="quote-box">
+                        "La IA es un asistente excepcional, pero tú sigues siendo el responsable final del análisis y sus conclusiones"
+                    </div>
+
+                    <div class="best-practices">
+                        <div class="practices-title">Checklist de uso responsable</div>
+                        <ul>
+                            <li>¿Entiendo qué hace este código?</li>
+                            <li>¿He validado los resultados?</li>
+                            <li>¿Son apropiados los métodos sugeridos?</li>
+                            <li>¿He documentado el uso de IA?</li>
+                            <li>¿Los datos son apropiados para compartir?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 20</div>
+        </div>
+
+        <!-- Slide 7: Anatomía del prompt perfecto -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Anatomía del prompt perfecto para análisis de datos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Componentes esenciales</h3>
+                    
+                    <div class="prompt-template">
+                        <div class="prompt-section">
+                            <div class="prompt-label">1. Contexto del problema</div>
+                            <p>"Soy estudiante de química industrial analizando la efectividad de diferentes catalizadores..."</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">2. Descripción de los datos</div>
+                            <p>"Tengo un dataset con 150 experimentos, variables: temperatura (°C), presión (atm), tipo_catalizador (A,B,C), rendimiento (%)"</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">3. Objetivo específico</div>
+                            <p>"Quiero determinar qué catalizador es más efectivo y si temperatura y presión influyen en el rendimiento"</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">4. Formato deseado</div>
+                            <p>"Proporciona código R comentado + interpretación de resultados en términos de química industrial"</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">5. Nivel técnico</div>
+                            <p>"Explica como si tuviera conocimientos básicos de estadística pero soy nuevo en R"</p>
+                        </div>
+                    </div>
+
+                    <h3>Errores comunes a evitar</h3>
+                    <div class="warning-box">
+                        <ul>
+                            <li><strong>Muy vago:</strong> "Ayúdame con mis datos"</li>
+                            <li><strong>Sin contexto:</strong> "Haz un análisis estadístico"</li>
+                            <li><strong>Información insuficiente:</strong> No describir las variables</li>
+                            <li><strong>Expectativas poco claras:</strong> No especificar el formato de respuesta</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplo de prompt mal estructurado</h3>
+                    <div class="code-snippet">
+❌ Prompt deficiente:
+"Tengo unos datos y necesito hacer estadísticas. ¿Me ayudas?"
+</div>
+                    
+                    <h3>Ejemplo de prompt bien estructurado</h3>
+                    <div class="code-snippet">
+✅ Prompt optimizado:
+
+CONTEXTO: Soy estudiante de química industrial investigando la efectividad de catalizadores en una reacción de síntesis orgánica.
+
+DATOS: Dataset de 150 experimentos con estas variables:
+- temperatura: numérica, rango 100-200°C
+- presion: numérica, rango 1-5 atm  
+- catalizador: categórica, niveles A, B, C
+- rendimiento: numérica, porcentaje 0-100%
+
+OBJETIVO: Determinar cuál catalizador produce mayor rendimiento y si temperatura/presión afectan el resultado.
+
+MÉTODO: Quiero usar ANOVA para comparar catalizadores y regresión múltiple para evaluar efectos de temperatura y presión.
+
+FORMATO: Código R completo con comentarios + interpretación de resultados + recomendaciones prácticas para el laboratorio.
+
+NIVEL: Intermedio en química, principiante en R y estadística.
+</div>
+
+                    <div class="success-box">
+                        <p><strong>Resultado:</strong> Con este prompt estructurado, obtienes código específico, interpretación relevante para tu disciplina, y explicaciones al nivel adecuado</p>
+                    </div>
+
+                    <h3>Template reutilizable</h3>
+                    <div class="prompt-template">
+                        <p><strong>CONTEXTO:</strong> [Tu área de estudio y problema específico]</p>
+                        <p><strong>DATOS:</strong> [Descripción de variables y tamaño muestral]</p>
+                        <p><strong>OBJETIVO:</strong> [Qué quieres descubrir o demostrar]</p>
+                        <p><strong>RESTRICCIONES:</strong> [Limitaciones técnicas o metodológicas]</p>
+                        <p><strong>FORMATO:</strong> [Tipo de respuesta que necesitas]</p>
+                        <p><strong>NIVEL:</strong> [Tu experiencia técnica]</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">7 / 20</div>
+        </div>
+
+        <!-- Slide 8: Técnicas avanzadas de prompting -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Técnicas avanzadas de prompting</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>1. Prompting por roles</h3>
+                    <p>Asigna un papel específico a la IA para obtener respuestas más especializadas</p>
+                    
+                    <div class="code-snippet">
+"Actúa como un bioestadístico experimentado que trabaja con datos de laboratorio. Tengo resultados de un experimento de crecimiento bacteriano..."
+</div>
+
+                    <div class="code-snippet">
+"Como analista de datos especializado en economía, ayúdame a interpretar estos indicadores financieros de una empresa..."
+</div>
+
+                    <div class="code-snippet">
+"Desde la perspectiva de un científico de datos en la industria farmacéutica, evalúa estos resultados de efectividad de un medicamento..."
+</div>
+
+                    <h3>2. Prompting paso a paso</h3>
+                    <p>Divide análisis complejos en etapas secuenciales</p>
+                    
+                    <div class="code-snippet">
+"Vamos a analizar estos datos paso a paso:
+
+Paso 1: Primero, examina la calidad de los datos y identifica valores faltantes o atípicos.
+
+Paso 2: Luego, realiza un análisis exploratorio básico con estadísticas descriptivas.
+
+Paso 3: Después, sugiere y aplica el test estadístico más apropiado.
+
+Paso 4: Finalmente, interpreta los resultados en el contexto de química industrial.
+
+Empecemos con el Paso 1..."
+</div>
+
+                    <h3>3. Prompting con ejemplos</h3>
+                    <p>Proporciona ejemplos del tipo de respuesta que esperas</p>
+                    
+                    <div class="code-snippet">
+"Quiero un análisis como este ejemplo:
+
+## Análisis de pH en muestras de agua
+**Método:** Prueba t de una muestra
+**Resultado:** t = 2.45, p = 0.018
+**Interpretación:** El pH promedio (7.8) es significativamente diferente del valor neutro (7.0)
+**Implicación práctica:** Las muestras muestran alcalinidad leve que requiere ajuste antes del proceso industrial.
+
+Ahora aplica el mismo formato a mis datos de concentración de metales..."
+</div>
+                </div>
+                <div>
+                    <h3>4. Prompting iterativo</h3>
+                    <p>Refina y mejora las respuestas a través de múltiples interacciones</p>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Iteración 1: Exploración inicial</div>
+                        <div class="code-snippet">"Analiza estos datos de ventas trimestrales y identifica tendencias generales"</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Iteración 2: Profundización</div>
+                        <div class="code-snippet">"Los resultados muestran estacionalidad. Ahora aplica descomposición de series temporales para cuantificar componentes estacionales y de tendencia"</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Iteración 3: Refinamiento</div>
+                        <div class="code-snippet">"El componente estacional es fuerte en Q4. Crea un modelo predictivo que incorpore esta estacionalidad para forecasting del próximo año"</div>
+                    </div>
+
+                    <h3>5. Prompting con restricciones</h3>
+                    <p>Define límites claros para obtener respuestas más precisas</p>
+                    
+                    <div class="code-snippet">
+"RESTRICCIONES:
+- Usa solo métodos no paramétricos (los datos no siguen distribución normal)
+- El código debe funcionar con R base (sin librerías adicionales)
+- La interpretación debe ser comprensible para gerencia sin formación estadística
+- El análisis debe completarse en menos de 5 minutos de procesamiento"
+</div>
+
+                    <h3>6. Prompting de validación</h3>
+                    <p>Pide a la IA que critique su propio trabajo</p>
+                    
+                    <div class="code-snippet">
+"Después de proporcionar el análisis, evalúa críticamente:
+1. ¿Son apropiados los métodos elegidos para estos datos?
+2. ¿Qué supuestos estadísticos podrían estar violándose?
+3. ¿Cuáles son las limitaciones principales de este análisis?
+4. ¿Qué análisis adicionales recomendarías?"
+</div>
+
+                    <div class="success-box">
+                        <p><strong>Tip:</strong> Combina múltiples técnicas en un solo prompt para resultados óptimos</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">8 / 20</div>
+        </div>
+
+        <!-- Slide 9: Generación de código -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Generación de código: R, Python y SQL</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Código R para análisis estadístico</h3>
+                    
+                    <div class="code-snippet">
+# Prompt ejemplo:
+"Genera código R para analizar la relación entre dosis de fertilizante (variable continua) y crecimiento de plantas (variable continua) en un experimento con 3 tipos de suelo (variable categórica). Incluye ANCOVA y gráfico de interacciones."
+</div>
+
+                    <div class="code-snippet">
+# Respuesta esperada:
+# Cargar datos
+datos <- read.csv("experimento_plantas.csv")
+
+# Exploración inicial
+summary(datos)
+table(datos$tipo_suelo)
+
+# ANCOVA: crecimiento ~ dosis * tipo_suelo
+modelo <- lm(crecimiento ~ dosis * tipo_suelo, data = datos)
+anova(modelo)
+
+# Verificar supuestos
+par(mfrow = c(2,2))
+plot(modelo)
+
+# Gráfico de interacciones
+library(ggplot2)
+ggplot(datos, aes(x = dosis, y = crecimiento, color = tipo_suelo)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(title = "Interacción Dosis-Suelo en Crecimiento")
+</div>
+
+                    <h3>Python para análisis de datos</h3>
+                    
+                    <div class="code-snippet">
+# Prompt ejemplo:
+"Crea código Python con pandas para limpiar un dataset de experimentos químicos: remover outliers usando IQR, imputar valores faltantes con la mediana, y normalizar variables numéricas."
+</div>
+
+                    <div class="code-snippet">
+import pandas as pd
+import numpy as np
+from scipy import stats
+
+# Cargar datos
+df = pd.read_csv('experimentos_quimicos.csv')
+
+# Remover outliers usando IQR
+def remove_outliers(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower = Q1 - 1.5 * IQR
+    upper = Q3 + 1.5 * IQR
+    return df[(df[column] >= lower) & (df[column] <= upper)]
+
+# Aplicar a variables numéricas
+numeric_cols = df.select_dtypes(include=[np.number]).columns
+for col in numeric_cols:
+    df = remove_outliers(df, col)
+
+# Imputar valores faltantes con mediana
+df[numeric_cols] = df[numeric_cols].fillna(df[numeric_cols].median())
+
+# Normalizar (z-score)
+df[numeric_cols] = stats.zscore(df[numeric_cols])
+</div>
+                </div>
+                <div>
+                    <h3>SQL para consultas de datos</h3>
+                    
+                    <div class="code-snippet">
+-- Prompt ejemplo:
+"Escribe una consulta SQL para obtener estadísticas mensuales de ventas por región, incluyendo total, promedio, y crecimiento porcentual respecto al mes anterior."
+</div>
+
+                    <div class="code-snippet">
+-- Respuesta esperada:
+WITH ventas_mensuales AS (
+  SELECT 
+    region,
+    DATE_TRUNC('month', fecha_venta) AS mes,
+    SUM(monto_venta) AS total_ventas,
+    AVG(monto_venta) AS promedio_ventas,
+    COUNT(*) AS num_transacciones
+  FROM ventas 
+  GROUP BY region, DATE_TRUNC('month', fecha_venta)
+),
+
+ventas_con_lag AS (
+  SELECT 
+    *,
+    LAG(total_ventas) OVER (
+      PARTITION BY region 
+      ORDER BY mes
+    ) AS ventas_mes_anterior
+  FROM ventas_mensuales
+)
+
+SELECT 
+  region,
+  mes,
+  total_ventas,
+  promedio_ventas,
+  num_transacciones,
+  CASE 
+    WHEN ventas_mes_anterior IS NULL THEN NULL
+    ELSE ROUND(
+      ((total_ventas - ventas_mes_anterior) / ventas_mes_anterior * 100), 2
+    )
+  END AS crecimiento_porcentual
+FROM ventas_con_lag
+ORDER BY region, mes;
+</div>
+
+                    <h3>Mejores prácticas para solicitar código</h3>
+                    
+                    <div class="best-practices">
+                        <div class="practices-title">Checklist para prompts de código</div>
+                        <ul>
+                            <li><strong>Especifica el lenguaje:</strong> "En R..." o "Usando Python..."</li>
+                            <li><strong>Describe los datos:</strong> Nombres de columnas, tipos, tamaño</li>
+                            <li><strong>Define el resultado esperado:</strong> Qué output necesitas</li>
+                            <li><strong>Menciona restricciones:</strong> Librerías disponibles, versiones</li>
+                            <li><strong>Pide comentarios:</strong> "Incluye comentarios explicativos"</li>
+                            <li><strong>Solicita validación:</strong> "Incluye verificación de supuestos"</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Tip avanzado:</strong> Pide que el código sea modular y reutilizable. "Organiza el código en funciones que pueda reutilizar para otros datasets similares"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">9 / 20</div>
+        </div>
+
+        <!-- Slide 10: Análisis exploratorio con IA -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Análisis exploratorio de datos (EDA) con IA</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Prompts para EDA sistemático</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Paso 1: Exploración inicial</div>
+                        <div class="code-snippet">
+"Tengo un dataset de [descripción]. Realiza un análisis exploratorio inicial que incluya:
+- Dimensiones y estructura de los datos
+- Tipos de variables y sus distribuciones
+- Identificación de valores faltantes
+- Detección preliminar de outliers
+- Estadísticas descriptivas básicas
+
+Proporciona código R y resumen ejecutivo de hallazgos."
+</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Paso 2: Visualizaciones inteligentes</div>
+                        <div class="code-snippet">
+"Basándote en el análisis anterior, crea visualizaciones apropiadas para cada tipo de variable:
+- Histogramas para variables continuas
+- Boxplots para detectar outliers
+- Barplots para variables categóricas
+- Scatterplot matrix para relaciones
+- Heatmap de correlaciones
+
+Incluye interpretación de cada gráfico."
+</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Paso 3: Patrones y relaciones</div>
+                        <div class="code-snippet">
+"Identifica patrones interesantes en los datos:
+- Correlaciones fuertes (positivas y negativas)
+- Agrupaciones naturales en los datos
+- Tendencias temporales (si aplica)
+- Diferencias entre grupos categóricos
+- Comportamientos atípicos que requieren investigación
+
+Prioriza hallazgos por relevancia para [tu objetivo específico]."
+</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplo práctico: datos de laboratorio</h3>
+                    
+                    <div class="code-snippet">
+Contexto: "Dataset de experimentos de síntesis química con variables: temperatura, tiempo_reaccion, catalizador, pH_inicial, pH_final, rendimiento"
+
+Prompt optimizado:
+"Actúa como un químico analítico. Analiza este dataset de experimentos de síntesis para identificar:
+
+1. ¿Cuáles variables tienen mayor impacto en el rendimiento?
+2. ¿Hay combinaciones de condiciones que produzcan resultados óptimos?
+3. ¿El pH_inicial vs pH_final sugiere algún patrón en la reacción?
+4. ¿Algunos catalizadores funcionan mejor en rangos específicos de temperatura?
+
+Incluye código R para visualizaciones y análisis de correlación, más interpretación práctica para optimización del proceso."
+</div>
+
+                    <div class="success-box">
+                        <p><strong>Respuesta esperada:</strong></p>
+                        <ul>
+                            <li>Código R completo con visualizaciones</li>
+                            <li>Matrix de correlación interpretada</li>
+                            <li>Identificación de condiciones óptimas</li>
+                            <li>Recomendaciones para experimentos futuros</li>
+                            <li>Hipótesis sobre mecanismos de reacción</li>
+                        </ul>
+                    </div>
+
+                    <h3>Prompts especializados por tipo de dato</h3>
+                    
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <div class="example-title">Datos temporales</div>
+                            <div class="code-snippet">"Analiza estas series de tiempo de [variable] para identificar tendencias, estacionalidad, y cambios estructurales. Usa descomposición STL y detecta outliers temporales."</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Datos categóricos</div>
+                            <div class="code-snippet">"Examina la distribución de [variables categóricas] y sus asociaciones. Aplica tablas de contingencia, test chi-cuadrado, y visualizaciones de mosaico."</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Datos multivariados</div>
+                            <div class="code-snippet">"Realiza análisis multivariado exploratorio: matriz de correlación, análisis de componentes principales, y clustering. Identifica dimensiones principales y grupos naturales."</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Datos experimentales</div>
+                            <div class="code-snippet">"Analiza este diseño experimental para verificar balance, identificar efectos principales e interacciones, y evaluar la variabilidad dentro y entre grupos."</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">10 / 20</div>
+        </div>
+
+        <!-- Slide 11: Modelado estadístico -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Modelado estadístico asistido por IA</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Selección de métodos apropiados</h3>
+                    
+                    <div class="prompt-template">
+                        <div class="prompt-section">
+                            <div class="prompt-label">Prompt para selección de método</div>
+                            <p>"Tengo [descripción de datos] y quiero [objetivo específico]. Considerando que [restricciones/supuestos], ¿qué método estadístico es más apropiado y por qué? Compara al menos 3 alternativas con sus pros y contras."</p>
+                        </div>
+                    </div>
+
+                    <div class="code-snippet">
+Ejemplo concreto:
+"Tengo datos de 200 pacientes con variables: edad, peso, medicamento (A/B/C), dosis, y respuesta_terapeutica (0-100). Quiero predecir la respuesta basándome en las otras variables. Los datos no siguen distribución normal y hay algunas interacciones entre medicamento y dosis. ¿Regresión lineal múltiple, Random Forest, o regresión no paramétrica? Justifica tu recomendación."
+</div>
+
+                    <h3>Validación de supuestos</h3>
+                    
+                    <div class="code-snippet">
+"Después de aplicar [método estadístico], verifica todos los supuestos necesarios:
+- Normalidad de residuos (Shapiro-Wilk, Q-Q plot)
+- Homocedasticidad (Breusch-Pagan, plot de residuos)
+- Independencia (Durbin-Watson si es series temporales)
+- Linealidad (gráficos de residuos vs ajustados)
+
+Si algún supuesto se viola, sugiere métodos alternativos."
+</div>
+
+                    <h3>Interpretación de resultados</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Interpretación contextual</div>
+                        <div class="code-snippet">
+"Interpreta estos resultados en el contexto de [tu disciplina]:
+- Coeficientes: magnitud y significancia práctica
+- R² o medidas de bondad de ajuste
+- P-valores en el contexto del problema
+- Intervalos de confianza y su interpretación práctica
+- Limitaciones del modelo para este problema específico"
+</div>
+                </div>
+                <div>
+                    <h3>Modelos específicos por disciplina</h3>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Química industrial</div>
+                        <div class="example-title">Optimización de procesos</div>
+                        <div class="code-snippet">
+"Modelar rendimiento de reacción usando superficie de respuesta (RSM):
+- Variables: temperatura, tiempo, concentración
+- Objetivo: maximizar rendimiento minimizando costos
+- Incluye análisis de curvatura y optimización
+- Valida con experimentos de confirmación"
+</div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Biología</div>
+                        <div class="example-title">Modelos de crecimiento</div>
+                        <div class="code-snippet">
+"Ajusta modelos de crecimiento logístico para población microbiana:
+- Parámetros: capacidad de carga, tasa intrínseca
+- Compara modelos: logístico, Gompertz, exponencial
+- Evalúa bondad de ajuste con AIC/BIC
+- Predice comportamiento futuro con intervalos de confianza"
+</div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Economía</div>
+                        <div class="example-title">Series temporales financieras</div>
+                        <div class="code-snippet">
+"Modela series de precios con ARIMA:
+- Identifica orden (p,d,q) usando ACF/PACF
+- Ajusta modelos estacionales si es necesario
+- Valida residuos para ruido blanco
+- Genera pronósticos con bandas de confianza
+- Evalúa precisión con métricas MAPE/RMSE"
+</div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Psicología</div>
+                        <div class="example-title">Análisis factorial</div>
+                        <div class="code-snippet">
+"Realiza análisis factorial exploratorio en escala psicológica:
+- Determina número de factores (scree plot, eigenvalues)
+- Aplica rotación varimax
+- Interpreta factores psicológicamente
+- Calcula consistencia interna (α de Cronbach)
+- Valida estructura con CFA si es posible"
+</div>
+                    </div>
+
+                    <h3>Evaluación de modelos</h3>
+                    <div class="best-practices">
+                        <div class="practices-title">Checklist de validación de modelos</div>
+                        <ul>
+                            <li>¿Se cumplen todos los supuestos estadísticos?</li>
+                            <li>¿El tamaño de muestra es adecuado?</li>
+                            <li>¿El modelo es parsimonioso (principio de simplicidad)?</li>
+                            <li>¿Los resultados tienen sentido práctico?</li>
+                            <li>¿Se ha probado la validación cruzada?</li>
+                            <li>¿Existen modelos alternativos comparables?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">11 / 20</div>
+        </div>
+
+        <!-- Slide 12: Comunicación de resultados -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Comunicación de resultados con IA</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Reportes ejecutivos</h3>
+                    
+                    <div class="code-snippet">
+"Convierte este análisis estadístico técnico en un reporte ejecutivo para gerencia:
+
+RESULTADOS TÉCNICOS:
+- ANOVA F(2,147) = 12.34, p < 0.001
+- Tukey HSD: Grupo A vs B (p=0.002), A vs C (p=0.18), B vs C (p=0.04)
+- R² = 0.32, Error estándar = 4.2
+
+CONTEXTO: Comparación de efectividad de tres procesos de producción
+
+AUDIENCIA: Directores que necesitan decidir qué proceso implementar
+
+FORMATO: Resumen ejecutivo de 1 página con recomendación clara"
+</div>
+
+                    <div class="success-box">
+                        <p><strong>Resultado esperado:</strong></p>
+                        <ul>
+                            <li>Lenguaje no técnico</li>
+                            <li>Visualizaciones simples</li>
+                            <li>Recomendación clara con justificación</li>
+                            <li>Implicaciones financieras/operativas</li>
+                            <li>Próximos pasos sugeridos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Adaptación por audiencia</h3>
+                    
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <div class="example-title">Para académicos</div>
+                            <div class="code-snippet">"Redacta estos hallazgos para una revista científica: incluye metodología detallada, limitaciones del estudio, y sugerencias para investigación futura"</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Para técnicos</div>
+                            <div class="code-snippet">"Presenta estos resultados al equipo de laboratorio: enfócate en procedimientos, parámetros óptimos, y protocolos a seguir"</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Para público general</div>
+                            <div class="code-snippet">"Explica estos hallazgos científicos en términos que cualquier persona pueda entender, usando analogías y ejemplos cotidianos"</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Para stakeholders</div>
+                            <div class="code-snippet">"Traduce este análisis a impacto en indicadores clave: ROI, eficiencia, riesgo, y ventaja competitiva"</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Visualizaciones narrativas</h3>
+                    
+                    <div class="code-snippet">
+"Crea un dashboard narrativo para estos datos que cuente la historia completa:
+
+1. Situación inicial (estado baseline)
+2. Intervención o cambio implementado
+3. Resultados observados con evidencia estadística
+4. Interpretación práctica de los hallazgos
+5. Recomendaciones para acción futura
+
+Incluye código para gráficos que apoyen cada punto de la narrativa"
+</div>
+
+                    <h3>Manejo de incertidumbre</h3>
+                    
+                    <div class="info-box">
+                        <p><strong>Comunicar limitaciones honestamente:</strong></p>
+                        <ul>
+                            <li>Tamaño de muestra y poder estadístico</li>
+                            <li>Supuestos no verificados completamente</li>
+                            <li>Posibles fuentes de sesgo</li>
+                            <li>Intervalos de confianza y su interpretación</li>
+                            <li>Diferencia entre significancia estadística y práctica</li>
+                        </ul>
+                    </div>
+
+                    <div class="code-snippet">
+Ejemplo de prompt:
+"Explica por qué este resultado, aunque estadísticamente significativo (p=0.04), podría no ser prácticamente importante en el contexto de [tu industria]. Incluye consideraciones sobre:
+- Tamaño del efecto vs significancia
+- Costos de implementación
+- Variabilidad en condiciones reales
+- Replicabilidad del hallazgo"
+</div>
+
+                    <h3>Templates para diferentes formatos</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Informe científico</div>
+                        <ul>
+                            <li>Resumen ejecutivo</li>
+                            <li>Introducción y objetivos</li>
+                            <li>Metodología detallada</li>
+                            <li>Resultados con estadísticas</li>
+                            <li>Discusión e interpretación</li>
+                            <li>Conclusiones y limitaciones</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Presentación ejecutiva</div>
+                        <ul>
+                            <li>Problema de negocio (1 slide)</li>
+                            <li>Metodología simple (1 slide)</li>
+                            <li>Hallazgos clave (2-3 slides)</li>
+                            <li>Recomendaciones (1 slide)</li>
+                            <li>Próximos pasos (1 slide)</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "El mejor análisis es inútil si no se puede comunicar efectivamente a quienes toman las decisiones"
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">12 / 20</div>
+        </div>
+
+        <!-- Slide 13: Casos específicos para química industrial -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Casos específicos: química industrial</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Análisis de procesos químicos</h3>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Optimización</div>
+                        <div class="example-title">Diseño de experimentos</div>
+                        <div class="code-snippet">
+"Diseña un experimento factorial 2³ para optimizar una reacción de esterificación:
+- Factores: temperatura (80-120°C), tiempo (2-6h), catalizador (0.5-2%)
+- Respuesta: rendimiento (%)
+- Incluye análisis ANOVA, superficie de respuesta
+- Identifica condiciones óptimas considerando costos operativos
+- Código R completo con interpretación para químicos industriales"
+</div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Control de calidad</div>
+                        <div class="example-title">Cartas de control</div>
+                        <div class="code-snippet">
+"Implementa cartas de control estadístico para monitorear la pureza de un producto farmacéutico:
+- Datos históricos: pureza (%) de lotes semanales
+- Calcula límites de control (X̄, R charts)
+- Identifica patrones anómalos y causas especiales
+- Establece protocolo de acción correctiva
+- Incluye interpretación de tendencias y ciclos"
+</div>
+                    </div>
+
+                    <h3>Cinética y termodinámica</h3>
+                    
+                    <div class="code-snippet">
+"Analiza datos de cinética enzimática usando modelo de Michaelis-Menten:
+- Variables: concentración sustrato vs velocidad inicial
+- Ajusta modelo no lineal: v = (Vmax * [S]) / (Km + [S])
+- Estima Vmax y Km con intervalos de confianza
+- Evalúa inhibición competitiva/no competitiva si aplica
+- Compara diferentes condiciones de pH/temperatura"
+</div>
+
+                    <h3>Análisis de espectros</h3>
+                    
+                    <div class="code-snippet">
+"Procesa datos de espectroscopia IR para identificación de compuestos:
+- Analiza picos principales y sus intensidades
+- Compara con base de datos de referencia
+- Cuantifica componentes usando ley de Lambert-Beer
+- Identifica interferencias espectrales
+- Calcula límites de detección y cuantificación"
+</div>
+                </div>
+                <div>
+                    <h3>Análisis de formulaciones</h3>
+                    
+                    <div class="example-card">
+                        <div class="discipline-tag">Estabilidad</div>
+                        <div class="example-title">Estudios de degradación</div>
+                        <div class="code-snippet">
+"Modela la degradación de principio activo en diferentes condiciones:
+- Datos: concentración vs tiempo a diferentes temperaturas
+- Ajusta modelos: orden 0, 1, 2
+- Calcula constantes de velocidad (k) y vida media (t½)
+- Aplica ecuación de Arrhenius para extrapolación
+- Estima vida útil a temperatura ambiente con IC 95%"
+</div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="discipline-tag">Equilibrio</div>
+                        <div class="example-title">Isotermas de adsorción</div>
+                        <div class="code-snippet">
+"Ajusta isotermas de adsorción para purificación de aguas:
+- Modelos: Langmuir, Freundlich, Temkin
+- Variables: concentración equilibrio vs cantidad adsorbida
+- Compara bondad de ajuste (R², AIC)
+- Calcula capacidad máxima de adsorción
+- Evalúa viabilidad económica del proceso"
+</div>
+                    </div>
+
+                    <h3>Análisis multivariado de procesos</h3>
+                    
+                    <div class="code-snippet">
+"Implementa análisis de componentes principales (PCA) para monitoreo de reactor:
+- Variables: temperatura, presión, flujo, concentraciones
+- Identifica dimensiones principales del proceso
+- Detecta operación anormal usando T² y SPE
+- Diagnostica causas de desviaciones
+- Establece límites de control multivariados"
+</div>
+
+                    <div class="success-box">
+                        <p><strong>Beneficios para químicos industriales:</strong></p>
+                        <ul>
+                            <li>Optimización basada en datos científicos</li>
+                            <li>Reducción de tiempo en experimentación</li>
+                            <li>Identificación temprana de problemas de calidad</li>
+                            <li>Justificación estadística para cambios de proceso</li>
+                            <li>Cumplimiento de normas regulatorias (FDA, ISO)</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Consideraciones especiales:</strong></p>
+                        <ul>
+                            <li>Validación analítica requerida para métodos cuantitativos</li>
+                            <li>Documentación exhaustiva para auditorías regulatorias</li>
+                            <li>Consideraciones de seguridad en escalado industrial</li>
+                            <li>Impacto ambiental en optimizaciones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">13 / 20</div>
+        </div>
+
+        <!-- Slide 14: Templates y prompts reutilizables -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Templates y prompts reutilizables</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Template general para análisis</h3>
+                    
+                    <div class="prompt-template">
+                        <div class="prompt-section">
+                            <div class="prompt-label">CONTEXTO</div>
+                            <p>Soy [tu rol/carrera] trabajando en [proyecto/problema específico]. Mi objetivo es [describir meta analítica].</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">DATOS</div>
+                            <p>Tengo un dataset con [n] observaciones y estas variables:</p>
+                            <p>- [variable1]: [tipo, rango/niveles, descripción]</p>
+                            <p>- [variable2]: [tipo, rango/niveles, descripción]</p>
+                            <p>- [etc...]</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">OBJETIVO</div>
+                            <p>Quiero [objetivo específico: describir, comparar, predecir, clasificar, etc.] para [propósito práctico].</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">RESTRICCIONES</div>
+                            <p>- Software: [R/Python/Excel]</p>
+                            <p>- Nivel técnico: [principiante/intermedio/avanzado]</p>
+                            <p>- Tiempo disponible: [limitaciones]</p>
+                            <p>- Supuestos conocidos: [distribución, independencia, etc.]</p>
+                        </div>
+                        
+                        <div class="prompt-section">
+                            <div class="prompt-label">FORMATO</div>
+                            <p>Necesito [código comentado / interpretación / reporte / presentación] dirigido a [audiencia específica].</p>
+                        </div>
+                    </div>
+
+                    <h3>Templates específicos por tarea</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Para comparar grupos</div>
+                        <div class="code-snippet">
+"Compara [variable respuesta] entre [grupos] considerando que [características de los datos]. Recomienda el test más apropiado (t-test, ANOVA, Kruskal-Wallis, etc.), justifica la elección, implementa el análisis completo, e interpreta resultados para [contexto específico]."
+</div>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Para modelar relaciones</div>
+                        <div class="code-snippet">
+"Modela la relación entre [variables predictoras] y [variable respuesta] en el contexto de [dominio]. Evalúa linearidad, normalidad, y homogeneidad. Si se violan supuestos, sugiere transformaciones o métodos alternativos. Incluye validación del modelo y predicciones con intervalos de confianza."
+</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Prompts por tipo de problema</h3>
+                    
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <div class="example-title">Análisis descriptivo</div>
+                            <div class="code-snippet">"Caracteriza completamente este dataset: distribuciones, tendencias centrales, variabilidad, outliers, y relaciones bivariadas. Prioriza hallazgos más relevantes para [contexto]."</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Detección de patrones</div>
+                            <div class="code-snippet">"Identifica patrones, agrupaciones, y anomalías en estos datos usando técnicas apropiadas (clustering, PCA, detección de outliers). Interpreta hallazgos para [aplicación práctica]."</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Predicción</div>
+                            <div class="code-snippet">"Desarrolla un modelo predictivo para [variable objetivo] usando [variables disponibles]. Compara múltiples enfoques, valida con datos de prueba, y evalúa precisión con métricas apropiadas."</div>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Optimización</div>
+                            <div class="code-snippet">"Encuentra la combinación óptima de [factores controlables] para maximizar/minimizar [variable respuesta]. Usa superficie de respuesta o métodos de optimización apropiados para [contexto industrial/experimental]."</div>
+                        </div>
+                    </div>
+
+                    <h3>Biblioteca personal de prompts</h3>
+                    
+                    <div class="best-practices">
+                        <div class="practices-title">Organización recomendada</div>
+                        <ul>
+                            <li><strong>Por disciplina:</strong> Química, Biología, Economía, etc.</li>
+                            <li><strong>Por tipo de análisis:</strong> Descriptivo, Inferencial, Predictivo</li>
+                            <li><strong>Por software:</strong> R, Python, SQL</li>
+                            <li><strong>Por audiencia:</strong> Técnica, Ejecutiva, Académica</li>
+                            <li><strong>Por complejidad:</strong> Básico, Intermedio, Avanzado</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Tip de productividad:</strong> Crea un documento personal con tus prompts más exitosos. Anota qué funcionó bien y qué mejorar para próximas ocasiones.</p>
+                    </div>
+
+                    <h3>Prompts de seguimiento útiles</h3>
+                    
+                    <div class="code-snippet">
+"Ahora explica estos resultados como si fuera para [audiencia específica]"
+
+"¿Qué supuestos podrían estar violándose en este análisis?"
+
+"Sugiere 3 análisis adicionales que complementen estos hallazgos"
+
+"¿Cómo podría mejorar la calidad de estos datos para futuros análisis?"
+
+"Convierte este código R a Python manteniendo la misma funcionalidad"
+</div>
+                </div>
+            </div>
+            <div class="slide-number">14 / 20</div>
+        </div>
+
+        <!-- Slide 15: Herramientas y flujos de trabajo -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Herramientas y flujos de trabajo</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Integración con herramientas existentes</h3>
+                    
+                    <div class="llm-card">
+                        <div class="llm-title">RStudio + IA</div>
+                        <ul>
+                            <li>Genera código en chat, copia a RStudio</li>
+                            <li>Usa IA para depurar errores específicos</li>
+                            <li>Solicita documentación para código complejo</li>
+                            <li>Pide optimizaciones de rendimiento</li>
+                        </ul>
+                        <div class="code-snippet">
+Flujo típico:
+1. Describe problema a IA → obtén código base
+2. Adapta código a tus datos específicos
+3. Ejecuta y documenta errores si los hay
+4. Consulta IA para resolución de errores
+5. Solicita mejoras y optimizaciones
+</div>
+                    </div>
+
+                    <div class="llm-card">
+                        <div class="llm-title">Jupyter Notebooks + IA</div>
+                        <ul>
+                            <li>Genera celdas de código completas</li>
+                            <li>Crea celdas de markdown explicativas</li>
+                            <li>Solicita análisis secuenciales paso a paso</li>
+                            <li>Pide visualizaciones específicas</li>
+                        </ul>
+                        <div class="code-snippet">
+Prompts específicos para notebooks:
+"Crea una celda de código que [tarea específica] seguida de una celda markdown que explique qué hace el código y cómo interpretar los resultados"
+</div>
+                    </div>
+
+                    <div class="llm-card">
+                        <div class="llm-title">Excel + IA</div>
+                        <ul>
+                            <li>Genera fórmulas complejas</li>
+                            <li>Crea tablas dinámicas especializadas</li>
+                            <li>Solicita macros VBA personalizados</li>
+                            <li>Interpreta análisis de datos de Excel</li>
+                        </ul>
+                        <div class="code-snippet">
+"Crea una fórmula de Excel que calcule [métrica específica] basándose en estas columnas: [lista de columnas]. Incluye manejo de errores y valores faltantes."
+</div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Flujo de trabajo recomendado</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Fase 1: Planificación</div>
+                        <ul>
+                            <li>Define objetivos analíticos claramente</li>
+                            <li>Consulta IA sobre métodos apropiados</li>
+                            <li>Planifica estructura del análisis</li>
+                            <li>Identifica recursos y limitaciones</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Fase 2: Exploración</div>
+                        <ul>
+                            <li>EDA asistido por IA</li>
+                            <li>Identificación de patrones preliminares</li>
+                            <li>Limpieza y preparación de datos</li>
+                            <li>Validación de supuestos</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Fase 3: Modelado</div>
+                        <ul>
+                            <li>Selección de métodos con asistencia IA</li>
+                            <li>Implementación de análisis</li>
+                            <li>Validación y diagnósticos</li>
+                            <li>Refinamiento iterativo</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Fase 4: Comunicación</div>
+                        <ul>
+                            <li>Interpretación asistida por IA</li>
+                            <li>Creación de visualizaciones</li>
+                            <li>Redacción de reportes</li>
+                            <li>Presentación de hallazgos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Mejores prácticas organizacionales</h3>
+                    
+                    <div class="best-practices">
+                        <div class="practices-title">Documentación y reproducibilidad</div>
+                        <ul>
+                            <li><strong>Registra los prompts exitosos:</strong> Crea biblioteca personal</li>
+                            <li><strong>Documenta las decisiones:</strong> Por qué elegiste cierto método</li>
+                            <li><strong>Guarda código comentado:</strong> Para reutilización futura</li>
+                            <li><strong>Versionado de análisis:</strong> Control de cambios</li>
+                            <li><strong>Valida externamente:</strong> Confirma resultados críticos</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Tip de eficiencia:</strong> Desarrolla plantillas de proyectos con estructura estándar y prompts predefinidos para tu área de trabajo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">15 / 20</div>
+        </div>
+
+        <!-- Slide 16: Ética y transparencia -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ética y transparencia en el uso de IA</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Principios éticos fundamentales</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Transparencia metodológica</strong></p>
+                        <ul>
+                            <li>Documenta siempre cuándo y cómo usaste IA</li>
+                            <li>Menciona qué modelos de IA utilizaste</li>
+                            <li>Describe el proceso de validación realizado</li>
+                            <li>Incluye limitaciones identificadas</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Responsabilidad analítica</strong></p>
+                        <ul>
+                            <li>Tú eres el responsable final de los resultados</li>
+                            <li>Valida siempre los análisis generados por IA</li>
+                            <li>No delegues el juicio crítico a la IA</li>
+                            <li>Consulta literatura especializada para confirmar interpretaciones</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Privacidad y confidencialidad</strong></p>
+                        <ul>
+                            <li>No compartas datos sensibles o confidenciales</li>
+                            <li>Usa datos sintéticos para ejemplos cuando sea posible</li>
+                            <li>Revisa políticas de privacidad de las plataformas</li>
+                            <li>Considera modelos locales para datos críticos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Sesgos y limitaciones</h3>
+                    
+                    <div class="code-snippet">
+Pregunta de reflexión para cada análisis:
+"¿Qué sesgos podrían estar presentes en este análisis generado por IA?
+- ¿Sesgos en los datos de entrenamiento del modelo?
+- ¿Sesgos en mi formulación del prompt?
+- ¿Sesgos en la interpretación sugerida?
+- ¿Métodos alternativos que deberían considerarse?"
+</div>
+                </div>
+                <div>
+                    <h3>Buenas prácticas de documentación</h3>
+                    
+                    <div class="prompt-template">
+                        <div class="prompt-section">
+                            <div class="prompt-label">Template para informes</div>
+                            <p><strong>Metodología:</strong> Este análisis fue desarrollado con asistencia de [modelo de IA], específicamente [nombre del modelo]. Los prompts utilizados fueron estructurados siguiendo [metodología específica].</p>
+                            
+                            <p><strong>Validación:</strong> Los resultados generados fueron validados mediante [métodos específicos de validación utilizados].</p>
+                            
+                            <p><strong>Limitaciones:</strong> Se reconocen las siguientes limitaciones del análisis asistido por IA: [lista específica de limitaciones].</p>
+                        </div>
+                    </div>
+
+                    <h3>Desarrollo profesional continuo</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">La IA como herramienta, no sustituto</div>
+                        <ul>
+                            <li>Mantén y desarrolla competencias analíticas fundamentales</li>
+                            <li>Entiende los principios estadísticos detrás de los métodos</li>
+                            <li>Practica interpretación crítica de resultados</li>
+                            <li>Mantente actualizado en tu campo disciplinario</li>
+                        </ul>
+                    </div>
+
+                    <div class="best-practices">
+                        <div class="practices-title">Checklist ético para cada análisis</div>
+                        <ul>
+                            <li>¿He documentado el uso de IA transparentemente?</li>
+                            <li>¿He validado los resultados independientemente?</li>
+                            <li>¿He considerado sesgos potenciales?</li>
+                            <li>¿Las conclusiones son justificadas por los datos?</li>
+                            <li>¿He protegido la confidencialidad apropiadamente?</li>
+                            <li>¿Mi interpretación es honesta sobre las limitaciones?</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "El uso ético de la IA en análisis de datos requiere transparencia, validación rigurosa, y reconocimiento de que la responsabilidad final siempre recae en el analista humano"
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">16 / 20</div>
+        </div>
+
+        <!-- Slide 17: Errores comunes y cómo evitarlos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Errores comunes y cómo evitarlos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Errores en el prompting</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>Error 1: Prompts demasiado vagos</strong></p>
+                        <div class="code-snippet">
+❌ "Ayúdame con mis datos"
+✅ "Analiza este dataset de 200 experimentos químicos con variables temperatura, presión, catalizador y rendimiento para identificar condiciones óptimas de reacción"
+</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Error 2: Falta de contexto disciplinario</strong></p>
+                        <div class="code-snippet">
+❌ "Haz un análisis estadístico"
+✅ "Como químico industrial, necesito optimizar un proceso de síntesis. Analiza estos datos experimentales para maximizar rendimiento minimizando costos operativos"
+</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Error 3: No especificar nivel técnico</strong></p>
+                        <div class="code-snippet">
+❌ "Explica los resultados"
+✅ "Explica estos resultados ANOVA como si fuera estudiante de química con conocimientos básicos de estadística, enfocándote en implicaciones prácticas para el laboratorio"
+</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Error 4: Expectativas poco claras</strong></p>
+                        <div class="code-snippet">
+❌ "Dame el código"
+✅ "Proporciona código R comentado paso a paso, más interpretación de cada resultado, y recomendaciones específicas para implementación industrial"
+</div>
+                    </div>
+
+                    <h3>Errores de validación</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>Aceptar resultados sin verificación</strong></p>
+                        <ul>
+                            <li>Siempre prueba el código con datos conocidos</li>
+                            <li>Verifica que los métodos sean apropiados</li>
+                            <li>Confirma interpretaciones con literatura</li>
+                            <li>Busca segunda opinión para análisis críticos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Errores conceptuales</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>Confundir correlación con causalidad</strong></p>
+                        <p>La IA puede identificar correlaciones pero no puede determinar causalidad sin diseño experimental apropiado</p>
+                        <div class="code-snippet">
+Pregunta siempre: "¿Esta relación es causal o simplemente correlacional? ¿Qué factores confusores podrían estar presentes?"
+</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Ignorar supuestos estadísticos</strong></p>
+                        <p>La IA puede sugerir métodos sin verificar completamente si se cumplen los supuestos necesarios</p>
+                        <div class="code-snippet">
+Solicita siempre: "Verifica todos los supuestos de este método estadístico y sugiere alternativas si alguno se viola"
+</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Sobreinterpretar significancia estadística</strong></p>
+                        <p>Un p-valor < 0.05 no siempre implica relevancia práctica</p>
+                        <div class="code-snippet">
+Pregunta: "¿Este resultado es estadísticamente significativo Y prácticamente importante para mi contexto?"
+</div>
+                    </div>
+
+                    <h3>Estrategias de prevención</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Enfoque de múltiples perspectivas</strong></p>
+                        <ul>
+                            <li>Usa diferentes modelos de IA para el mismo problema</li>
+                            <li>Consulta múltiples fuentes especializadas</li>
+                            <li>Pide críticas al propio análisis generado</li>
+                            <li>Involucra colegas en la revisión</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Iteración y refinamiento</strong></p>
+                        <ul>
+                            <li>No aceptes la primera respuesta como final</li>
+                            <li>Haz preguntas de seguimiento específicas</li>
+                            <li>Pide alternativas metodológicas</li>
+                            <li>Solicita explicación de limitaciones</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Regla de oro:</strong> Si algo parece demasiado bueno para ser cierto, o si no entiendes completamente un resultado, investiga más antes de usarlo</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">17 / 20</div>
+        </div>
+
+        <!-- Slide 18: El futuro de la IA en análisis de datos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>El futuro de la IA en análisis de datos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Tendencias emergentes</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Modelos especializados</div>
+                        <ul>
+                            <li>IA específica para dominios científicos</li>
+                            <li>Modelos entrenados en literatura especializada</li>
+                            <li>Integración con bases de datos científicas</li>
+                            <li>Conocimiento actualizado en tiempo real</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Automatización inteligente</div>
+                        <ul>
+                            <li>Pipelines de análisis completamente automatizados</li>
+                            <li>Selección automática de métodos estadísticos</li>
+                            <li>Generación automática de reportes</li>
+                            <li>Monitoreo continuo de calidad de datos</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Interfaces más intuitivas</div>
+                        <ul>
+                            <li>Análisis por voz en lenguaje natural</li>
+                            <li>Interfaces visuales drag-and-drop</li>
+                            <li>Integración nativa en software científico</li>
+                            <li>Asistentes de análisis personalizados</li>
+                        </ul>
+                    </div>
+
+                    <h3>Impacto en la educación</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Democratización del análisis avanzado</strong></p>
+                        <ul>
+                            <li>Estudiantes sin formación técnica pueden realizar análisis sofisticados</li>
+                            <li>Enfoque en interpretación y pensamiento crítico</li>
+                            <li>Aprendizaje personalizado adaptado al ritmo individual</li>
+                            <li>Acceso a métodos de vanguardia sin barreras técnicas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Preparándose para el futuro</h3>
+                    
+                    <div class="best-practices">
+                        <div class="practices-title">Habilidades clave para desarrollar</div>
+                        <ul>
+                            <li><strong>Pensamiento crítico:</strong> Evaluar calidad y relevancia de análisis</li>
+                            <li><strong>Comunicación efectiva:</strong> Traducir resultados técnicos a lenguaje comprensible</li>
+                            <li><strong>Conocimiento del dominio:</strong> Contextualizar hallazgos en tu campo</li>
+                            <li><strong>Ética de datos:</strong> Uso responsable de tecnologías emergentes</li>
+                            <li><strong>Aprendizaje continuo:</strong> Adaptarse a nuevas herramientas</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Consejo profesional:</strong> La IA transformará el análisis de datos, pero siempre necesitaremos humanos que entiendan el contexto, validen resultados, y tomen decisiones éticas</p>
+                    </div>
+
+                    <h3>Oportunidades profesionales</h3>
+                    
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <div class="example-title">Especialista en IA aplicada</div>
+                            <p>Profesional que combina conocimiento del dominio con habilidades de prompting avanzado</p>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Consultor en análisis aumentado</div>
+                            <p>Experto en implementar flujos de trabajo que integren IA con análisis tradicional</p>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Validador de IA científica</div>
+                            <p>Especialista en verificar y validar análisis generados por sistemas de IA</p>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Educador en IA ética</div>
+                            <p>Profesional que enseña uso responsable de IA en investigación y análisis</p>
+                        </div>
+                    </div>
+
+                    <div class="quote-box">
+                        "El futuro pertenece a quienes puedan combinar la potencia de la IA con el juicio humano, el conocimiento especializado y el pensamiento ético"
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">18 / 20</div>
+        </div>
+
+        <!-- Slide 19: Recursos adicionales -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Recursos adicionales para profundizar</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Plataformas de IA recomendadas</h3>
+                    
+                    <div class="llm-grid">
+                        <div class="llm-card">
+                            <div class="llm-title">Gratuitas</div>
+                            <ul>
+                                <li><strong>ChatGPT 3.5:</strong> Uso básico gratuito</li>
+                                <li><strong>Claude (Anthropic):</strong> Versión gratuita limitada</li>
+                                <li><strong>Gemini:</strong> Acceso gratuito con cuenta Google</li>
+                                <li><strong>Copilot:</strong> Integrado con Microsoft</li>
+                            </ul>
+                        </div>
+
+                        <div class="llm-card">
+                            <div class="llm-title">Premium recomendadas</div>
+                            <ul>
+                                <li><strong>ChatGPT Plus:</strong> Acceso a GPT-4 y plugins</li>
+                                <li><strong>Claude Pro:</strong> Más consultas y mejor rendimiento</li>
+                                <li><strong>GitHub Copilot:</strong> Para programación avanzada</li>
+                                <li><strong>Cursor:</strong> Editor de código con IA integrada</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Cursos y certificaciones</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Cursos online recomendados</strong></p>
+                        <ul>
+                            <li><strong>Coursera:</strong> "AI for Data Science" por IBM</li>
+                            <li><strong>edX:</strong> "Introduction to Prompt Engineering"</li>
+                            <li><strong>Udacity:</strong> "AI Programming with Python"</li>
+                            <li><strong>DataCamp:</strong> "AI Fundamentals for Data Scientists"</li>
+                        </ul>
+                    </div>
+
+                    <h3>Libros especializados</h3>
+                    
+                    <div class="info-box">
+                        <ul>
+                            <li><strong>"The Prompt Engineering Handbook"</strong> - Técnicas avanzadas de prompting</li>
+                            <li><strong>"AI-Assisted Data Analysis"</strong> - Metodologías híbridas</li>
+                            <li><strong>"Statistical Thinking for AI"</strong> - Fundamentos estadísticos</li>
+                            <li><strong>"Ethics in AI-Driven Research"</strong> - Consideraciones éticas</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Comunidades y recursos</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">Comunidades online</div>
+                        <ul>
+                            <li><strong>Reddit:</strong> r/PromptEngineering, r/MachineLearning</li>
+                            <li><strong>Discord:</strong> Servidores especializados en IA</li>
+                            <li><strong>LinkedIn:</strong> Grupos de IA aplicada</li>
+                            <li><strong>Stack Overflow:</strong> Para resolución de problemas técnicos</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">Repositorios útiles</div>
+                        <ul>
+                            <li><strong>GitHub:</strong> Awesome Prompt Engineering</li>
+                            <li><strong>Hugging Face:</strong> Modelos y datasets</li>
+                            <li><strong>Papers with Code:</strong> Últimos avances académicos</li>
+                            <li><strong>Google Colab:</strong> Notebooks compartidos</li>
+                        </ul>
+                    </div>
+
+                    <h3>Herramientas complementarias</h3>
+                    
+                    <div class="examples-grid">
+                        <div class="example-card">
+                            <div class="example-title">Gestión de prompts</div>
+                            <ul>
+                                <li><strong>PromptBase:</strong> Marketplace de prompts</li>
+                                <li><strong>ChatGPT Prompt Genius:</strong> Extensión de Chrome</li>
+                                <li><strong>Notion:</strong> Para organizar biblioteca personal</li>
+                            </ul>
+                        </div>
+
+                        <div class="example-card">
+                            <div class="example-title">Visualización</div>
+                            <ul>
+                                <li><strong>Observable:</strong> Notebooks interactivos</li>
+                                <li><strong>Streamlit:</strong> Apps web para datos</li>
+                                <li><strong>Plotly Dash:</strong> Dashboards interactivos</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="best-practices">
+                        <div class="practices-title">Plan de aprendizaje recomendado</div>
+                        <ul>
+                            <li><strong>Semana 1-2:</strong> Experimenta con prompts básicos</li>
+                            <li><strong>Semana 3-4:</strong> Aplica a problemas de tu disciplina</li>
+                            <li><strong>Mes 2:</strong> Desarrolla biblioteca personal de prompts</li>
+                            <li><strong>Mes 3:</strong> Integra IA en flujo de trabajo habitual</li>
+                            <li><strong>Mes 4+:</strong> Explora técnicas avanzadas y especialización</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Importante:</strong> El campo de la IA evoluciona rápidamente. Mantente actualizado siguiendo blogs especializados y participando en comunidades activas</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">19 / 20</div>
+        </div>
+
+        <!-- Slide 20: Conclusiones y próximos pasos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Conclusiones y próximos pasos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Lo que hemos aprendido</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Fundamentos clave</strong></p>
+                        <ul>
+                            <li>La IA es una herramienta poderosa pero requiere uso inteligente</li>
+                            <li>El prompting efectivo es una habilidad técnica fundamental</li>
+                            <li>La validación y el pensamiento crítico son irreemplazables</li>
+                            <li>La transparencia ética es obligatoria en el uso profesional</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Habilidades desarrolladas</strong></p>
+                        <ul>
+                            <li>Estructuración de prompts para análisis de datos</li>
+                            <li>Técnicas avanzadas de iteración y refinamiento</li>
+                            <li>Adaptación de resultados por audiencia</li>
+                            <li>Integración de IA en flujos de trabajo existentes</li>
+                            <li>Evaluación crítica de resultados generados por IA</li>
+                        </ul>
+                    </div>
+
+                    <h3>Impacto esperado</h3>
+                    
+                    <div class="ai-card">
+                        <div class="ai-title">En tu productividad</div>
+                        <ul>
+                            <li>Reducción de 60-80% en tiempo de codificación</li>
+                            <li>Aceleración significativa en análisis exploratorio</li>
+                            <li>Mejora en calidad de documentación</li>
+                            <li>Mayor capacidad para explorar métodos avanzados</li>
+                        </ul>
+                    </div>
+
+                    <div class="ai-card">
+                        <div class="ai-title">En tu aprendizaje</div>
+                        <ul>
+                            <li>Acceso a explicaciones personalizadas</li>
+                            <li>Capacidad de experimentar sin miedo</li>
+                            <li>Comprensión más profunda de métodos estadísticos</li>
+                            <li>Conexión entre teoría y aplicación práctica</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Tu plan de acción</h3>
+                    
+                    <div class="best-practices">
+                        <div class="practices-title">Próximos 30 días</div>
+                        <ul>
+                            <li><strong>Día 1-7:</strong> Configura acceso a al menos 2 plataformas de IA</li>
+                            <li><strong>Día 8-15:</strong> Practica prompts básicos con tus datos actuales</li>
+                            <li><strong>Día 16-23:</strong> Aplica técnicas avanzadas a un proyecto real</li>
+                            <li><strong>Día 24-30:</strong> Documenta prompts exitosos en tu biblioteca personal</li>
+                        </ul>
+                    </div>
+
+                    <div class="prompt-template">
+                        <div class="prompt-section">
+                            <div class="prompt-label">Desafío personal</div>
+                            <p>Identifica un análisis que hayas hecho manualmente en el pasado y recréalo usando IA. Compara:</p>
+                            <ul>
+                                <li>Tiempo invertido (antes vs ahora)</li>
+                                <li>Calidad del análisis</li>
+                                <li>Nuevas perspectivas descubiertas</li>
+                                <li>Confianza en los resultados</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Mensaje final</h3>
+                    
+                    <div style="background: linear-gradient(145deg, #a73c3c, #8b2f2f); color: white; padding: 30px; border-radius: 15px; text-align: center; margin: 30px 0;">
+                        <p style="color: white; font-size: 1.3em; font-weight: 600; margin-bottom: 20px;">
+                            "La IA no te convertirá automáticamente en un mejor analista de datos"
+                        </p>
+                        <p style="color: white; font-size: 1.1em; margin: 0;">
+                            "Pero si la usas inteligentemente, con pensamiento crítico y transparencia ética, puede amplificar enormemente tu capacidad analítica y acelerar tu crecimiento profesional"
+                        </p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 40px;">
+                        <h3 style="color: #a73c3c; margin-bottom: 20px;">¡Gracias por su atención!</h3>
+                        <p style="font-size: 1.1em; color: #2c3e50; margin-bottom: 15px;">
+                            <strong>¿Preguntas sobre el uso de IA para análisis de datos?</strong>
+                        </p>
+                        <p style="font-size: 1em; color: #7f8c8d;">
+                            Recuerda: La mejor manera de aprender es practicando. 
+                            <br>¡Empieza hoy mismo con tus propios datos!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">20 / 20</div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
