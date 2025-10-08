@@ -3,21 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EIY403 - Clase 7: Funciones y Librerías en R</title>
-    <!-- MathJax Configuration -->
-    <script>
-        MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            },
-            svg: {
-                fontCache: 'global'
-            }
-        };
-    </script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <title>EIY403 - Estructuras de Datos Complejas en R</title>
     <style>
         * {
             margin: 0;
@@ -232,23 +218,17 @@
             text-align: left;
         }
 
-        .three-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
-            text-align: left;
-        }
-
         .code-snippet {
             background: linear-gradient(145deg, #2c3e50, #34495e);
             color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             font-family: 'Courier New', monospace;
-            font-size: 1em;
+            font-size: 0.9em;
             margin: 15px 0;
             border-left: 4px solid #a73c3c;
             overflow-x: auto;
+            text-align: left;
         }
 
         .warning-box {
@@ -278,39 +258,14 @@
             border-left: 5px solid #2196f3;
         }
 
-        .function-card {
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            border: 2px solid #a73c3c;
-            border-radius: 15px;
-            padding: 25px;
-            text-align: left;
-            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
-            transition: transform 0.3s ease;
-            margin: 20px 0;
-        }
-
-        .function-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.2);
-        }
-
-        .function-title {
-            color: #a73c3c;
-            font-weight: 700;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .library-grid {
+        .comparison-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 25px;
             margin: 25px 0;
         }
 
-        .library-card {
+        .comparison-card {
             background: linear-gradient(145deg, #ffffff, #f8f9fa);
             border: 2px solid #34495e;
             border-radius: 12px;
@@ -319,7 +274,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .library-title {
+        .comparison-title {
             color: #a73c3c;
             font-weight: 700;
             font-size: 1.2em;
@@ -327,66 +282,21 @@
             text-transform: uppercase;
         }
 
-        .best-practices {
-            background: linear-gradient(145deg, #fff3cd, #ffeaa7);
-            border: 2px solid #a73c3c;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            text-align: left;
-            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.1);
-        }
-
-        .practices-title {
-            color: #a73c3c;
-            font-weight: 700;
-            font-size: 1.4em;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-align: center;
-        }
-
-        .examples-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin: 25px 0;
-        }
-
-        .example-card {
-            background: linear-gradient(145deg, #f8f9fa, #ffffff);
-            border: 2px solid #17a2b8;
-            border-radius: 12px;
-            padding: 20px;
-            text-align: left;
-            box-shadow: 0 5px 15px rgba(23, 162, 184, 0.1);
-        }
-
-        .example-title {
-            color: #17a2b8;
-            font-weight: 700;
-            font-size: 1.1em;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
-
-        .discipline-tag {
-            background: #17a2b8;
+        .quote-box {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.8em;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3em;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            display: inline-block;
-            margin-bottom: 10px;
+            box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);
+            margin: 30px 0;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <a href="../../index.html" class="home-btn">← Volver al inicio</a>
+    <a href="#" class="home-btn">← Volver al inicio</a>
     
     <div class="presentation-container">
         <!-- Slide 1: Portada -->
