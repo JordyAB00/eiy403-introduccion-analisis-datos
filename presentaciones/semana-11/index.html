@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - Estructuras de Datos Complejas en R</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .code-snippet {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+            overflow-x: auto;
+            text-align: left;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #ffe6e6, #ffcccc);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .success-box {
+            background: linear-gradient(145deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        .comparison-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .comparison-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .quote-box {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);
+            margin: 30px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="home-btn">← Volver al inicio</a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>Estructuras de datos complejas en R</h1>
+            <p class="subtitle" style="text-align: center;">Listas, listas nombradas y organización avanzada de información</p>
+            <div class="info"><strong>Curso:</strong> EIY403 - Introducción al análisis de datos</div>
+            <div class="info"><strong>Semana 11</strong></div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            
+            <div class="quote-box" style="margin: 40px 0;">
+                "Las estructuras de datos complejas nos permiten organizar, almacenar y manipular información de manera eficiente y flexible"
+            </div>
+            
+            <div class="slide-number">1 / 15</div>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Agenda de la sesión</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Fundamentos</h3>
+                    <ul>
+                        <li>Repaso: vectores, matrices y data frames</li>
+                        <li>¿Por qué necesitamos estructuras más complejas?</li>
+                        <li>Diferencias entre Python y R</li>
+                    </ul>
+                    
+                    <h3>Listas en R</h3>
+                    <ul>
+                        <li>Definición y características</li>
+                        <li>Creación de listas simples</li>
+                        <li>Acceso a elementos de listas</li>
+                        <li>Listas anidadas</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Listas nombradas</h3>
+                    <ul>
+                        <li>Equivalente a diccionarios en Python</li>
+                        <li>Sintaxis y uso práctico</li>
+                        <li>Manipulación de elementos</li>
+                        <li>Aplicaciones en análisis de datos</li>
+                    </ul>
+
+                    <h3>Conceptos avanzados</h3>
+                    <ul>
+                        <li>Introducción a clases en R (S3)</li>
+                        <li>Listas como objetos estructurados</li>
+                        <li>Casos de uso en química y otras ciencias</li>
+                        <li>Ejercicios prácticos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">2 / 15</div>
+        </div>
+
+        <!-- Slide 3: Repaso de estructuras básicas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Repaso: estructuras de datos básicas en R</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="comparison-title">Vector</div>
+                    <p><strong>Dimensión:</strong> 1D (una dimensión)</p>
+                    <p><strong>Restricción:</strong> Todos los elementos del mismo tipo</p>
+                    <div class="code-snippet">
+# Ejemplo
+temperaturas <- c(25.3, 26.1, 24.8, 25.5)
+nombres <- c("Ana", "Juan", "María")</div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-title">Matriz</div>
+                    <p><strong>Dimensión:</strong> 2D (filas y columnas)</p>
+                    <p><strong>Restricción:</strong> Todos los elementos del mismo tipo</p>
+                    <div class="code-snippet">
+# Ejemplo
+datos <- matrix(1:6, nrow=2, ncol=3)
+#      [,1] [,2] [,3]
+# [1,]    1    3    5
+# [2,]    2    4    6</div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-title">Data frame</div>
+                    <p><strong>Dimensión:</strong> 2D (filas y columnas)</p>
+                    <p><strong>Flexibilidad:</strong> Cada columna puede ser de tipo diferente</p>
+                    <div class="code-snippet">
+# Ejemplo
+experimentos <- data.frame(
+  id = 1:3,
+  temp = c(25, 30, 35),
+  exito = c(TRUE, FALSE, TRUE)
+)</div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-title">Lista</div>
+                    <p><strong>Dimensión:</strong> 1D pero puede contener cualquier cosa</p>
+                    <p><strong>Flexibilidad:</strong> Puede mezclar tipos y estructuras</p>
+                    <div class="code-snippet">
+# Ejemplo
+mi_lista <- list(
+  numeros = 1:5,
+  texto = "Hola",
+  logicos = c(TRUE, FALSE)
+)</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Conclusión:</strong> Las listas son la estructura más flexible en R, permitiendo combinar diferentes tipos de datos y estructuras en un solo objeto</p>
+            </div>
+            
+            <div class="slide-number">3 / 15</div>
+        </div>
+
+        <!-- Slide 4: ¿Por qué estructuras complejas? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Por qué necesitamos estructuras más complejas?</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Limitaciones de estructuras simples</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>Problema 1: datos heterogéneos</strong></p>
+                        <p>Un experimento químico puede tener: nombre (texto), temperatura (número), resultados (vector), y condiciones (data frame)</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Problema 2: organización lógica</strong></p>
+                        <p>Necesitamos agrupar información relacionada de manera que tenga sentido conceptualmente</p>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Problema 3: análisis complejos</strong></p>
+                        <p>Los análisis estadísticos devuelven múltiples resultados (coeficientes, p-valores, gráficos, etc.)</p>
+                    </div>
+
+                    <h3>Ejemplo del mundo real</h3>
+                    <div class="code-snippet">
+# Información de un experimento químico:
+- Nombre del experimento
+- Fecha de realización
+- Condiciones (temperatura, pH, presión)
+- Mediciones (vector de concentraciones)
+- Resultados estadísticos
+- Gráficos generados
+- Observaciones del investigador
+
+# ¿Cómo almacenar todo esto junto?</div>
+                </div>
+                <div>
+                    <h3>Ventajas de estructuras complejas</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Organización clara</strong></p>
+                        <ul>
+                            <li>Agrupa información relacionada</li>
+                            <li>Jerarquía lógica de datos</li>
+                            <li>Fácil de entender y mantener</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Flexibilidad total</strong></p>
+                        <ul>
+                            <li>Mezcla diferentes tipos de datos</li>
+                            <li>Anida estructuras dentro de otras</li>
+                            <li>Adapta la estructura a tus necesidades</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Eficiencia en el código</strong></p>
+                        <ul>
+                            <li>Menos variables sueltas</li>
+                            <li>Código más limpio y legible</li>
+                            <li>Fácil de pasar como argumento a funciones</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Analogía:</strong> Piensa en una lista como un archivador donde cada cajón puede contener diferentes tipos de documentos, carpetas, o incluso otros archivadores más pequeños</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4 / 15</div>
+        </div>
+
+        <!-- Slide 5: Python vs R -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>De Python a R: equivalencias importantes</h2>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="comparison-title">Diccionarios en Python</div>
+                    <div class="code-snippet">
+# Python
+experimento = {
+    "nombre": "Síntesis A",
+    "temperatura": 25.5,
+    "pH": 7.2,
+    "resultados": [1.2, 1.5, 1.3]
+}
+
+# Acceso
+print(experimento["temperatura"])
+# 25.5</div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-title">Listas nombradas en R</div>
+                    <div class="code-snippet">
+# R
+experimento <- list(
+  nombre = "Síntesis A",
+  temperatura = 25.5,
+  pH = 7.2,
+  resultados = c(1.2, 1.5, 1.3)
+)
+
+# Acceso
+experimento$temperatura
+# [1] 25.5</div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-title">Clases en Python</div>
+                    <div class="code-snippet">
+# Python
+class Experimento:
+    def __init__(self, nombre, temp):
+        self.nombre = nombre
+        self.temperatura = temp
+    
+    def resumen(self):
+        return f"{self.nombre}: {self.temperatura}°C"
+
+exp = Experimento("Test", 25)
+print(exp.resumen())</div>
+                </div>
+
+                <div class="comparison-card">
+                    <div class="comparison-title">Listas con clase S3 en R</div>
+                    <div class="code-snippet">
+# R (simplificado)
+crear_experimento <- function(nombre, temp) {
+  obj <- list(
+    nombre = nombre,
+    temperatura = temp
+  )
+  class(obj) <- "Experimento"
+  return(obj)
+}
+
+exp <- crear_experimento("Test", 25)
+class(exp)
+# [1] "Experimento"</div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Conclusión clave:</strong> En R, las <strong>listas nombradas</strong> son el equivalente más directo y práctico a los diccionarios de Python. Las clases existen pero son más avanzadas y no siempre necesarias</p>
+            </div>
+            
+            <div class="slide-number">5 / 15</div>
+        </div>
+
+        <!-- Slide 6: Listas básicas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Listas en R: conceptos fundamentales</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Definición</h3>
+                    <p>Una <strong>lista</strong> es una estructura de datos que puede contener elementos de diferentes tipos y estructuras. Es como un contenedor flexible que puede almacenar cualquier cosa.</p>
+
+                    <h3>Creación de listas simples</h3>
+                    <div class="code-snippet">
+# Lista simple
+mi_lista <- list(42, "texto", TRUE, 3.14)
+
+# Ver la estructura
+str(mi_lista)
+# List of 4
+#  $ : num 42
+#  $ : chr "texto"
+#  $ : logi TRUE
+#  $ : num 3.14
+
+# Ver contenido
+mi_lista
+# [[1]]
+# [1] 42
+# 
+# [[2]]
+# [1] "texto"
+# 
+# [[3]]
+# [1] TRUE
+# 
+# [[4]]
+# [1] 3.14</div>
+
+                    <h3>Lista con vectores</h3>
+                    <div class="code-snippet">
+# Lista conteniendo vectores
+datos_lab <- list(
+  c(25.1, 25.3, 24.9),    # temperaturas
+  c(7.2, 7.1, 7.3),       # pH
+  c("A", "B", "A")        # catalizador
+)
+
+# Acceder al primer elemento (vector de temperaturas)
+datos_lab[[1]]
+# [1] 25.1 25.3 24.9</div>
+                </div>
+                <div>
+                    <h3>Acceso a elementos</h3>
+                    
+                    <div class="info-box">
+                        <p><strong>Tres formas de acceder:</strong></p>
+                        <div class="code-snippet">
+mi_lista <- list(10, 20, 30)
+
+# 1. Con [[ ]] - devuelve el elemento
+mi_lista[[1]]
+# [1] 10
+
+# 2. Con [ ] - devuelve una sublista
+mi_lista[1]
+# [[1]]
+# [1] 10
+
+# 3. Por posición múltiple
+mi_lista[c(1, 3)]
+# [[1]]
+# [1] 10
+# 
+# [[2]]
+# [1] 30</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Diferencia importante:</strong></p>
+                        <ul>
+                            <li><code>[[1]]</code> → extrae el elemento directamente</li>
+                            <li><code>[1]</code> → extrae una sublista con ese elemento</li>
+                        </ul>
+                    </div>
+
+                    <h3>Listas anidadas</h3>
+                    <div class="code-snippet">
+# Lista dentro de otra lista
+experimentos <- list(
+  exp1 = list(temp = 25, pH = 7.0),
+  exp2 = list(temp = 30, pH = 6.5)
+)
+
+# Acceso anidado
+experimentos[[1]][[1]]  # 25
+experimentos[[2]][[2]]  # 6.5</div>
+                </div>
+            </div>
+            <div class="slide-number">6 / 15</div>
+        </div>
+
+        <!-- Slide 7: Listas nombradas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Listas nombradas: el equivalente a diccionarios</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>¿Qué son?</h3>
+                    <p>Las <strong>listas nombradas</strong> son listas donde cada elemento tiene un nombre asociado. Esto hace el código más legible y es el equivalente directo a los diccionarios en Python.</p>
+
+                    <h3>Creación</h3>
+                    <div class="code-snippet">
+# Sintaxis 1: al crear la lista
+experimento <- list(
+  nombre = "Síntesis de aspirina",
+  fecha = "2025-10-08",
+  temperatura = 25.5,
+  pH = 7.2,
+  concentraciones = c(0.1, 0.2, 0.15)
+)
+
+# Sintaxis 2: asignar nombres después
+valores <- list(100, 200, 300)
+names(valores) <- c("minimo", "medio", "maximo")
+
+# Ver nombres
+names(experimento)
+# [1] "nombre"          "fecha"          
+# [3] "temperatura"     "pH"             
+# [5] "concentraciones"</div>
+
+                    <h3>Ventajas</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Legibilidad:</strong> nombres descriptivos vs. posiciones numéricas</li>
+                            <li><strong>Mantenimiento:</strong> fácil agregar/quitar elementos</li>
+                            <li><strong>Autoexplicativo:</strong> el código se documenta solo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Acceso a elementos nombrados</h3>
+                    
+                    <div class="code-snippet">
+# Tres formas de acceder por nombre:
+
+# 1. Con $ (más común y limpio)
+experimento$temperatura
+# [1] 25.5
+
+# 2. Con [["nombre"]]
+experimento[["pH"]]
+# [1] 7.2
+
+# 3. Con ["nombre"] (devuelve sublista)
+experimento["nombre"]
+# $nombre
+# [1] "Síntesis de aspirina"</div>
+
+                    <h3>Modificación</h3>
+                    <div class="code-snippet">
+# Cambiar un valor existente
+experimento$temperatura <- 30.0
+
+# Agregar un nuevo elemento
+experimento$presion <- 1.2
+
+# Eliminar un elemento
+experimento$presion <- NULL
+
+# Ver estructura actualizada
+str(experimento)</div>
+
+                    <h3>Caso práctico</h3>
+                    <div class="code-snippet">
+# Información de un estudiante
+estudiante <- list(
+  carnet = "B12345",
+  nombre = "María López",
+  carrera = "Química Industrial",
+  notas = c(85, 90, 88, 92),
+  aprobado = TRUE
+)
+
+# Calcular promedio
+promedio <- mean(estudiante$notas)
+cat("Promedio de", estudiante$nombre, ":", promedio)
+# Promedio de María López : 88.75</div>
+                </div>
+            </div>
+            <div class="slide-number">7 / 15</div>
+        </div>
+
+        <!-- Slide 8: Manipulación avanzada -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Manipulación avanzada de listas</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Operaciones comunes</h3>
+                    
+                    <div class="code-snippet">
+# Crear lista de ejemplo
+datos <- list(
+  a = 1:5,
+  b = 10:15,
+  c = c("x", "y", "z")
+)
+
+# Longitud de la lista
+length(datos)  # 3
+
+# Nombres de elementos
+names(datos)  # "a" "b" "c"
+
+# Verificar si existe un nombre
+"a" %in% names(datos)  # TRUE
+
+# Combinar listas
+nueva_lista <- c(datos, list(d = 100))
+length(nueva_lista)  # 4
+</div>
+
+                    <h3>Iterar sobre listas</h3>
+                    <div class="code-snippet">
+# Con for loop
+for (i in 1:length(datos)) {
+  cat("Elemento", i, ":", datos[[i]], "\n")
+}
+
+# Con lapply (retorna lista)
+lapply(datos, length)
+# $a
+# [1] 5
+# $b
+# [1] 6
+# $c
+# [1] 3
+
+# Con sapply (retorna vector)
+sapply(datos, length)
+# a b c 
+# 5 6 3</div>
+
+                    <h3>Filtrar elementos</h3>
+                    <div class="code-snippet">
+# Solo elementos numéricos
+numeros <- datos[sapply(datos, is.numeric)]
+
+# Solo vectores de longitud > 3
+largos <- datos[sapply(datos, function(x) length(x) > 3)]</div>
+                </div>
+                <div>
+                    <h3>Conversión entre estructuras</h3>
+                    
+                    <div class="code-snippet">
+# Lista a data frame (si es posible)
+mi_lista <- list(
+  nombre = c("Ana", "Juan", "María"),
+  edad = c(25, 30, 28),
+  ciudad = c("San José", "Heredia", "Alajuela")
+)
+
+df <- as.data.frame(mi_lista)
+df
+#   nombre edad    ciudad
+# 1    Ana   25  San José
+# 2   Juan   30   Heredia
+# 3  María   28  Alajuela
+
+# Data frame a lista (por columnas)
+lista_cols <- as.list(df)
+
+# Data frame a lista (por filas)
+lista_filas <- split(df, 1:nrow(df))</div>
+
+                    <h3>Búsqueda en listas</h3>
+                    <div class="code-snippet">
+experimentos <- list(
+  exp1 = list(temp = 25, resultado = "exitoso"),
+  exp2 = list(temp = 30, resultado = "fallido"),
+  exp3 = list(temp = 25, resultado = "exitoso")
+)
+
+# Encontrar experimentos exitosos
+exitosos <- experimentos[
+  sapply(experimentos, function(x) x$resultado == "exitoso")
+]
+
+length(exitosos)  # 2</div>
+
+                    <h3>Funciones útiles</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li><code>unlist()</code> - convierte lista a vector</li>
+                            <li><code>str()</code> - muestra estructura completa</li>
+                            <li><code>lengths()</code> - longitud de cada elemento</li>
+                            <li><code>rapply()</code> - aplica función recursivamente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">8 / 15</div>
+        </div>
+
+        <!-- Slide 9: Casos de uso en química -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Aplicación práctica: experimentos químicos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Caso 1: registro de experimento individual</h3>
+                    <div class="code-snippet">
+# Crear registro completo de un experimento
+experimento_sintesis <- list(
+  metadata = list(
+    nombre = "Síntesis de ácido acetilsalicílico",
+    fecha = "2025-10-08",
+    investigador = "Dr. Ramírez",
+    laboratorio = "Lab A"
+  ),
+  
+  condiciones_iniciales = list(
+    temperatura = 25.5,
+    presion = 1.0,
+    pH = 7.0,
+    humedad = 65
+  ),
+  
+  reactivos = data.frame(
+    nombre = c("Ácido salicílico", "Anhídrido acético"),
+    cantidad = c(2.0, 3.0),
+    unidad = c("g", "mL")
+  ),
+  
+  mediciones = list(
+    tiempo = c(0, 10, 20, 30, 40, 50),  # minutos
+    temperatura = c(25, 60, 75, 75, 70, 65),
+    pH = c(7.0, 6.5, 6.2, 6.0, 6.1, 6.2)
+  ),
+  
+  resultados = list(
+    rendimiento = 85.3,  # porcentaje
+    pureza = 96.7,       # porcentaje
+    aspecto = "cristales blancos",
+    solubilidad = "alta en etanol"
+  ),
+  
+  observaciones = "Reacción exotérmica. 
+                   Cristalización exitosa."
+)
+
+# Acceso fácil a información específica
+experimento_sintesis$metadata$nombre
+experimento_sintesis$resultados$rendimiento
+experimento_sintesis$mediciones$temperatura</div>
+                </div>
+                <div>
+                    <h3>Ventajas de esta organización</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Organización lógica</strong></p>
+                        <ul>
+                            <li>Toda la información del experimento en un solo objeto</li>
+                            <li>Estructura jerárquica clara y comprensible</li>
+                            <li>Fácil de expandir con nueva información</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Análisis simplificado</strong></p>
+                        <div class="code-snippet">
+# Calcular temperatura promedio
+mean(experimento_sintesis$mediciones$temperatura)
+# [1] 61.66667
+
+# Crear gráfico de temperatura vs tiempo
+plot(
+  experimento_sintesis$mediciones$tiempo,
+  experimento_sintesis$mediciones$temperatura,
+  type = "b",
+  main = experimento_sintesis$metadata$nombre,
+  xlab = "Tiempo (min)",
+  ylab = "Temperatura (°C)"
+)</div>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Reutilización</strong></p>
+                        <div class="code-snippet">
+# Función para crear resumen
+resumen_experimento <- function(exp) {
+  cat("=== RESUMEN DEL EXPERIMENTO ===\n")
+  cat("Nombre:", exp$metadata$nombre, "\n")
+  cat("Fecha:", exp$metadata$fecha, "\n")
+  cat("Rendimiento:", exp$resultados$rendimiento, "%\n")
+  cat("Pureza:", exp$resultados$pureza, "%\n")
+  cat("Temp. promedio:", 
+      mean(exp$mediciones$temperatura), "°C\n")
+}
+
+resumen_experimento(experimento_sintesis)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">9 / 15</div>
+        </div>
+
+        <!-- Slide 10: Múltiples experimentos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Caso 2: gestión de múltiples experimentos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Base de datos de experimentos</h3>
+                    <div class="code-snippet">
+# Lista de múltiples experimentos
+base_experimentos <- list(
+  
+  EXP001 = list(
+    nombre = "Síntesis A",
+    fecha = "2025-10-01",
+    temperatura = 25,
+    pH = 7.0,
+    rendimiento = 85.3,
+    exitoso = TRUE
+  ),
+  
+  EXP002 = list(
+    nombre = "Síntesis B",
+    fecha = "2025-10-03",
+    temperatura = 30,
+    pH = 6.5,
+    rendimiento = 78.2,
+    exitoso = TRUE
+  ),
+  
+  EXP003 = list(
+    nombre = "Síntesis C",
+    fecha = "2025-10-05",
+    temperatura = 35,
+    pH = 6.0,
+    rendimiento = 45.1,
+    exitoso = FALSE
+  )
+)
+
+# Ver todos los experimentos
+names(base_experimentos)
+# [1] "EXP001" "EXP002" "EXP003"</div>
+
+                    <h3>Análisis comparativo</h3>
+                    <div class="code-snippet">
+# Extraer todos los rendimientos
+rendimientos <- sapply(
+  base_experimentos, 
+  function(x) x$rendimiento
+)
+rendimientos
+# EXP001 EXP002 EXP003 
+#   85.3   78.2   45.1
+
+# Calcular promedio
+mean(rendimientos)
+# [1] 69.53333
+
+# Filtrar experimentos exitosos
+exitosos <- base_experimentos[
+  sapply(base_experimentos, function(x) x$exitoso)
+]
+length(exitosos)  # 2</div>
+                </div>
+                <div>
+                    <h3>Análisis avanzado</h3>
+                    
+                    <div class="code-snippet">
+# Función para analizar la base completa
+analizar_experimentos <- function(base) {
+  
+  # Extraer variables
+  temps <- sapply(base, function(x) x$temperatura)
+  pHs <- sapply(base, function(x) x$pH)
+  rends <- sapply(base, function(x) x$rendimiento)
+  
+  # Estadísticas
+  cat("=== ANÁLISIS DE EXPERIMENTOS ===\n\n")
+  cat("Total de experimentos:", length(base), "\n")
+  
+  cat("\nTemperatura:\n")
+  cat("  Rango:", min(temps), "-", max(temps), "°C\n")
+  cat("  Promedio:", mean(temps), "°C\n")
+  
+  cat("\npH:\n")
+  cat("  Rango:", min(pHs), "-", max(pHs), "\n")
+  cat("  Promedio:", mean(pHs), "\n")
+  
+  cat("\nRendimiento:\n")
+  cat("  Promedio:", mean(rends), "%\n")
+  cat("  Mejor:", max(rends), "%\n")
+  cat("  Peor:", min(rends), "%\n")
+  
+  # Tasa de éxito
+  n_exitosos <- sum(sapply(base, function(x) x$exitoso))
+  tasa_exito <- (n_exitosos / length(base)) * 100
+  cat("\nTasa de éxito:", tasa_exito, "%\n")
+}
+
+analizar_experimentos(base_experimentos)</div>
+
+                    <h3>Exportar a data frame para análisis</h3>
+                    <div class="code-snippet">
+# Convertir a data frame para análisis estadístico
+df_experimentos <- do.call(rbind, lapply(
+  base_experimentos,
+  function(x) data.frame(
+    nombre = x$nombre,
+    temperatura = x$temperatura,
+    pH = x$pH,
+    rendimiento = x$rendimiento,
+    exitoso = x$exitoso
+  )
+))
+
+# Ahora podemos usar herramientas de data frame
+summary(df_experimentos)
+cor(df_experimentos$temperatura, 
+    df_experimentos$rendimiento)</div>
+                </div>
+            </div>
+            <div class="slide-number">10 / 15</div>
+        </div>
+
+        <!-- Slide 11: Resultados de análisis estadístico -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Caso 3: almacenar resultados de análisis</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Problema común</h3>
+                    <p>Los análisis estadísticos en R generan múltiples resultados: coeficientes, p-valores, residuos, predicciones, etc. Las listas son perfectas para almacenar todo esto.</p>
+
+                    <h3>Ejemplo: regresión lineal</h3>
+                    <div class="code-snippet">
+# Datos de ejemplo
+temperatura <- c(20, 25, 30, 35, 40)
+rendimiento <- c(65, 72, 80, 75, 68)
+
+# Realizar regresión (retorna lista)
+modelo <- lm(rendimiento ~ temperatura)
+
+# Ver estructura del modelo
+class(modelo)
+# [1] "lm"
+
+names(modelo)
+#  [1] "coefficients"  "residuals"     
+#  [3] "effects"       "rank"          
+#  [5] "fitted.values" "assign"        
+#  [7] "qr"            "df.residual"   
+#  [9] "xlevels"       "call"          
+# [11] "terms"         "model"
+
+# Es una lista nombrada especial
+is.list(modelo)
+# [1] TRUE</div>
+
+                    <h3>Acceso a resultados</h3>
+                    <div class="code-snippet">
+# Coeficientes
+modelo$coefficients
+# (Intercept) temperatura 
+#       66.00        0.20
+
+# Residuos
+modelo$residuals
+#    1    2    3    4    5 
+# -5.0  2.0  6.0 -0.2 -6.8
+
+# Valores ajustados
+modelo$fitted.values
+#    1    2    3    4    5 
+# 70.0 71.0 74.0 73.0 74.8</div>
+                </div>
+                <div>
+                    <h3>Crear análisis personalizado</h3>
+                    
+                    <div class="code-snippet">
+# Función que retorna análisis completo
+analizar_relacion <- function(x, y, 
+                              nombre_x = "X", 
+                              nombre_y = "Y") {
+  
+  # Modelo de regresión
+  modelo <- lm(y ~ x)
+  
+  # Crear lista de resultados
+  resultados <- list(
+    # Información básica
+    variables = list(
+      independiente = nombre_x,
+      dependiente = nombre_y,
+      n = length(x)
+    ),
+    
+    # Datos originales
+    datos = data.frame(x = x, y = y),
+    
+    # Modelo
+    modelo = modelo,
+    
+    # Estadísticas clave
+    estadisticas = list(
+      r_cuadrado = summary(modelo)$r.squared,
+      p_valor = summary(modelo)$coefficients[2, 4],
+      pendiente = coef(modelo)[2],
+      intercepto = coef(modelo)[1]
+    ),
+    
+    # Diagnóstico
+    diagnostico = list(
+      residuos = resid(modelo),
+      residuos_estandarizados = rstandard(modelo),
+      valores_ajustados = fitted(modelo)
+    )
+  )
+  
+  # Asignar clase personalizada
+  class(resultados) <- "analisis_regresion"
+  
+  return(resultados)
+}
+
+# Usar la función
+mi_analisis <- analizar_relacion(
+  temperatura, 
+  rendimiento,
+  "Temperatura (°C)", 
+  "Rendimiento (%)"
+)</div>
+
+                    <h3>Acceso organizado</h3>
+                    <div class="code-snippet">
+# Información clara y estructurada
+mi_analisis$estadisticas$r_cuadrado
+mi_analisis$estadisticas$p_valor
+mi_analisis$variables$n
+
+# Crear función de resumen personalizada
+print.analisis_regresion <- function(x) {
+  cat("=== ANÁLISIS DE REGRESIÓN ===\n\n")
+  cat("Variables:\n")
+  cat(" ", x$variables$independiente, "→",
+      x$variables$dependiente, "\n")
+  cat("  n =", x$variables$n, "\n\n")
+  cat("Resultados:\n")
+  cat("  R² =", round(x$estadisticas$r_cuadrado, 4), "\n")
+  cat("  p-valor =", 
+      format.pval(x$estadisticas$p_valor), "\n")
+}
+
+print(mi_analisis)</div>
+                </div>
+            </div>
+            <div class="slide-number">11 / 15</div>
+        </div>
+
+        <!-- Slide 12: Introducción a clases S3 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Introducción a clases en R (sistema S3)</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>¿Qué son las clases?</h3>
+                    <p>En R, las clases permiten crear tipos de objetos personalizados con comportamientos específicos. El sistema <strong>S3</strong> es el más simple y común.</p>
+
+                    <h3>Concepto básico</h3>
+                    <div class="info-box">
+                        <p>Una clase S3 es simplemente una <strong>lista con un atributo "class"</strong>. Esto permite que funciones genéricas (como <code>print()</code>, <code>summary()</code>, <code>plot()</code>) se comporten de manera diferente según el tipo de objeto.</p>
+                    </div>
+
+                    <h3>Crear un objeto con clase</h3>
+                    <div class="code-snippet">
+# Función constructora
+crear_muestra <- function(id, compuesto, 
+                         concentracion, pureza) {
+  
+  # Crear lista con datos
+  muestra <- list(
+    id = id,
+    compuesto = compuesto,
+    concentracion = concentracion,
+    pureza = pureza,
+    fecha_analisis = Sys.Date()
+  )
+  
+  # Asignar clase
+  class(muestra) <- "muestra_quimica"
+  
+  return(muestra)
+}
+
+# Crear objeto
+m1 <- crear_muestra(
+  id = "M001",
+  compuesto = "NaCl",
+  concentracion = 0.5,
+  pureza = 99.8
+)
+
+class(m1)
+# [1] "muestra_quimica"</div>
+                </div>
+                <div>
+                    <h3>Crear método print personalizado</h3>
+                    <div class="code-snippet">
+# Método print para nuestra clase
+print.muestra_quimica <- function(x, ...) {
+  cat("╔════════════════════════════════════╗\n")
+  cat("║     ANÁLISIS DE MUESTRA QUÍMICA    ║\n")
+  cat("╚════════════════════════════════════╝\n\n")
+  cat("ID:", x$id, "\n")
+  cat("Compuesto:", x$compuesto, "\n")
+  cat("Concentración:", x$concentracion, "M\n")
+  cat("Pureza:", x$pureza, "%\n")
+  cat("Fecha:", format(x$fecha_analisis), "\n")
+  cat("\n")
+}
+
+# Ahora al imprimir, usa nuestro método
+print(m1)
+# ╔════════════════════════════════════╗
+# ║     ANÁLISIS DE MUESTRA QUÍMICA    ║
+# ╚════════════════════════════════════╝
+# 
+# ID: M001
+# Compuesto: NaCl
+# Concentración: 0.5 M
+# Pureza: 99.8 %
+# Fecha: 2025-10-08</div>
+
+                    <h3>Método summary personalizado</h3>
+                    <div class="code-snippet">
+summary.muestra_quimica <- function(object, ...) {
+  cat("Resumen de muestra", object$id, "\n")
+  cat("Compuesto:", object$compuesto, "\n")
+  
+  # Evaluación de calidad
+  calidad <- if (object$pureza >= 99) {
+    "Alta"
+  } else if (object$pureza >= 95) {
+    "Media"
+  } else {
+    "Baja"
+  }
+  
+  cat("Calidad:", calidad, "\n")
+}
+
+summary(m1)
+# Resumen de muestra M001
+# Compuesto: NaCl
+# Calidad: Alta</div>
+
+                    <h3>Ventaja de las clases</h3>
+                    <div class="success-box">
+                        <p>Las funciones genéricas automáticamente usan el método correcto según la clase del objeto</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">12 / 15</div>
+        </div>
+
+        <!-- Slide 13: Ejercicio práctico 1 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ejercicio práctico 1: registro de estudiante</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Desafío</h3>
+                    <p>Crea una lista nombrada que represente la información completa de un estudiante con las siguientes características:</p>
+                    
+                    <div class="info-box">
+                        <p><strong>Información a incluir:</strong></p>
+                        <ul>
+                            <li>Información personal: nombre, carné, carrera</li>
+                            <li>Contacto: email, teléfono</li>
+                            <li>Académico: vector de notas de 5 exámenes</li>
+                            <li>Información calculada: promedio, estado (aprobado/reprobado)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Pasos</h3>
+                    <div class="code-snippet">
+# 1. Crear la lista con toda la información
+
+# 2. Calcular el promedio de notas
+
+# 3. Determinar si aprobó (promedio >= 70)
+
+# 4. Imprimir información formateada</div>
+
+                    <h3>Ejemplo de salida esperada</h3>
+                    <div class="code-snippet">
+# Al imprimir debería verse algo así:
+# 
+# Estudiante: María López
+# Carné: B12345
+# Carrera: Química Industrial
+# Email: maria.lopez@una.cr
+# 
+# Notas: 85 78 92 88 90
+# Promedio: 86.6
+# Estado: APROBADO ✓</div>
+                </div>
+                <div>
+                    <h3>Solución</h3>
+                    <div class="code-snippet">
+# Crear lista del estudiante
+estudiante <- list(
+  # Información personal
+  personal = list(
+    nombre = "María López",
+    carne = "B12345",
+    carrera = "Química Industrial"
+  ),
+  
+  # Contacto
+  contacto = list(
+    email = "maria.lopez@una.cr",
+    telefono = "8888-9999"
+  ),
+  
+  # Información académica
+  academico = list(
+    notas = c(85, 78, 92, 88, 90),
+    promedio = NULL,  # Lo calcularemos
+    aprobado = NULL   # Lo calcularemos
+  )
+)
+
+# Calcular promedio
+estudiante$academico$promedio <- 
+  mean(estudiante$academico$notas)
+
+# Determinar si aprobó
+estudiante$academico$aprobado <- 
+  estudiante$academico$promedio >= 70
+
+# Función para imprimir información
+mostrar_estudiante <- function(est) {
+  cat("\nEstudiante:", est$personal$nombre, "\n")
+  cat("Carné:", est$personal$carne, "\n")
+  cat("Carrera:", est$personal$carrera, "\n")
+  cat("Email:", est$contacto$email, "\n\n")
+  
+  cat("Notas:", est$academico$notas, "\n")
+  cat("Promedio:", 
+      round(est$academico$promedio, 1), "\n")
+  
+  estado <- ifelse(est$academico$aprobado, 
+                   "APROBADO ✓", 
+                   "REPROBADO ✗")
+  cat("Estado:", estado, "\n")
+}
+
+mostrar_estudiante(estudiante)</div>
+
+                    <h3>Extensión del ejercicio</h3>
+                    <div class="success-box">
+                        <p>Agrega funcionalidad para:</p>
+                        <ul>
+                            <li>Calcular la nota máxima y mínima</li>
+                            <li>Agregar una nueva nota</li>
+                            <li>Recalcular el promedio automáticamente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">13 / 15</div>
+        </div>
+
+        <!-- Slide 14: Ejercicio práctico 2 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ejercicio práctico 2: base de datos de compuestos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Desafío</h3>
+                    <p>Crea una base de datos de compuestos químicos usando una lista de listas nombradas. Cada compuesto debe tener propiedades específicas.</p>
+                    
+                    <div class="info-box">
+                        <p><strong>Información de cada compuesto:</strong></p>
+                        <ul>
+                            <li>Nombre y fórmula química</li>
+                            <li>Masa molar (g/mol)</li>
+                            <li>Punto de fusión (°C)</li>
+                            <li>Punto de ebullición (°C)</li>
+                            <li>Solubilidad en agua (g/L)</li>
+                            <li>Clasificación (ácido, base, sal, orgánico)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Tareas</h3>
+                    <div class="code-snippet">
+# 1. Crear base con al menos 4 compuestos
+
+# 2. Función: buscar por nombre
+
+# 3. Función: filtrar por clasificación
+
+# 4. Función: encontrar compuesto con 
+#    mayor punto de ebullición
+
+# 5. Función: calcular masa molar promedio</div>
+                </div>
+                <div>
+                    <h3>Solución</h3>
+                    <div class="code-snippet">
+# Base de datos de compuestos
+compuestos_db <- list(
+  
+  COMP001 = list(
+    nombre = "Cloruro de sodio",
+    formula = "NaCl",
+    masa_molar = 58.44,
+    pto_fusion = 801,
+    pto_ebullicion = 1413,
+    solubilidad = 360,
+    clasificacion = "sal"
+  ),
+  
+  COMP002 = list(
+    nombre = "Ácido clorhídrico",
+    formula = "HCl",
+    masa_molar = 36.46,
+    pto_fusion = -114,
+    pto_ebullicion = -85,
+    solubilidad = 720,
+    clasificacion = "acido"
+  ),
+  
+  COMP003 = list(
+    nombre = "Hidróxido de sodio",
+    formula = "NaOH",
+    masa_molar = 40.00,
+    pto_fusion = 318,
+    pto_ebullicion = 1388,
+    solubilidad = 1110,
+    clasificacion = "base"
+  ),
+  
+  COMP004 = list(
+    nombre = "Etanol",
+    formula = "C2H5OH",
+    masa_molar = 46.07,
+    pto_fusion = -114,
+    pto_ebullicion = 78,
+    solubilidad = 1000,
+    clasificacion = "organico"
+  )
+)
+
+# Función 1: Buscar por nombre
+buscar_compuesto <- function(db, nombre_buscar) {
+  for (id in names(db)) {
+    if (grepl(nombre_buscar, db[[id]]$nombre, 
+              ignore.case = TRUE)) {
+      return(db[[id]])
+    }
+  }
+  return(NULL)
+}
+
+# Función 2: Filtrar por clasificación
+filtrar_por_clase <- function(db, clase) {
+  db[sapply(db, function(x) 
+    x$clasificacion == clase)]
+}
+
+# Función 3: Mayor punto de ebullición
+max_ebullicion <- function(db) {
+  ebulliciones <- sapply(db, 
+    function(x) x$pto_ebullicion)
+  id_max <- which.max(ebulliciones)
+  return(db[[id_max]])
+}
+
+# Función 4: Masa molar promedio
+masa_promedio <- function(db) {
+  masas <- sapply(db, 
+    function(x) x$masa_molar)
+  return(mean(masas))
+}
+
+# Usar las funciones
+sal <- buscar_compuesto(compuestos_db, "sodio")
+acidos <- filtrar_por_clase(compuestos_db, "acido")
+mas_volatil <- max_ebullicion(compuestos_db)
+promedio_masas <- masa_promedio(compuestos_db)</div>
+                </div>
+            </div>
+            <div class="slide-number">14 / 15</div>
+        </div>
+
+        <!-- Slide 15: Resumen y conclusiones -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Resumen y mejores prácticas</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Conceptos clave aprendidos</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Listas en R</strong></p>
+                        <ul>
+                            <li>Estructura más flexible de R</li>
+                            <li>Puede contener cualquier tipo de objeto</li>
+                            <li>Ideal para datos heterogéneos</li>
+                        </ul>
+                        </div>
+
+                    <div class="success-box">
+                        <p><strong>Listas nombradas</strong></p>
+                        <ul>
+                            <li>Equivalente a diccionarios de Python</li>
+                            <li>Acceso mediante nombres descriptivos</li>
+                            <li>Código más legible y mantenible</li>
+                            <li>Uso del operador $ para acceso directo</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Clases S3</strong></p>
+                        <ul>
+                            <li>Listas con atributo "class"</li>
+                            <li>Permiten métodos personalizados</li>
+                            <li>Sistema simple pero poderoso</li>
+                            <li>Comportamiento especializado por tipo</li>
+                        </ul>
+                    </div>
+
+                    <h3>Cuándo usar cada estructura</h3>
+                    
+                    <div class="info-box">
+                        <p><strong>Usa vectores cuando:</strong></p>
+                        <ul>
+                            <li>Todos los datos son del mismo tipo</li>
+                            <li>Necesitas operaciones matemáticas simples</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Usa data frames cuando:</strong></p>
+                        <ul>
+                            <li>Datos tabulares (observaciones × variables)</li>
+                            <li>Análisis estadístico estándar</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Usa listas cuando:</strong></p>
+                        <ul>
+                            <li>Datos heterogéneos y complejos</li>
+                            <li>Estructuras jerárquicas</li>
+                            <li>Resultados de análisis múltiples</li>
+                            <li>Necesitas flexibilidad máxima</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Mejores prácticas</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>Nomenclatura clara</strong></p>
+                        <div class="code-snippet">
+# ❌ Malo
+l <- list(a = 1, b = 2, c = 3)
+
+# ✓ Bueno
+experimento <- list(
+  temperatura = 25,
+  presion = 1.0,
+  pH = 7.0
+)</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Validación de entrada</strong></p>
+                        <div class="code-snippet">
+crear_muestra <- function(id, conc) {
+  # Validar entradas
+  if (!is.character(id)) {
+    stop("ID debe ser texto")
+  }
+  if (!is.numeric(conc) || conc < 0) {
+    stop("Concentración debe ser numérica positiva")
+  }
+  
+  # Crear objeto
+  list(id = id, concentracion = conc)
+}</div>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Documentación</strong></p>
+                        <div class="code-snippet">
+# Documentar estructura de listas complejas
+experimento <- list(
+  # Metadatos del experimento
+  metadata = list(...),
+  
+  # Condiciones experimentales
+  condiciones = list(...),
+  
+  # Datos de mediciones
+  datos = data.frame(...),
+  
+  # Resultados del análisis
+  resultados = list(...)
+)</div>
+                    </div>
+
+                    <h3>Errores comunes a evitar</h3>
+                    
+                    <div class="code-snippet">
+# ❌ Error 1: Confundir [] con [[]]
+lista <- list(a = 1:3)
+lista[1]      # Retorna sublista
+lista[[1]]    # Retorna el vector
+
+# ❌ Error 2: Olvidar names() en loops
+for (nombre in names(lista)) {  # ✓ Correcto
+  # usar nombre
+}
+
+# ❌ Error 3: No verificar NULL
+if (!is.null(lista$elemento)) {  # ✓ Correcto
+  # procesar elemento
+}</div>
+
+                    <h3>Recursos adicionales</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Para profundizar:</strong></p>
+                        <ul>
+                            <li>Advanced R (Hadley Wickham) - Capítulo sobre OOP</li>
+                            <li>R for Data Science - Capítulo sobre listas</li>
+                            <li>Documentación: <code>?list</code>, <code>?class</code></li>
+                            <li>Tutoriales sobre sistemas S3, S4, R6</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "Las listas son la navaja suiza de R: cuando necesites flexibilidad y organización, son tu mejor herramienta"
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">15 / 15</div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
