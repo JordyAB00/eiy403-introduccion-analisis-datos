@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - Creación de Gráficos en R</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .code-snippet {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+            overflow-x: auto;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #ffe6e6, #ffcccc);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .success-box {
+            background: linear-gradient(145deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .quote-box {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        /* Estilos para ejemplos de gráficos */
+        .chart-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-label {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .bad-label {
+            background: #ffe6e6;
+            color: #e74c3c;
+        }
+
+        .good-label {
+            background: #e8f5e8;
+            color: #28a745;
+        }
+
+        /* Gráfico de barras simple */
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 200px;
+            padding: 10px;
+            border-bottom: 2px solid #2c3e50;
+        }
+
+        .bar {
+            width: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .bar-value {
+            writing-mode: vertical-rl;
+            text-align: center;
+            border-radius: 4px 4px 0 0;
+            padding: 10px 5px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .bar-label {
+            margin-top: 8px;
+            font-size: 0.85em;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        /* Paleta de colores */
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.8em;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Gráfico de línea simple */
+        .line-chart {
+            position: relative;
+            height: 200px;
+            border-left: 2px solid #2c3e50;
+            border-bottom: 2px solid #2c3e50;
+            margin: 20px 10px;
+        }
+
+        .line-chart svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Grid de tipos de gráficos */
+        .chart-types-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .chart-type-card {
+            background: white;
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .chart-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-type-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .chart-type-title {
+            color: #a73c3c;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .chart-type-desc {
+            color: #34495e;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="home-btn">← Volver al inicio</a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>Creación de gráficos en R</h1>
+            <p class="subtitle" style="text-align: center;">Visualización de datos efectiva: principios, buenas prácticas y código</p>
+            <div class="info"><strong>Curso:</strong> EIY403 - Introducción al análisis de datos</div>
+            <div class="info"><strong>Semana 12</strong></div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            
+            <div class="quote-box" style="margin: 40px 0;">
+                "Un gráfico bien diseñado comunica más en segundos que mil palabras en minutos"
+            </div>
+            
+            <div class="slide-number">1 / 18</div>
+        </div>
+
+        <!-- Slide 2: Agenda -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Agenda de la sesión</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Fundamentos de visualización</h3>
+                    <ul>
+                        <li>¿Por qué visualizar datos?</li>
+                        <li>Principios de diseño gráfico</li>
+                        <li>Errores comunes a evitar</li>
+                    </ul>
+                    
+                    <h3>Buenas y malas prácticas</h3>
+                    <ul>
+                        <li>Comparaciones visuales</li>
+                        <li>Ejemplos de gráficos mal diseñados</li>
+                        <li>Cómo mejorarlos</li>
+                        <li>Casos reales</li>
+                    </ul>
+
+                    <h3>Teoría del color</h3>
+                    <ul>
+                        <li>Psicología del color</li>
+                        <li>Paletas apropiadas para datos</li>
+                        <li>Accesibilidad y daltonismo</li>
+                        <li>Colores en R</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Tipos de gráficos</h3>
+                    <ul>
+                        <li>Cuándo usar cada tipo</li>
+                        <li>Gráficos para datos categóricos</li>
+                        <li>Gráficos para datos numéricos</li>
+                        <li>Gráficos para relaciones</li>
+                        <li>Gráficos especializados</li>
+                    </ul>
+
+                    <h3>Implementación en R</h3>
+                    <ul>
+                        <li>Gráficos con R base</li>
+                        <li>Introducción a ggplot2</li>
+                        <li>Personalización de gráficos</li>
+                        <li>Exportar gráficos</li>
+                        <li>Ejercicios prácticos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-number">2 / 18</div>
+        </div>
+
+        <!-- Slide 3: Por qué visualizar -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Por qué visualizar datos?</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>El poder de la visualización</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Procesamiento visual</strong></p>
+                        <ul>
+                            <li>El cerebro procesa imágenes 60,000 veces más rápido que texto</li>
+                            <li>90% de la información transmitida al cerebro es visual</li>
+                            <li>Recordamos 80% de lo que vemos vs 20% de lo que leemos</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Identificación de patrones</strong></p>
+                        <ul>
+                            <li>Detecta tendencias instantáneamente</li>
+                            <li>Identifica valores atípicos (outliers)</li>
+                            <li>Revela relaciones entre variables</li>
+                            <li>Muestra distribuciones de datos</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Comunicación efectiva</strong></p>
+                        <ul>
+                            <li>Simplifica datos complejos</li>
+                            <li>Cuenta historias con datos</li>
+                            <li>Persuade con evidencia visual</li>
+                            <li>Facilita toma de decisiones</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Ejemplo: el cuarteto de Anscombe</h3>
+                    <p>Cuatro conjuntos de datos con las <strong>mismas</strong> estadísticas pero patrones visuales <strong>muy diferentes</strong>:</p>
+                    
+                    <div class="info-box">
+                        <p><strong>Todos tienen:</strong></p>
+                        <ul>
+                            <li>Media de X: 9.0</li>
+                            <li>Media de Y: 7.5</li>
+                            <li>Desviación estándar de X: 3.32</li>
+                            <li>Desviación estándar de Y: 2.03</li>
+                            <li>Correlación: 0.816</li>
+                            <li>Ecuación de regresión: y = 3 + 0.5x</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>Pero al graficarlos...</strong></p>
+                        <ul>
+                            <li>Conjunto 1: Relación lineal perfecta</li>
+                            <li>Conjunto 2: Relación no lineal (curva)</li>
+                            <li>Conjunto 3: Relación lineal con outlier</li>
+                            <li>Conjunto 4: Sin relación, solo un punto extremo</li>
+                        </ul>
+                    </div>
+
+                    <div class="quote-box">
+                        "Las estadísticas resumen pueden mentir. Los gráficos revelan la verdad"
+                    </div>
+
+                    <div class="code-snippet">
+# Ver el cuarteto de Anscombe en R
+data(anscombe)
+par(mfrow = c(2, 2))
+for(i in 1:4) {
+  plot(anscombe[, i], anscombe[, i+4],
+       main = paste("Conjunto", i))
+}</div>
+                </div>
+            </div>
+            <div class="slide-number">3 / 18</div>
+        </div>
+
+        <!-- Slide 4: Principios de diseño -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Principios de diseño gráfico</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Principio 1: Claridad</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Un mensaje principal:</strong> cada gráfico debe comunicar UNA idea</li>
+                            <li><strong>Título descriptivo:</strong> que explique qué muestra el gráfico</li>
+                            <li><strong>Ejes etiquetados:</strong> siempre con unidades</li>
+                            <li><strong>Leyenda clara:</strong> cuando hay múltiples series</li>
+                        </ul>
+                    </div>
+
+                    <h3>Principio 2: Simplicidad</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Menos es más:</strong> elimina elementos innecesarios</li>
+                            <li><strong>Sin chartjunk:</strong> nada de 3D, sombras, efectos</li>
+                            <li><strong>Ratio tinta-datos:</strong> maximiza información, minimiza decoración</li>
+                            <li><strong>Espacio en blanco:</strong> usa márgenes apropiados</li>
+                        </ul>
+                    </div>
+
+                    <h3>Principio 3: Honestidad</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Eje Y en cero:</strong> para gráficos de barras</li>
+                            <li><strong>Escalas apropiadas:</strong> no exagerar diferencias</li>
+                            <li><strong>Datos completos:</strong> no ocultar información relevante</li>
+                            <li><strong>Contexto necesario:</strong> incluye tamaño de muestra, errores</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Principio 4: Consistencia</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Colores uniformes:</strong> misma variable = mismo color</li>
+                            <li><strong>Tipografía coherente:</strong> una o dos fuentes máximo</li>
+                            <li><strong>Escalas comparables:</strong> entre gráficos relacionados</li>
+                            <li><strong>Estilo único:</strong> en toda la presentación/documento</li>
+                        </ul>
+                    </div>
+
+                    <h3>Principio 5: Accesibilidad</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Colores distinguibles:</strong> para personas con daltonismo</li>
+                            <li><strong>Tamaño de texto:</strong> legible a distancia</li>
+                            <li><strong>Contraste suficiente:</strong> fondo vs elementos</li>
+                            <li><strong>Alternativas:</strong> patrones además de colores</li>
+                        </ul>
+                    </div>
+
+                    <h3>Principio 6: Contexto</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li><strong>Audiencia:</strong> adapta complejidad al público</li>
+                            <li><strong>Propósito:</strong> exploración vs presentación</li>
+                            <li><strong>Medio:</strong> impreso, pantalla, proyección</li>
+                            <li><strong>Comparaciones:</strong> incluye referencias o benchmarks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4 / 18</div>
+        </div>
+
+        <!-- Slide 5: Malas prácticas - Ejemplo 1 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Malas prácticas: gráficos de barras</h2>
+            
+            <div class="chart-comparison">
+                <div class="chart-container">
+                    <div class="chart-label bad-label">❌ MAL: Eje Y no empieza en cero</div>
+                    <div class="bar-chart">
+                        <div class="bar">
+                            <div class="bar-value" style="background: #e74c3c; height: 80px;">85</div>
+                            <div class="bar-label">Producto A</div>
+                        </div>
+                        <div class="bar">
+                            <div class="bar-value" style="background: #e74c3c; height: 120px;">90</div>
+                            <div class="bar-label">Producto B</div>
+                        </div>
+                        <div class="bar">
+                            <div class="bar-value" style="background: #e74c3c; height: 160px;">95</div>
+                            <div class="bar-label">Producto C</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.9em; color: #e74c3c; margin-top: 10px;">
+                        <strong>Problema:</strong> Exagera las diferencias visuales. Parece que C es 2× mejor que A, pero solo es 11.8% mejor
+                    </p>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-label good-label">✓ BIEN: Eje Y empieza en cero</div>
+                    <div class="bar-chart">
+                        <div class="bar">
+                            <div class="bar-value" style="background: #28a745; height: 170px;">85</div>
+                            <div class="bar-label">Producto A</div>
+                        </div>
+                        <div class="bar">
+                            <div class="bar-value" style="background: #28a745; height: 180px;">90</div>
+                            <div class="bar-label">Producto B</div>
+                        </div>
+                        <div class="bar">
+                            <div class="bar-value" style="background: #28a745; height: 190px;">95</div>
+                            <div class="bar-label">Producto C</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.9em; color: #28a745; margin-top: 10px;">
+                        <strong>Mejor:</strong> Muestra las proporciones reales correctamente
+                    </p>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 30px;">
+                <div class="warning-box">
+                    <p><strong>Otros errores comunes en barras:</strong></p>
+                    <ul>
+                        <li>Usar 3D (distorsiona percepción)</li>
+                        <li>Demasiadas categorías (ilegible)</li>
+                        <li>Barras apiladas con muchas secciones</li>
+                        <li>Ordenamiento aleatorio (dificulta comparación)</li>
+                    </ul>
+                </div>
+
+                <div class="code-snippet">
+# Código R correcto
+ventas <- c(85, 90, 95)
+productos <- c("Producto A", "Producto B", "Producto C")
+
+# ✓ BIEN: ylim empieza en 0
+barplot(ventas, 
+        names.arg = productos,
+        ylim = c(0, 100),
+        col = "#28a745",
+        main = "Ventas por Producto",
+        ylab = "Unidades vendidas")
+
+# ❌ MAL: ylim manipulado
+barplot(ventas, 
+        names.arg = productos,
+        ylim = c(80, 100),  # NO HACER ESTO
+        col = "#e74c3c")</div>
+            </div>
+            
+            <div class="slide-number">5 / 18</div>
+        </div>
+
+        <!-- Slide 6: Malas prácticas - Colores -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Malas prácticas: uso del color</h2>
+            
+            <div class="chart-comparison">
+                <div class="chart-container">
+                    <div class="chart-label bad-label">❌ MAL: Colores sin sentido</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #ff0000;">Rojo</div>
+                        <div class="color-swatch" style="background: #00ff00;">Verde</div>
+                        <div class="color-swatch" style="background: #ffff00; color: #000;">Amarillo</div>
+                        <div class="color-swatch" style="background: #ff00ff;">Magenta</div>
+                        <div class="color-swatch" style="background: #00ffff; color: #000;">Cian</div>
+                        </div>
+                    <p style="text-align: center; font-size: 0.9em; color: #e74c3c; margin-top: 10px;">
+                        <strong>Problemas:</strong> Colores saturados, no distinguibles para daltónicos, sin significado, cansa la vista
+                    </p>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-label good-label">✓ BIEN: Paleta coherente</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #2c3e50;">Azul oscuro</div>
+                        <div class="color-swatch" style="background: #3498db;">Azul medio</div>
+                        <div class="color-swatch" style="background: #5dade2;">Azul claro</div>
+                        <div class="color-swatch" style="background: #85c1e9;">Azul suave</div>
+                        <div class="color-swatch" style="background: #aed6f1;">Azul pálido</div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.9em; color: #28a745; margin-top: 10px;">
+                        <strong>Mejor:</strong> Gradiente suave, distinguible, profesional, representa magnitud
+                    </p>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 30px;">
+                <div>
+                    <div class="warning-box">
+                        <p><strong>Errores de color a evitar:</strong></p>
+                        <ul>
+                            <li><strong>Arcoíris:</strong> Usar todos los colores sin razón</li>
+                            <li><strong>Rojo-verde:</strong> 8% de hombres no los distinguen</li>
+                            <li><strong>Colores chillones:</strong> Saturación máxima (RGB puros)</li>
+                            <li><strong>Bajo contraste:</strong> Texto amarillo sobre blanco</li>
+                            <li><strong>Demasiados colores:</strong> Más de 7 categorías</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Cuándo usar cada tipo de paleta:</strong></p>
+                        <ul>
+                            <li><strong>Secuencial:</strong> Para magnitudes (temperatura, concentración)</li>
+                            <li><strong>Divergente:</strong> Para datos con punto medio (balance, diferencias)</li>
+                            <li><strong>Cualitativa:</strong> Para categorías sin orden</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="code-snippet">
+# Paletas recomendadas en R
+
+# 1. ColorBrewer (científicamente diseñadas)
+library(RColorBrewer)
+display.brewer.all(colorblindFriendly = TRUE)
+
+# Usar paleta secuencial Blues
+colores <- brewer.pal(5, "Blues")
+barplot(1:5, col = colores)
+
+# 2. Viridis (accesible para daltónicos)
+library(viridis)
+barplot(1:5, col = viridis(5))
+
+# 3. Paletas grises para impresión B/N
+barplot(1:5, col = gray.colors(5))
+
+# 4. Colores personalizados con transparencia
+colores <- c("#2c3e50", "#3498db", "#5dade2")
+barplot(1:3, col = colores)
+
+# Agregar transparencia (alpha)
+colores_trans <- adjustcolor(colores, alpha.f = 0.7)</div>
+
+                    <div class="success-box">
+                        <p><strong>Regla de oro:</strong></p>
+                        <p>Si tu gráfico se imprime en blanco y negro y sigue siendo comprensible, probablemente tiene buen diseño de color</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">6 / 18</div>
+        </div>
+
+        <!-- Slide 7: Malas prácticas - Chartjunk -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Malas prácticas: chartjunk y efectos 3D</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>¿Qué es chartjunk?</h3>
+                    <p>Elementos visuales que no agregan información, solo decoración que distrae o confunde.</p>
+
+                    <div class="warning-box">
+                        <p><strong>Ejemplos de chartjunk:</strong></p>
+                        <ul>
+                            <li><strong>Efectos 3D:</strong> Distorsionan la percepción de valores</li>
+                            <li><strong>Gradientes excesivos:</strong> En barras o áreas</li>
+                            <li><strong>Sombras y brillos:</strong> No agregan información</li>
+                            <li><strong>Fondos con imágenes:</strong> Dificultan lectura</li>
+                            <li><strong>Grillas excesivas:</strong> Demasiadas líneas de referencia</li>
+                            <li><strong>Bordes gruesos:</strong> Resaltan el marco, no los datos</li>
+                            <li><strong>Iconos decorativos:</strong> Pictogramas innecesarios</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>El problema del 3D:</strong></p>
+                        <p>Los gráficos 3D son casi siempre una mala idea porque:</p>
+                        <ul>
+                            <li>Distorsionan los valores reales por perspectiva</li>
+                            <li>Ocultan datos (barras traseras)</li>
+                            <li>Dificultan comparaciones precisas</li>
+                            <li>Agregan complejidad sin beneficio</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Ejemplo clásico:</strong> Gráfico de torta 3D</p>
+                        <p>Las secciones del frente parecen más grandes que las del fondo, incluso con el mismo porcentaje. Es el peor tipo de gráfico posible.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Cómo evitarlo en R</h3>
+                    
+                    <div class="code-snippet">
+# ❌ MAL: Gráfico con chartjunk
+datos <- c(20, 35, 25, 20)
+pie(datos, 
+    col = rainbow(4),           # Colores chillones
+    border = "white",           # Sin propósito
+    density = 10,               # Líneas que distraen
+    angle = 45)                 # Más distracción
+
+# ✓ BIEN: Gráfico limpio
+barplot(datos,
+        col = "#3498db",        # Un color sólido
+        border = NA,            # Sin bordes
+        main = "Distribución de datos",
+        ylab = "Frecuencia")
+grid(nx = NA, ny = NULL)        # Solo líneas horizontales</div>
+
+                    <div class="code-snippet">
+# ❌ MAL: Efectos 3D (biblioteca scatterplot3d)
+# NO USAR - Solo para datos verdaderamente 3D
+
+# ✓ BIEN: Alternativas 2D efectivas
+# Para múltiples variables, usa paneles
+par(mfrow = c(2, 2))
+for(i in 1:4) {
+  plot(datos[[i]], main = paste("Variable", i))
+}</div>
+
+                    <div class="success-box">
+                        <p><strong>Principio minimalista:</strong></p>
+                        <p>"Perfection is achieved not when there is nothing more to add, but when there is nothing left to take away"</p>
+                        <p style="text-align: right;">— Antoine de Saint-Exupéry</p>
+                    </div>
+
+                    <div class="code-snippet">
+# Configuración minimalista en R base
+par(
+  bty = "l",              # Solo ejes izquierdo e inferior
+  las = 1,                # Etiquetas horizontales
+  cex.axis = 0.9,         # Texto de ejes más pequeño
+  col.axis = "gray30",    # Color suave para ejes
+  fg = "gray30"           # Color de líneas
+)</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">7 / 18</div>
+        </div>
+
+        <!-- Slide 8: Tipos de gráficos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Tipos de gráficos: ¿cuándo usar cada uno?</h2>
+            
+            <div class="chart-types-grid">
+                <div class="chart-type-card">
+                    <div class="chart-type-icon">📊</div>
+                    <div class="chart-type-title">Gráfico de barras</div>
+                    <div class="chart-type-desc">
+                        <strong>Para:</strong> Comparar categorías<br>
+                        <strong>Cuándo:</strong> Pocas categorías (&lt;10), valores discretos<br>
+                        <strong>Ejemplo:</strong> Ventas por producto
+                    </div>
+                </div>
+
+                <div class="chart-type-card">
+                    <div class="chart-type-icon">📈</div>
+                    <div class="chart-type-title">Gráfico de líneas</div>
+                    <div class="chart-type-desc">
+                        <strong>Para:</strong> Mostrar tendencias en el tiempo<br>
+                        <strong>Cuándo:</strong> Datos continuos, series temporales<br>
+                        <strong>Ejemplo:</strong> Temperatura a lo largo del día
+                    </div>
+                </div>
+
+                <div class="chart-type-card">
+                    <div class="chart-type-icon">⚫</div>
+                    <div class="chart-type-title">Gráfico de dispersión</div>
+                    <div class="chart-type-desc">
+                        <strong>Para:</strong> Relación entre dos variables<br>
+                        <strong>Cuándo:</strong> Buscar correlaciones, patrones<br>
+                        <strong>Ejemplo:</strong> Dosis vs efecto
+                    </div>
+                </div>
+
+                <div class="chart-type-card">
+                    <div class="chart-type-icon">📦</div>
+                    <div class="chart-type-title">Boxplot</div>
+                    <div class="chart-type-desc">
+                        <strong>Para:</strong> Distribución y outliers<br>
+                        <strong>Cuándo:</strong> Comparar distribuciones entre grupos<br>
+                        <strong>Ejemplo:</strong> Concentración por laboratorio
+                    </div>
+                </div>
+
+                <div class="chart-type-card">
+                    <div class="chart-type-icon">📊</div>
+                    <div class="chart-type-title">Histograma</div>
+                    <div class="chart-type-desc">
+                        <strong>Para:</strong> Distribución de frecuencias<br>
+                        <strong>Cuándo:</strong> Ver forma de la distribución<br>
+                        <strong>Ejemplo:</strong> Distribución de edades
+                    </div>
+                </div>
+
+                <div class="chart-type-card">
+                    <div class="chart-type-icon">🔥</div>
+                    <div class="chart-type-title">Heatmap</div>
+                    <div class="chart-type-desc">
+                        <strong>Para:</strong> Matrices de valores con color<br>
+                        <strong>Cuándo:</strong> Muchas variables, correlaciones<br>
+                        <strong>Ejemplo:</strong> Matriz de correlación
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 30px;">
+                <p><strong>❌ NUNCA (o casi nunca) usar:</strong></p>
+                <ul>
+                    <li><strong>Gráficos de torta (pie):</strong> El cerebro es malo comparando ángulos. Usa barras.</li>
+                    <li><strong>Gráficos de torta 3D:</strong> Aún peor. Distorsión por perspectiva.</li>
+                    <li><strong>Gráficos de dona:</strong> Como la torta pero con menos área para comparar.</li>
+                    <li><strong>Gráficos de radar:</strong> Difíciles de interpretar, mejor usar barras agrupadas.</li>
+                </ul>
+            </div>
+
+            <div class="quote-box" style="margin-top: 20px;">
+                "El único caso aceptable para gráfico de torta es mostrar proporciones de... una torta real"
+            </div>
+            
+            <div class="slide-number">8 / 18</div>
+        </div>
+
+        <!-- Slide 9: Gráficos de barras en R -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Gráficos de barras en R</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Barras simples (R base)</h3>
+                    <div class="code-snippet">
+# Datos de ejemplo
+ventas <- c(45, 67, 52, 78, 61)
+productos <- c("A", "B", "C", "D", "E")
+
+# Gráfico básico
+barplot(ventas, 
+        names.arg = productos,
+        main = "Ventas por producto",
+        xlab = "Producto",
+        ylab = "Unidades vendidas",
+        col = "#3498db",
+        border = NA)
+
+# Agregar valores sobre las barras
+text(x = barplot(ventas, plot = FALSE),
+     y = ventas,
+     labels = ventas,
+     pos = 3,
+     cex = 0.8)</div>
+
+                    <h3>Barras horizontales</h3>
+                    <div class="code-snippet">
+# Barras horizontales (mejor para etiquetas largas)
+barplot(ventas, 
+        names.arg = productos,
+        horiz = TRUE,
+        main = "Ventas por producto",
+        xlab = "Unidades vendidas",
+        col = "#2ecc71",
+        border = NA,
+        las = 1)  # Etiquetas horizontales</div>
+
+                    <h3>Barras agrupadas</h3>
+                    <div class="code-snippet">
+# Datos: ventas por trimestre
+datos <- matrix(c(45, 67, 52,
+                  50, 72, 58,
+                  48, 70, 55,
+                  53, 75, 60),
+                nrow = 3,
+                byrow = FALSE)
+rownames(datos) <- c("A", "B", "C")
+colnames(datos) <- c("Q1", "Q2", "Q3", "Q4")
+
+# Barras agrupadas
+barplot(datos,
+        beside = TRUE,
+        main = "Ventas por trimestre",
+        xlab = "Trimestre",
+        ylab = "Ventas",
+        col = c("#3498db", "#2ecc71", "#f39c12"),
+        legend = rownames(datos))
+
+# Agregar grilla
+grid(nx = NA, ny = NULL, col = "gray90")</div>
+                </div>
+                <div>
+                    <h3>Barras apiladas</h3>
+                    <div class="code-snippet">
+# Barras apiladas (mismos datos)
+barplot(datos,
+        beside = FALSE,  # FALSE para apilar
+        main = "Composición de ventas",
+        xlab = "Trimestre",
+        ylab = "Total ventas",
+        col = c("#3498db", "#2ecc71", "#f39c12"),
+        legend = rownames(datos))</div>
+
+                    <h3>Ordenar por valor</h3>
+                    <div class="code-snippet">
+# Ordenar de mayor a menor
+ventas_ord <- sort(ventas, decreasing = TRUE)
+productos_ord <- productos[order(ventas, decreasing = TRUE)]
+
+barplot(ventas_ord,
+        names.arg = productos_ord,
+        main = "Ventas ordenadas",
+        col = "#9b59b6",
+        border = NA)</div>
+
+                    <h3>Personalización avanzada</h3>
+                    <div class="code-snippet">
+# Control total del diseño
+par(mar = c(5, 5, 4, 2),  # Márgenes
+    family = "sans")       # Fuente
+
+bp <- barplot(ventas,
+              names.arg = productos,
+              ylim = c(0, max(ventas) * 1.2),
+              col = colorRampPalette(c("#3498db", "#2c3e50"))(5),
+              border = NA,
+              main = "Ventas por producto",
+              cex.names = 0.9,
+              cex.axis = 0.9)
+
+# Línea de promedio
+abline(h = mean(ventas), 
+       col = "#e74c3c", 
+       lwd = 2, 
+       lty = 2)
+
+# Etiqueta del promedio
+text(0.5, mean(ventas), 
+     paste("Promedio:", round(mean(ventas), 1)),
+     pos = 3, 
+     col = "#e74c3c")</div>
+
+                    <div class="info-box">
+                        <p><strong>Tip:</strong> Para nombres de categorías largos, usa barras horizontales (<code>horiz = TRUE</code>) o rota las etiquetas</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">9 / 18</div>
+        </div>
+
+        <!-- Slide 10: Gráficos de líneas en R -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Gráficos de líneas en R</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Línea simple</h3>
+                    <div class="code-snippet">
+# Datos de serie temporal
+tiempo <- 1:24  # horas
+temperatura <- c(15, 14, 13, 13, 14, 16, 
+                 18, 21, 24, 27, 29, 30,
+                 31, 30, 29, 27, 25, 23,
+                 21, 19, 18, 17, 16, 15)
+
+# Gráfico básico
+plot(tiempo, temperatura,
+     type = "l",                    # l = línea
+     main = "Temperatura diaria",
+     xlab = "Hora del día",
+     ylab = "Temperatura (°C)",
+     col = "#e74c3c",
+     lwd = 2)                       # Grosor de línea
+
+# Agregar puntos sobre la línea
+points(tiempo, temperatura,
+       pch = 19,                    # Círculos rellenos
+       col = "#c0392b",
+       cex = 0.8)
+
+# Agregar grilla
+grid(col = "gray90")</div>
+
+                    <h3>Múltiples líneas</h3>
+                    <div class="code-snippet">
+# Tres laboratorios midiendo temperatura
+lab_a <- temperatura + rnorm(24, 0, 0.5)
+lab_b <- temperatura + rnorm(24, 0, 0.5)
+lab_c <- temperatura + rnorm(24, 0, 0.5)
+
+# Primera línea
+plot(tiempo, lab_a,
+     type = "l",
+     ylim = range(c(lab_a, lab_b, lab_c)),
+     main = "Comparación entre laboratorios",
+     xlab = "Hora",
+     ylab = "Temperatura (°C)",
+     col = "#3498db",
+     lwd = 2)
+
+# Agregar más líneas
+lines(tiempo, lab_b, col = "#2ecc71", lwd = 2)
+lines(tiempo, lab_c, col = "#f39c12", lwd = 2)
+
+# Leyenda
+legend("topleft",
+       legend = c("Lab A", "Lab B", "Lab C"),
+       col = c("#3498db", "#2ecc71", "#f39c12"),
+       lwd = 2,
+       bty = "n")  # Sin caja</div>
+                </div>
+                <div>
+                    <h3>Línea con banda de confianza</h3>
+                    <div class="code-snippet">
+# Calcular media y error estándar
+medias <- temperatura
+se <- 1.5  # error estándar
+
+# Límites de confianza
+superior <- medias + se
+inferior <- medias - se
+
+# Gráfico con banda
+plot(tiempo, medias,
+     type = "l",
+     ylim = range(c(inferior, superior)),
+     main = "Temperatura ± SE",
+     xlab = "Hora",
+     ylab = "Temperatura (°C)",
+     col = "#2c3e50",
+     lwd = 2)
+
+# Agregar banda de confianza
+polygon(c(tiempo, rev(tiempo)),
+        c(superior, rev(inferior)),
+        col = adjustcolor("#3498db", alpha.f = 0.3),
+        border = NA)
+
+# Redibujar la línea principal
+lines(tiempo, medias, col = "#2c3e50", lwd = 2)</div>
+
+                    <h3>Tipos de líneas</h3>
+                    <div class="code-snippet">
+# Diferentes estilos
+plot(1:10, type = "n",
+     main = "Tipos de líneas",
+     xlab = "", ylab = "")
+
+# lty: tipo de línea
+# 1=sólida, 2=guiones, 3=puntos, 4=punto-guion
+for(i in 1:6) {
+  lines(1:10, rep(7-i, 10), lty = i, lwd = 2)
+  text(0.5, 7-i, paste("lty =", i), pos = 2)
+}</div>
+
+                    <h3>Línea suavizada (smooth)</h3>
+                    <div class="code-snippet">
+# Datos con ruido
+x <- 1:50
+y <- x + rnorm(50, 0, 5)
+
+# Puntos originales
+plot(x, y, 
+     pch = 19, 
+     col = "gray70",
+     main = "Línea suavizada")
+
+# Agregar línea suavizada (loess)
+linea_suave <- lowess(x, y, f = 0.2)
+lines(linea_suave, 
+      col = "#e74c3c", 
+      lwd = 3)</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">10 / 18</div>
+        </div>
+
+        <!-- Slide 11: Gráficos de dispersión -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Gráficos de dispersión en R</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Dispersión básica</h3>
+                    <div class="code-snippet">
+# Datos de ejemplo: dosis vs respuesta
+dosis <- c(10, 20, 30, 40, 50, 60, 70, 80)
+respuesta <- c(15, 28, 42, 55, 68, 75, 80, 82)
+
+# Gráfico básico
+plot(dosis, respuesta,
+     main = "Relación dosis-respuesta",
+     xlab = "Dosis (mg)",
+     ylab = "Respuesta (%)",
+     pch = 19,              # Círculos rellenos
+     col = "#3498db",
+     cex = 1.5)             # Tamaño de puntos
+
+# Agregar línea de tendencia
+modelo <- lm(respuesta ~ dosis)
+abline(modelo, 
+       col = "#e74c3c", 
+       lwd = 2, 
+       lty = 2)
+
+# Agregar R²
+r2 <- summary(modelo)$r.squared
+text(20, 75, 
+     paste("R² =", round(r2, 3)),
+     pos = 4,
+     cex = 1.2)</div>
+
+                    <h3>Diferentes símbolos (pch)</h3>
+                    <div class="code-snippet">
+# Mostrar símbolos disponibles
+plot(1:25, rep(1, 25),
+     pch = 1:25,
+     cex = 2,
+     ylim = c(0.5, 1.5),
+     main = "Símbolos disponibles (pch)",
+     xlab = "Número pch",
+     ylab = "")
+text(1:25, rep(0.7, 25), 1:25, cex = 0.8)</div>
+
+                    <h3>Colorear por grupos</h3>
+                    <div class="code-snippet">
+# Datos con grupos
+set.seed(123)
+grupo_a_x <- rnorm(30, 50, 10)
+grupo_a_y <- grupo_a_x + rnorm(30, 0, 5)
+grupo_b_x <- rnorm(30, 70, 10)
+grupo_b_y <- grupo_b_x + rnorm(30, 0, 5)
+
+# Combinar
+x <- c(grupo_a_x, grupo_b_x)
+y <- c(grupo_a_y, grupo_b_y)
+grupos <- rep(c("Control", "Tratamiento"), each = 30)
+
+# Colores por grupo
+colores <- ifelse(grupos == "Control", "#3498db", "#e74c3c")
+
+# Gráfico
+plot(x, y,
+     pch = 19,
+     col = colores,
+     main = "Comparación de grupos",
+     xlab = "Variable X",
+     ylab = "Variable Y")
+
+# Leyenda
+legend("topleft",
+       legend = c("Control", "Tratamiento"),
+       col = c("#3498db", "#e74c3c"),
+       pch = 19,
+       bty = "n")</div>
+                </div>
+                <div>
+                    <h3>Tamaño de puntos por variable</h3>
+                    <div class="code-snippet">
+# Tres variables: x, y, tamaño
+x <- rnorm(50, 50, 15)
+y <- x + rnorm(50, 0, 10)
+tamano <- runif(50, 10, 100)  # Variable de tamaño
+
+# Normalizar tamaños para visualización
+cex_valores <- (tamano - min(tamano)) / 
+               (max(tamano) - min(tamano)) * 3 + 0.5
+
+plot(x, y,
+     pch = 19,
+     col = adjustcolor("#3498db", alpha.f = 0.6),
+     cex = cex_valores,
+     main = "Burbuja: 3 variables",
+     xlab = "Variable X",
+     ylab = "Variable Y")</div>
+
+                    <h3>Matriz de dispersión</h3>
+                    <div class="code-snippet">
+# Múltiples variables
+datos <- data.frame(
+  temperatura = rnorm(50, 25, 3),
+  presion = rnorm(50, 1.0, 0.2),
+  pH = rnorm(50, 7, 0.5),
+  rendimiento = rnorm(50, 75, 10)
+)
+
+# Matriz de dispersión
+pairs(datos,
+      main = "Matriz de dispersión",
+      pch = 19,
+      col = adjustcolor("#3498db", alpha.f = 0.5),
+      lower.panel = NULL)  # Solo mitad superior</div>
+
+                    <h3>Con transparencia</h3>
+                    <div class="code-snippet">
+# Muchos puntos superpuestos
+x <- rnorm(1000, 50, 15)
+y <- x + rnorm(1000, 0, 10)
+
+# Sin transparencia (difícil ver densidad)
+plot(x, y,
+     pch = 19,
+     col = "#3498db",
+     main = "Sin transparencia")
+
+# Con transparencia (muestra densidad)
+plot(x, y,
+     pch = 19,
+     col = adjustcolor("#3498db", alpha.f = 0.3),
+     main = "Con transparencia")</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">11 / 18</div>
+        </div>
+
+        <!-- Slide 12: Boxplots e histogramas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Boxplots e histogramas en R</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Boxplot simple</h3>
+                    <div class="code-snippet">
+# Datos de ejemplo
+concentraciones <- rnorm(100, 50, 10)
+
+# Boxplot básico
+boxplot(concentraciones,
+        main = "Distribución de concentraciones",
+        ylab = "Concentración (mg/L)",
+        col = "#3498db",
+        border = "#2c3e50",
+        horizontal = FALSE)
+
+# Agregar puntos individuales
+stripchart(concentraciones,
+           vertical = TRUE,
+           method = "jitter",
+           add = TRUE,
+           pch = 19,
+           col = adjustcolor("#e74c3c", alpha.f = 0.3),
+           cex = 0.5)</div>
+
+                    <h3>Boxplots múltiples</h3>
+                    <div class="code-snippet">
+# Datos por grupos
+lab_a <- rnorm(50, 50, 8)
+lab_b <- rnorm(50, 55, 10)
+lab_c <- rnorm(50, 48, 7)
+
+# Combinar en lista
+datos_labs <- list("Lab A" = lab_a,
+  "Lab B" = lab_b,
+  "Lab C" = lab_c
+)
+
+# Boxplots comparativos
+boxplot(datos_labs,
+        main = "Comparación entre laboratorios",
+        ylab = "Concentración (mg/L)",
+        col = c("#3498db", "#2ecc71", "#f39c12"),
+        border = "#2c3e50",
+        notch = TRUE)  # Muestra intervalo de confianza
+
+# Agregar línea del promedio global
+abline(h = mean(c(lab_a, lab_b, lab_c)),
+       col = "#e74c3c",
+       lty = 2,
+       lwd = 2)</div>
+
+                    <h3>Interpretación del boxplot</h3>
+                    <div class="info-box">
+                        <p><strong>Elementos del boxplot:</strong></p>
+                        <ul>
+                            <li><strong>Línea central:</strong> Mediana (Q2)</li>
+                            <li><strong>Caja:</strong> Rango intercuartílico (Q1 a Q3)</li>
+                            <li><strong>Bigotes:</strong> Hasta 1.5 × IQR</li>
+                            <li><strong>Puntos fuera:</strong> Outliers potenciales</li>
+                        </ul>
+                    </div>
+
+                    <h3>Boxplot horizontal</h3>
+                    <div class="code-snippet">
+# Horizontal (mejor para etiquetas largas)
+boxplot(datos_labs,
+        main = "Comparación horizontal",
+        xlab = "Concentración (mg/L)",
+        horizontal = TRUE,
+        col = c("#3498db", "#2ecc71", "#f39c12"),
+        las = 1)  # Etiquetas horizontales</div>
+                </div>
+                <div>
+                    <h3>Histograma básico</h3>
+                    <div class="code-snippet">
+# Datos
+datos <- rnorm(500, 50, 10)
+
+# Histograma
+hist(datos,
+     main = "Distribución de concentraciones",
+     xlab = "Concentración (mg/L)",
+     ylab = "Frecuencia",
+     col = "#3498db",
+     border = "white",
+     breaks = 20)  # Número de bins
+
+# Agregar línea de densidad
+lines(density(datos),
+      col = "#e74c3c",
+      lwd = 3)</div>
+
+                    <h3>Histograma con densidad</h3>
+                    <div class="code-snippet">
+# Histograma con probabilidad (no frecuencia)
+hist(datos,
+     main = "Distribución con curva normal",
+     xlab = "Concentración (mg/L)",
+     ylab = "Densidad",
+     col = adjustcolor("#3498db", alpha.f = 0.5),
+     border = "white",
+     freq = FALSE,  # Densidad en lugar de frecuencia
+     breaks = 25)
+
+# Agregar curva normal teórica
+curve(dnorm(x, mean = mean(datos), sd = sd(datos)),
+      add = TRUE,
+      col = "#e74c3c",
+      lwd = 3)
+
+# Leyenda
+legend("topright",
+       legend = c("Datos observados", "Normal teórica"),
+       fill = c("#3498db", NA),
+       border = c("white", NA),
+       lty = c(NA, 1),
+       col = c(NA, "#e74c3c"),
+       lwd = c(NA, 3),
+       bty = "n")</div>
+
+                    <h3>Histogramas superpuestos</h3>
+                    <div class="code-snippet">
+# Dos grupos
+grupo1 <- rnorm(300, 50, 8)
+grupo2 <- rnorm(300, 55, 10)
+
+# Primer histograma
+hist(grupo1,
+     main = "Comparación de distribuciones",
+     xlab = "Valor",
+     col = adjustcolor("#3498db", alpha.f = 0.5),
+     border = "white",
+     xlim = range(c(grupo1, grupo2)),
+     freq = FALSE)
+
+# Segundo histograma superpuesto
+hist(grupo2,
+     col = adjustcolor("#e74c3c", alpha.f = 0.5),
+     border = "white",
+     add = TRUE,
+     freq = FALSE)
+
+# Leyenda
+legend("topright",
+       legend = c("Grupo 1", "Grupo 2"),
+       fill = c(adjustcolor("#3498db", alpha.f = 0.5),
+                adjustcolor("#e74c3c", alpha.f = 0.5)),
+       bty = "n")</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">12 / 18</div>
+        </div>
+
+        <!-- Slide 13: Introducción a ggplot2 -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Introducción a ggplot2</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>¿Por qué ggplot2?</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>Ventajas de ggplot2:</strong></p>
+                        <ul>
+                            <li><strong>Gramática de gráficos:</strong> Sistema consistente y lógico</li>
+                            <li><strong>Estética superior:</strong> Gráficos profesionales por defecto</li>
+                            <li><strong>Fácil personalización:</strong> Temas y escalas predefinidos</li>
+                            <li><strong>Leyendas automáticas:</strong> Se generan solas</li>
+                            <li><strong>Facetas:</strong> Paneles múltiples fácilmente</li>
+                            <li><strong>Comunidad:</strong> Muchas extensiones disponibles</li>
+                        </ul>
+                    </div>
+
+                    <h3>Conceptos clave</h3>
+                    <div class="info-box">
+                        <p><strong>Estructura de un gráfico ggplot2:</strong></p>
+                        <ul>
+                            <li><strong>Data:</strong> El dataset</li>
+                            <li><strong>Aesthetics (aes):</strong> Mapeo de variables a propiedades visuales</li>
+                            <li><strong>Geometries (geom):</strong> Tipo de representación visual</li>
+                            <li><strong>Stats:</strong> Transformaciones estadísticas</li>
+                            <li><strong>Scales:</strong> Control de ejes y colores</li>
+                            <li><strong>Themes:</strong> Apariencia general</li>
+                        </ul>
+                    </div>
+
+                    <h3>Instalación</h3>
+                    <div class="code-snippet">
+# Instalar ggplot2 (solo una vez)
+install.packages("ggplot2")
+
+# Cargar biblioteca
+library(ggplot2)
+
+# O usar todo el tidyverse
+install.packages("tidyverse")
+library(tidyverse)</div>
+                </div>
+                <div>
+                    <h3>Estructura básica</h3>
+                    <div class="code-snippet">
+# La estructura es por capas con +
+
+# Capa 1: Datos y estética
+ggplot(data = mi_dataframe, 
+       aes(x = variable_x, y = variable_y)) +
+  
+  # Capa 2: Geometría
+  geom_point() +
+  
+  # Capa 3: Etiquetas
+  labs(title = "Mi gráfico",
+       x = "Eje X",
+       y = "Eje Y") +
+  
+  # Capa 4: Tema
+  theme_minimal()</div>
+
+                    <h3>Ejemplo completo</h3>
+                    <div class="code-snippet">
+# Crear datos
+library(ggplot2)
+
+datos <- data.frame(
+  dosis = c(10, 20, 30, 40, 50),
+  respuesta = c(15, 28, 42, 55, 68),
+  grupo = c("A", "A", "B", "B", "B")
+)
+
+# Gráfico
+ggplot(datos, aes(x = dosis, y = respuesta)) +
+  geom_point(size = 4, color = "#3498db") +
+  geom_smooth(method = "lm", 
+              se = TRUE,
+              color = "#e74c3c") +
+  labs(title = "Relación dosis-respuesta",
+       x = "Dosis (mg)",
+       y = "Respuesta (%)") +
+  theme_minimal() +
+  theme(plot.title = element_text(face = "bold",
+                                   size = 14))</div>
+
+                    <h3>Comparación R base vs ggplot2</h3>
+                    <div class="code-snippet">
+# R base
+plot(datos$dosis, datos$respuesta)
+
+# ggplot2 (equivalente)
+ggplot(datos, aes(x = dosis, y = respuesta)) +
+  geom_point()
+
+# La ventaja: fácil agregar capas
+ggplot(datos, aes(x = dosis, y = respuesta)) +
+  geom_point() +
+  geom_line() +
+  facet_wrap(~grupo)  # ¡Paneles automáticos!</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">13 / 18</div>
+        </div>
+
+        <!-- Slide 14: ggplot2 - Geometrías -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>ggplot2: geometrías comunes</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>geom_point() - Dispersión</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point(
+    size = 3,
+    color = "#3498db",
+    alpha = 0.6
+  ) +
+  theme_minimal()</div>
+
+                    <h3>geom_line() - Líneas</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = tiempo, y = temperatura)) +
+  geom_line(
+    color = "#e74c3c",
+    size = 1.2
+  ) +
+  geom_point(size = 2) +
+  theme_minimal()</div>
+
+                    <h3>geom_bar() - Barras</h3>
+                    <div class="code-snippet">
+# Para datos ya resumidos (stat = "identity")
+ggplot(datos, aes(x = categoria, y = valor)) +
+  geom_bar(
+    stat = "identity",
+    fill = "#3498db",
+    width = 0.7
+  ) +
+  theme_minimal()
+
+# Para contar frecuencias automáticamente
+ggplot(datos, aes(x = categoria)) +
+  geom_bar(fill = "#2ecc71") +
+  theme_minimal()</div>
+
+                    <h3>geom_col() - Columnas</h3>
+                    <div class="code-snippet">
+# Equivalente a geom_bar(stat = "identity")
+ggplot(datos, aes(x = categoria, y = valor)) +
+  geom_col(fill = "#9b59b6") +
+  theme_minimal()</div>
+
+                    <h3>geom_histogram() - Histograma</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = variable)) +
+  geom_histogram(
+    bins = 30,
+    fill = "#3498db",
+    color = "white"
+  ) +
+  theme_minimal()</div>
+                </div>
+                <div>
+                    <h3>geom_boxplot() - Boxplot</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = grupo, y = valor)) +
+  geom_boxplot(
+    fill = "#3498db",
+    alpha = 0.7,
+    outlier.color = "#e74c3c"
+  ) +
+  theme_minimal()</div>
+
+                    <h3>geom_violin() - Violín</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = grupo, y = valor)) +
+  geom_violin(
+    fill = "#3498db",
+    alpha = 0.5
+  ) +
+  geom_boxplot(width = 0.1) +  # Boxplot dentro
+  theme_minimal()</div>
+
+                    <h3>geom_smooth() - Línea suavizada</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(
+    method = "loess",  # o "lm" para lineal
+    color = "#e74c3c",
+    fill = "#e74c3c",
+    alpha = 0.2
+  ) +
+  theme_minimal()</div>
+
+                    <h3>geom_hline() / geom_vline() - Líneas de referencia</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  geom_hline(
+    yintercept = mean(datos$y),
+    linetype = "dashed",
+    color = "#e74c3c",
+    size = 1
+  ) +
+  geom_vline(
+    xintercept = 50,
+    linetype = "dotted",
+    color = "#3498db"
+  ) +
+  theme_minimal()</div>
+
+                    <h3>Combinar geometrías</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = dosis, y = respuesta)) +
+  geom_point(size = 3, color = "#2c3e50") +
+  geom_line(color = "#3498db", size = 1) +
+  geom_smooth(method = "lm", 
+              se = FALSE,
+              color = "#e74c3c",
+              linetype = "dashed") +
+  theme_minimal()</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">14 / 18</div>
+        </div>
+
+        <!-- Slide 15: ggplot2 - Estética y color -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>ggplot2: estética y color</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Mapear variables a estética</h3>
+                    <div class="code-snippet">
+# Color por grupo (automático)
+ggplot(datos, aes(x = x, y = y, color = grupo)) +
+  geom_point(size = 3) +
+  theme_minimal()
+
+# Tamaño por variable
+ggplot(datos, aes(x = x, y = y, size = z)) +
+  geom_point(alpha = 0.6) +
+  theme_minimal()
+
+# Forma por grupo
+ggplot(datos, aes(x = x, y = y, shape = grupo)) +
+  geom_point(size = 3) +
+  theme_minimal()
+
+# Combinar múltiples estéticas
+ggplot(datos, aes(x = x, y = y, 
+                  color = grupo,
+                  size = z,
+                  shape = tipo)) +
+  geom_point(alpha = 0.7) +
+  theme_minimal()</div>
+
+                    <h3>Paletas de color predefinidas</h3>
+                    <div class="code-snippet">
+# ColorBrewer
+ggplot(datos, aes(x = categoria, y = valor, fill = grupo)) +
+  geom_col() +
+  scale_fill_brewer(palette = "Set2") +
+  theme_minimal()
+
+# Viridis (accesible)
+ggplot(datos, aes(x = x, y = y, color = z)) +
+  geom_point() +
+  scale_color_viridis_c() +  # _c para continuo
+  theme_minimal()
+
+# Manual
+colores_personalizados <- c("#3498db", "#e74c3c", "#2ecc71")
+ggplot(datos, aes(x = x, y = y, color = grupo)) +
+  geom_point() +
+  scale_color_manual(values = colores_personalizados) +
+  theme_minimal()</div>
+
+                    <h3>Gradientes de color</h3>
+                    <div class="code-snippet">
+# Gradiente de dos colores
+ggplot(datos, aes(x = x, y = y, color = temperatura)) +
+  geom_point(size = 3) +
+  scale_color_gradient(
+    low = "#3498db",
+    high = "#e74c3c"
+  ) +
+  theme_minimal()
+
+# Gradiente divergente (3 colores)
+ggplot(datos, aes(x = x, y = y, color = diferencia)) +
+  geom_point(size = 3) +
+  scale_color_gradient2(
+    low = "#3498db",
+    mid = "white",
+    high = "#e74c3c",
+    midpoint = 0
+  ) +
+  theme_minimal()</div>
+                </div>
+                <div>
+                    <h3>Temas predefinidos</h3>
+                    <div class="code-snippet">
+# Temas incluidos en ggplot2
+p <- ggplot(datos, aes(x = x, y = y)) + geom_point()
+
+# Minimalista (recomendado)
+p + theme_minimal()
+
+# Blanco y negro
+p + theme_bw()
+
+# Clásico
+p + theme_classic()
+
+# Oscuro
+p + theme_dark()
+
+# Sin ejes
+p + theme_void()
+
+# Líneas de grilla suaves
+p + theme_light()</div>
+
+                    <h3>Personalizar temas</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point(color = "#3498db", size = 3) +
+  theme_minimal() +
+  theme(
+    # Título
+    plot.title = element_text(
+      face = "bold",
+      size = 16,
+      hjust = 0.5
+    ),
+    # Ejes
+    axis.title = element_text(
+      face = "bold",
+      size = 12
+    ),
+    axis.text = element_text(size = 10),
+    # Panel
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_line(
+      color = "gray90",
+      size = 0.5
+    ),
+    # Leyenda
+    legend.position = "bottom",
+    legend.title = element_text(face = "bold")
+  )</div>
+
+                    <h3>Tema personalizado reutilizable</h3>
+                    <div class="code-snippet">
+# Crear tu propio tema
+tema_una <- function() {
+  theme_minimal() +
+  theme(
+    plot.title = element_text(
+      color = "#a73c3c",
+      face = "bold",
+      size = 14
+    ),
+    axis.title = element_text(
+      color = "#2c3e50",
+      face = "bold"
+    ),
+    panel.grid.minor = element_blank()
+  )
+}
+
+# Usar en cualquier gráfico
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  tema_una()</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">15 / 18</div>
+        </div>
+
+        <!-- Slide 16: ggplot2 - Facetas y etiquetas -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>ggplot2: facetas y etiquetas</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Facetas (paneles múltiples)</h3>
+                    <div class="code-snippet">
+# facet_wrap: una variable
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~grupo) +
+  theme_minimal()
+
+# Con número de columnas
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~grupo, ncol = 2) +
+  theme_minimal()
+
+# facet_grid: dos variables (filas × columnas)
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  facet_grid(tratamiento ~ laboratorio) +
+  theme_minimal()
+
+# Escalas libres por panel
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  facet_wrap(~grupo, scales = "free") +
+  theme_minimal()
+
+# scales = "free_x"  # Solo X libre
+# scales = "free_y"  # Solo Y libre
+# scales = "free"    # Ambos libres</div>
+
+                    <h3>Etiquetas y títulos</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = dosis, y = respuesta)) +
+  geom_point() +
+  labs(
+    title = "Relación dosis-respuesta",
+    subtitle = "Experimento de laboratorio 2025",
+    x = "Dosis del compuesto (mg)",
+    y = "Respuesta biológica (%)",
+    caption = "Fuente: Lab A, n=50"
+  ) +
+  theme_minimal()</div>
+
+                    <h3>Anotaciones de texto</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  annotate("text",
+           x = 50,
+           y = 80,
+           label = "Outlier importante",
+           color = "#e74c3c",
+           size = 4) +
+  annotate("rect",
+           xmin = 40, xmax = 60,
+           ymin = 70, ymax = 90,
+           alpha = 0.2,
+           fill = "#e74c3c") +
+  theme_minimal()</div>
+                </div>
+                <div>
+                    <h3>Etiquetas en puntos</h3>
+                    <div class="code-snippet">
+# geom_text() - etiquetas simples
+ggplot(datos, aes(x = x, y = y, label = nombre)) +
+  geom_point() +
+  geom_text(
+    nudge_y = 2,  # Desplazar hacia arriba
+    size = 3
+  ) +
+  theme_minimal()
+
+# geom_label() - etiquetas con fondo
+ggplot(datos, aes(x = x, y = y, label = nombre)) +
+  geom_point() +
+  geom_label(
+    nudge_y = 2,
+    size = 3,
+    fill = "white",
+    alpha = 0.7
+  ) +
+  theme_minimal()
+
+# ggrepel - evita superposición
+library(ggrepel)
+ggplot(datos, aes(x = x, y = y, label = nombre)) +
+  geom_point() +
+  geom_text_repel(
+    size = 3,
+    box.padding = 0.5
+  ) +
+  theme_minimal()</div>
+
+                    <h3>Formatear ejes</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = fecha, y = ventas)) +
+  geom_line() +
+  scale_x_date(
+    date_labels = "%b %Y",  # Formato de fecha
+    date_breaks = "1 month"
+  ) +
+  scale_y_continuous(
+    labels = scales::comma,  # Formato con comas
+    breaks = seq(0, 100, 20)  # Breaks personalizados
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, 
+                                    hjust = 1))</div>
+
+                    <h3>Límites de ejes</h3>
+                    <div class="code-snippet">
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  xlim(0, 100) +
+  ylim(0, 100) +
+  theme_minimal()
+
+# O con coord_cartesian (mejor)
+ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  coord_cartesian(
+    xlim = c(0, 100),
+    ylim = c(0, 100)
+  ) +
+  theme_minimal()</div>
+                </div>
+            </div>
+            
+            <div class="slide-number">16 / 18</div>
+        </div>
+
+        <!-- Slide 17: Exportar gráficos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Exportar y guardar gráficos</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Guardar desde R base</h3>
+                    <div class="code-snippet">
+# PNG (para web, presentaciones)
+png("mi_grafico.png", 
+    width = 800, 
+    height = 600,
+    res = 150)  # DPI (calidad)
+
+plot(x, y, main = "Mi gráfico")
+
+dev.off()  # IMPORTANTE: cerrar dispositivo
+
+# PDF (para documentos, alta calidad)
+pdf("mi_grafico.pdf",
+    width = 8,    # pulgadas
+    height = 6)
+
+plot(x, y)
+
+dev.off()
+
+# JPEG (comprimido, menor calidad)
+jpeg("grafico.jpg",
+     width = 1200,
+     height = 800,
+     quality = 90)
+
+plot(x, y)
+
+dev.off()
+
+# TIFF (para publicaciones científicas)
+tiff("grafico.tiff",
+     width = 3000,
+     height = 2400,
+     res = 300,
+     compression = "lzw")
+
+plot(x, y)
+
+dev.off()</div>
+
+                    <h3>Guardar desde ggplot2</h3>
+                    <div class="code-snippet">
+# Método recomendado: ggsave()
+p <- ggplot(datos, aes(x = x, y = y)) +
+  geom_point() +
+  theme_minimal()
+
+# Guardar el último gráfico
+ggsave("mi_grafico.png",
+       width = 8,
+       height = 6,
+       dpi = 300)
+
+# Guardar gráfico específico
+ggsave("mi_grafico.png",
+       plot = p,
+       width = 8,
+       height = 6,
+       dpi = 300)
+
+# Diferentes formatos
+ggsave("grafico.pdf", width = 8, height = 6)
+ggsave("grafico.png", width = 8, height = 6, dpi = 300)
+ggsave("grafico.svg", width = 8, height = 6)
+ggsave("grafico.tiff", width = 8, height = 6, dpi = 300)</div>
+                </div>
+                <div>
+                    <h3>Configuración de calidad</h3>
+                    <div class="info-box">
+                        <p><strong>Recomendaciones por uso:</strong></p>
+                        <ul>
+                            <li><strong>Presentaciones:</strong> PNG, 150-300 DPI</li>
+                            <li><strong>Web:</strong> PNG o JPEG, 72-150 DPI</li>
+                            <li><strong>Impresión:</strong> PDF o TIFF, 300-600 DPI</li>
+                            <li><strong>Publicaciones:</strong> TIFF o EPS, 300-600 DPI</li>
+                            <li><strong>Vectorial (escalable):</strong> PDF o SVG</li>
+                        </ul>
+                    </div>
+
+                    <h3>Tamaños estándar</h3>
+                    <div class="code-snippet">
+# Tamaños comunes (en pulgadas)
+
+# Presentación 16:9
+ggsave("grafico.png", width = 10, height = 5.625)
+
+# Presentación 4:3
+ggsave("grafico.png", width = 8, height = 6)
+
+# Cuadrado (Instagram, etc.)
+ggsave("grafico.png", width = 6, height = 6)
+
+# Página completa (vertical)
+ggsave("grafico.pdf", width = 8.5, height = 11)
+
+# Media página (horizontal)
+ggsave("grafico.pdf", width = 7, height = 4)</div>
+
+                    <h3>Múltiples gráficos en un archivo</h3>
+                    <div class="code-snippet">
+# PDF con múltiples páginas
+pdf("varios_graficos.pdf", width = 8, height = 6)
+
+plot(x1, y1, main = "Gráfico 1")
+plot(x2, y2, main = "Gráfico 2")
+plot(x3, y3, main = "Gráfico 3")
+
+dev.off()
+
+# Con ggplot2 - usar bibliotecas adicionales
+library(gridExtra)
+library(ggplot2)
+
+p1 <- ggplot(datos, aes(x = x, y = y)) + geom_point()
+p2 <- ggplot(datos, aes(x = a, y = b)) + geom_line()
+p3 <- ggplot(datos, aes(x = cat)) + geom_bar()
+
+# Combinar en una página
+grid.arrange(p1, p2, p3, ncol = 2)
+
+# Guardar
+ggsave("combinado.png", 
+       grid.arrange(p1, p2, p3, ncol = 2),
+       width = 12, height = 8)</div>
+
+                    <div class="warning-box">
+                      <p><strong>Recuerda:</strong> Siempre usa <code>dev.off()</code> después de abrir un dispositivo gráfico, o R seguirá enviando gráficos al archivo en lugar de la pantalla</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">17 / 18</div>
+        </div>
+
+        <!-- Slide 18: Resumen y mejores prácticas finales -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Resumen y mejores prácticas</h2>
+            
+            <div class="two-column">
+                <div>
+                    <h3>Checklist de un buen gráfico</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>✓ Contenido</strong></p>
+                        <ul>
+                            <li>Tiene un mensaje claro y único</li>
+                            <li>Muestra datos honestos sin distorsión</li>
+                            <li>Incluye todos los datos relevantes</li>
+                            <li>El tipo de gráfico es apropiado para los datos</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>✓ Diseño</strong></p>
+                        <ul>
+                            <li>Título descriptivo y conciso</li>
+                            <li>Ejes etiquetados con unidades</li>
+                            <li>Leyenda clara (si es necesaria)</li>
+                            <li>Escala apropiada (eje Y en cero para barras)</li>
+                            <li>Sin elementos innecesarios (chartjunk)</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>✓ Color y estética</strong></p>
+                        <ul>
+                            <li>Paleta de colores coherente y profesional</li>
+                            <li>Accesible para personas con daltonismo</li>
+                            <li>Contraste suficiente</li>
+                            <li>No más de 5-7 colores diferentes</li>
+                            <li>Colores con significado (no arbitrarios)</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>✓ Legibilidad</strong></p>
+                        <ul>
+                            <li>Texto de tamaño legible</li>
+                            <li>Fuentes simples y profesionales</li>
+                            <li>Etiquetas no superpuestas</li>
+                            <li>Espacio en blanco apropiado</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Errores que NUNCA debes cometer</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>❌ Prohibido:</strong></p>
+                        <ul>
+                            <li>Gráficos de torta (usa barras)</li>
+                            <li>Efectos 3D innecesarios</li>
+                            <li>Eje Y que no empieza en cero (en barras)</li>
+                            <li>Colores rojo-verde juntos</li>
+                            <li>Demasiados colores saturados</li>
+                            <li>Más de 10 categorías en un gráfico</li>
+                            <li>Texto ilegible o rotado 90°</li>
+                            <li>Leyendas con demasiadas entradas</li>
+                            <li>Ocultar datos para "embellecer"</li>
+                        </ul>
+                    </div>
+
+                    <h3>Flujo de trabajo recomendado</h3>
+                    <div class="info-box">
+                        <ol>
+                            <li><strong>Define el mensaje:</strong> ¿Qué quieres comunicar?</li>
+                            <li><strong>Elige el tipo:</strong> ¿Qué gráfico es mejor?</li>
+                            <li><strong>Crea versión básica:</strong> Primero funcionalidad</li>
+                            <li><strong>Refina estética:</strong> Colores, etiquetas, tema</li>
+                            <li><strong>Revisa con otros:</strong> ¿Es claro para tu audiencia?</li>
+                            <li><strong>Exporta apropiadamente:</strong> Formato y resolución correctos</li>
+                        </ol>
+                    </div>
+
+                    <h3>Recursos para continuar</h3>
+                    <div class="code-snippet">
+# Bibliotecas útiles adicionales
+
+# Para gráficos interactivos
+install.packages("plotly")
+library(plotly)
+ggplotly(tu_grafico_ggplot)
+
+# Para mapas
+install.packages("ggmap")
+
+# Para diagramas de redes
+install.packages("ggraph")
+
+# Para extensiones de ggplot2
+install.packages("ggpubr")  # Gráficos de publicación
+install.packages("patchwork")  # Combinar gráficos
+install.packages("cowplot")  # Layouts avanzados
+
+# Galería de gráficos
+# https://r-graph-gallery.com/
+# https://ggplot2.tidyverse.org/</div>
+
+                    <div class="quote-box">
+                        "La visualización efectiva de datos es una combinación de arte y ciencia: precisión técnica con claridad comunicativa"
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>Recuerda:</strong> Un gráfico es exitoso cuando tu audiencia entiende el mensaje en menos de 5 segundos</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">18 / 18</div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
