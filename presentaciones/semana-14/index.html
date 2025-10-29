@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EIY403 - Introducción al Machine Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            display: none;
+            width: 90%;
+            max-width: 1400px;
+            height: 85vh;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            color: #2c3e50;
+            border-radius: 15px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            padding: 50px 60px;
+            text-align: center;
+            position: relative;
+            overflow-y: auto;
+            border: 1px solid rgba(167, 60, 60, 0.1);
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .slide h1 {
+            color: #a73c3c;
+            font-size: 3.2em;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .slide h2 {
+            color: #2c3e50;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid #a73c3c;
+            padding-bottom: 15px;
+            display: inline-block;
+        }
+
+        .slide h3 {
+            color: #a73c3c;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 18px;
+            text-align: left;
+            color: #34495e;
+            font-weight: 400;
+        }
+
+        .slide ul {
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        .slide li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+        }
+
+        .universidad-header {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            color: #a73c3c;
+            font-size: 0.9em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 25px;
+            right: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+        }
+
+        .home-btn:hover {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-btn {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(167, 60, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:hover {
+            background: linear-gradient(145deg, #8b2f2f, #a73c3c);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(167, 60, 60, 0.4);
+        }
+
+        .nav-btn:disabled {
+            background: linear-gradient(145deg, #bdc3c7, #95a5a6);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .intro-slide {
+            text-align: center;
+        }
+
+        .intro-slide h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .intro-slide .subtitle {
+            font-size: 1.6em;
+            color: #34495e;
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .intro-slide .info {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            text-align: left;
+        }
+
+        .three-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            text-align: left;
+        }
+
+        .code-snippet {
+            background: linear-gradient(145deg, #2c3e50, #34495e);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 15px 0;
+            border-left: 4px solid #a73c3c;
+            overflow-x: auto;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #ffe6e6, #ffcccc);
+            border: 2px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .success-box {
+            background: linear-gradient(145deg, #e8f5e8, #d4edda);
+            border: 2px solid #28a745;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #2196f3;
+        }
+
+        .quote-box {
+            background: linear-gradient(145deg, #a73c3c, #8b2f2f);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(167, 60, 60, 0.3);
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .diagram-box {
+            background: white;
+            border: 2px solid #34495e;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin: 5px;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .arrow {
+            display: inline-block;
+            color: #a73c3c;
+            font-size: 2em;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .example-card {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .ml-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: #a73c3c;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .highlight-number {
+            font-size: 3em;
+            font-weight: 700;
+            color: #a73c3c;
+            display: block;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="home-btn">← Volver al inicio</a>
+    
+    <div class="presentation-container">
+        <!-- Slide 1: Portada -->
+        <div class="slide active intro-slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h1>Introducción al machine learning</h1>
+            <p class="subtitle" style="text-align: center;">De la estadística tradicional a la inteligencia artificial</p>
+            <div class="info"><strong>Curso:</strong> EIY403 - Introducción al análisis de datos</div>
+            <div class="info"><strong>Semana 12</strong></div>
+            <div class="info"><strong>II Semestre 2025</strong></div>
+            
+            <div class="quote-box" style="margin: 40px 0;">
+                "Machine learning es la capacidad de las computadoras de aprender sin ser programadas explícitamente"
+                <p style="text-align: right; margin-top: 10px; font-size: 0.8em;">— Arthur Samuel, 1959</p>
+            </div>
+            
+            <div class="slide-number">1 / 15</div>
+        </div>
+
+        <!-- Slide 2: Contexto de hoy -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>El contexto de hoy</h2>
+            
+            <div class="info-box" style="margin: 30px 0;">
+                <h3 style="margin-top: 0;">Lo que haremos hoy</h3>
+                <p style="font-size: 1.3em; text-align: center;">Esta presentación es una <strong>introducción teórica</strong> al machine learning. Después de entender los conceptos, aplicaremos todo lo aprendido en un <strong>proyecto real</strong>: predecir los resultados de las eliminatorias al Mundial 2026.</p>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3>Parte 1: Teoría (ahora)</h3>
+                    <div class="success-box">
+                        <ul>
+                            <li>¿Qué es machine learning?</li>
+                            <li>¿Cómo funciona?</li>
+                            <li>Tipos de algoritmos</li>
+                            <li>Proceso de modelado</li>
+                            <li>Evaluación de modelos</li>
+                            <li>Limitaciones y ética</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Parte 2: Práctica (después)</h3>
+                    <div class="info-box">
+                        <ul>
+                            <li>Proyecto: Predicción de eliminatorias</li>
+                            <li>Análisis exploratorio de datos</li>
+                            <li>Ingeniería de características</li>
+                            <li>Entrenamiento de modelo</li>
+                            <li>Predicción de partidos futuros</li>
+                            <li>Análisis crítico de resultados</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 30px;">
+                <p><strong>Importante:</strong> Este tema NO está en el sílabo oficial del curso. Es contenido <strong>extra</strong> para que conozcan herramientas modernas de análisis de datos. El objetivo es que entiendan cómo funcionan estas tecnologías que escuchan en las noticias.</p>
+            </div>
+            
+            <div class="slide-number">2 / 15</div>
+        </div>
+
+        <!-- Slide 3: ¿Qué es ML? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Qué es machine learning?</h2>
+            
+            <div class="quote-box" style="margin: 30px 0;">
+                Machine learning es un método de análisis de datos que automatiza la construcción de modelos. Es una rama de la inteligencia artificial basada en la idea de que los sistemas pueden aprender de datos, identificar patrones y tomar decisiones con mínima intervención humana.
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3>Programación tradicional</h3>
+                    <div class="diagram-box">
+                        <div class="flow-step">Datos</div>
+                        <div class="arrow">+</div>
+                        <div class="flow-step">Reglas</div>
+                        <div class="arrow">→</div>
+                        <div class="flow-step">Resultados</div>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>Ejemplo:</strong></p>
+                        <p>Para clasificar emails como spam:</p>
+                        <ul>
+                            <li>Programador escribe reglas: "Si contiene 'ganador', marca como spam"</li>
+                            <li>El programa aplica estas reglas</li>
+                            <li>Muy limitado y rígido</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Machine learning</h3>
+                    <div class="diagram-box">
+                        <div class="flow-step">Datos</div>
+                        <div class="arrow">+</div>
+                        <div class="flow-step">Resultados</div>
+                        <div class="arrow">→</div>
+                        <div class="flow-step">Reglas</div>
+                    </div>
+                    <div class="success-box">
+                        <p><strong>Ejemplo:</strong></p>
+                        <p>Para clasificar emails como spam:</p>
+                        <ul>
+                            <li>Damos miles de emails etiquetados</li>
+                            <li>El algoritmo descubre patrones</li>
+                            <li>Aprende reglas automáticamente</li>
+                            <li>Se adapta a nuevos tipos de spam</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 30px;">
+                <p><strong>Diferencia clave:</strong> En programación tradicional, nosotros le decimos al computador QUÉ hacer. En machine learning, le mostramos ejemplos y el computador aprende QUÉ hacer por sí mismo.</p>
+            </div>
+            
+            <div class="slide-number">3 / 15</div>
+        </div>
+
+        <!-- Slide 4: ¿Por qué ahora? -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Por qué machine learning ahora?</h2>
+            
+            <div class="three-column" style="margin-top: 40px;">
+                <div class="example-card">
+                    <div class="ml-icon">💾</div>
+                    <h3 style="margin-top: 0;">Datos masivos</h3>
+                    <p>Generamos 2.5 quintillones de bytes de datos cada día. Los modelos necesitan grandes cantidades de datos para aprender.</p>
+                </div>
+                <div class="example-card">
+                    <div class="ml-icon">⚡</div>
+                    <h3 style="margin-top: 0;">Poder computacional</h3>
+                    <p>GPUs y computación en la nube permiten procesar estos datos rápidamente. Lo que tomaba semanas ahora toma minutos.</p>
+                </div>
+                <div class="example-card">
+                    <div class="ml-icon">🧮</div>
+                    <h3 style="margin-top: 0;">Algoritmos mejorados</h3>
+                    <p>Décadas de investigación han producido algoritmos más eficientes y precisos.</p>
+                </div>
+            </div>
+
+            <h3>Aplicaciones en la vida real</h3>
+            <div class="two-column" style="margin-top: 30px;">
+                <div>
+                    <div class="success-box">
+                        <p><strong>Medicina:</strong></p>
+                        <ul>
+                            <li>Detección temprana de cáncer en imágenes</li>
+                            <li>Predicción de brotes de enfermedades</li>
+                            <li>Desarrollo de medicamentos personalizados</li>
+                        </ul>
+                    </div>
+                    <div class="success-box">
+                        <p><strong>Industria:</strong></p>
+                        <ul>
+                            <li>Control de calidad automatizado</li>
+                            <li>Predicción de fallas en maquinaria</li>
+                            <li>Optimización de procesos químicos</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="success-box">
+                        <p><strong>Vida cotidiana:</strong></p>
+                        <ul>
+                            <li>Recomendaciones en Netflix, Spotify</li>
+                            <li>Asistentes de voz (Siri, Alexa)</li>
+                            <li>Traducción automática</li>
+                            <li>Filtros de spam en email</li>
+                        </ul>
+                    </div>
+                    <div class="success-box">
+                        <p><strong>Ciencia:</strong></p>
+                        <ul>
+                            <li>Descubrimiento de exoplanetas</li>
+                            <li>Predicción del cambio climático</li>
+                            <li>Secuenciación de ADN</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">4 / 15</div>
+        </div>
+
+        <!-- Slide 5: Tipos de ML -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Tipos de machine learning</h2>
+            
+            <div class="three-column" style="margin-top: 40px;">
+                <div>
+                    <div class="example-card">
+                        <div class="ml-icon">📚</div>
+                        <h3 style="margin-top: 0;">Aprendizaje supervisado</h3>
+                        <p style="text-align: left;">Aprendemos de ejemplos etiquetados. Tenemos datos con respuestas correctas y el modelo aprende a predecir.</p>
+                        <div class="success-box" style="text-align: left; margin-top: 15px;">
+                            <p><strong>Ejemplos:</strong></p>
+                            <ul>
+                                <li>Predecir precio de casas</li>
+                                <li>Clasificar emails (spam/no spam)</li>
+                                <li>Diagnóstico médico</li>
+                                <li><strong>Nuestro proyecto: predecir resultados de partidos</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="example-card">
+                        <div class="ml-icon">🔍</div>
+                        <h3 style="margin-top: 0;">Aprendizaje no supervisado</h3>
+                        <p style="text-align: left;">Buscamos patrones ocultos sin etiquetas. El modelo explora y agrupa datos similares.</p>
+                        <div class="info-box" style="text-align: left; margin-top: 15px;">
+                            <p><strong>Ejemplos:</strong></p>
+                            <ul>
+                                <li>Segmentación de clientes</li>
+                                <li>Detección de anomalías</li>
+                                <li>Sistemas de recomendación</li>
+                                <li>Compresión de datos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="example-card">
+                        <div class="ml-icon">🎮</div>
+                        <h3 style="margin-top: 0;">Aprendizaje por refuerzo</h3>
+                        <p style="text-align: left;">Aprendemos por prueba y error. El modelo recibe recompensas o castigos por sus acciones.</p>
+                        <div class="warning-box" style="text-align: left; margin-top: 15px;">
+                            <p><strong>Ejemplos:</strong></p>
+                            <ul>
+                                <li>Juegos (AlphaGo, ajedrez)</li>
+                                <li>Robots autónomos</li>
+                                <li>Vehículos autónomos</li>
+                                <li>Trading financiero</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 30px;">
+                Hoy nos enfocaremos en <strong>aprendizaje supervisado</strong>, el tipo más común y útil para problemas con datos históricos
+            </div>
+            
+            <div class="slide-number">5 / 15</div>
+        </div>
+
+        <!-- Slide 6: Supervisado en detalle -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Aprendizaje supervisado en detalle</h2>
+            
+            <h3>¿Cómo funciona?</h3>
+            <div class="diagram-box" style="margin: 30px 0;">
+                <div class="flow-step">Datos históricos con respuestas</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Entrenar modelo</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Modelo aprende patrones</div>
+                <div class="arrow">→</div>
+                <div class="flow-step">Predecir casos nuevos</div>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3>Regresión (predecir números)</h3>
+                    <div class="success-box">
+                        <p><strong>¿Qué predice?</strong> Valores continuos (números)</p>
+                        <p><strong>Ejemplos:</strong></p>
+                        <ul>
+                            <li>Precio de una casa según m², ubicación</li>
+                            <li>Temperatura según presión, humedad</li>
+                            <li>Ventas futuras según histórico</li>
+                            <li>Concentración según dosis</li>
+                        </ul>
+                        <p><strong>Algoritmos comunes:</strong></p>
+                        <ul>
+                            <li>Regresión lineal</li>
+                            <li>Regresión polinomial</li>
+                            <li>Random Forest</li>
+                            <li>Redes neuronales</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Clasificación (predecir categorías)</h3>
+                    <div class="info-box">
+                        <p><strong>¿Qué predice?</strong> Categorías o clases</p>
+                        <p><strong>Ejemplos:</strong></p>
+                        <ul>
+                            <li>Email es spam o no spam</li>
+                            <li>Paciente tiene enfermedad o no</li>
+                            <li>Imagen es gato, perro o ave</li>
+                            <li><strong>Partido termina en victoria local, empate o victoria visitante</strong></li>
+                        </ul>
+                        <p><strong>Algoritmos comunes:</strong></p>
+                        <ul>
+                            <li>Regresión logística</li>
+                            <li>Árboles de decisión</li>
+                            <li>SVM (Support Vector Machines)</li>
+                            <li>Random Forest</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 30px;">
+                <p><strong>Nuestro proyecto:</strong> Usaremos <strong>clasificación</strong> porque queremos predecir una categoría (victoria local / empate / victoria visitante), no un número exacto de goles.</p>
+            </div>
+            
+            <div class="slide-number">6 / 15</div>
+        </div>
+
+        <!-- Slide 7: El proceso de ML -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>El proceso completo de machine learning</h2>
+            
+            <div style="margin: 30px 0;">
+                <div class="flow-step" style="background: #e74c3c;">1. Definir el problema</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step" style="background: #e67e22;">2. Recolectar datos</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step" style="background: #f39c12;">3. Explorar y limpiar datos</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step" style="background: #f1c40f;">4. Ingeniería de características</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step" style="background: #2ecc71;">5. Entrenar modelo</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step" style="background: #3498db;">6. Evaluar modelo</div>
+                <div class="arrow">↓</div>
+                <div class="flow-step" style="background: #9b59b6;">7. Hacer predicciones</div>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <div class="info-box">
+                        <h3 style="margin-top: 0;">Pasos 1-4: Preparación (70% del tiempo)</h3>
+                        <ul>
+                            <li><strong>Definir problema:</strong> ¿Qué queremos predecir? ¿Por qué?</li>
+                            <li><strong>Recolectar datos:</strong> Encontrar o generar datos relevantes</li>
+                            <li><strong>Explorar y limpiar:</strong> EDA, manejar valores faltantes, outliers</li>
+                            <li><strong>Ingeniería:</strong> Crear variables útiles para el modelo</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="success-box">
+                        <h3 style="margin-top: 0;">Pasos 5-7: Modelado (30% del tiempo)</h3>
+                        <ul>
+                            <li><strong>Entrenar:</strong> Dividir datos, seleccionar algoritmo, ajustar</li>
+                            <li><strong>Evaluar:</strong> Medir qué tan bien funciona el modelo</li>
+                            <li><strong>Predecir:</strong> Usar el modelo en casos nuevos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box" style="margin-top: 30px;">
+                <p><strong>Error común:</strong> Muchos principiantes piensan que ML es solo "entrenar un modelo". En realidad, la mayor parte del trabajo es preparar bien los datos. <strong>Garbage in, garbage out</strong> (basura entra, basura sale).</p>
+            </div>
+            
+            <div class="slide-number">7 / 15</div>
+        </div>
+
+        <!-- Slide 8: Features -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ingeniería de características (features)</h2>
+            
+            <div class="quote-box" style="margin: 30px 0;">
+                "Los datos crudos rara vez están listos para ML. Necesitamos transformarlos en características que el modelo pueda entender"
+            </div>
+
+            <h3>¿Qué son las características (features)?</h3>
+            <p style="text-align: center; font-size: 1.2em; margin: 20px 0;">Las <strong>características</strong> son las variables que el modelo usa para hacer predicciones. Son como las "pistas" que le damos al modelo.</p>
+
+            <div class="two-column" style="margin-top: 30px;">
+                <div>
+                    <div class="warning-box">
+                        <h3 style="margin-top: 0;">Características crudas (malas)</h3>
+                        <p><strong>Ejemplo: Predecir precio de casa</strong></p>
+                        <ul>
+                            <li>Dirección: "123 Calle Principal"</li>
+                            <li>Fecha construcción: "15/03/1985"</li>
+                            <li>Color: "Azul"</li>
+                        </ul>
+                        <p><strong>Problema:</strong> El modelo no puede aprender de texto o fechas directamente</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="success-box">
+                        <h3 style="margin-top: 0;">Características procesadas (buenas)</h3>
+                        <p><strong>Mismo ejemplo procesado:</strong></p>
+                        <ul>
+                            <li>Metros cuadrados: 150</li>
+                            <li>Distancia al centro: 5.2 km</li>
+                            <li>Antigüedad: 40 años</li>
+                            <li>Número de habitaciones: 3</li>
+                        </ul>
+                        <p><strong>Mejor:</strong> Números que el modelo puede procesar</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 30px;">
+                <h3 style="margin-top: 0;">En nuestro proyecto de fútbol</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Dato crudo</th>
+                        <th>Característica procesada</th>
+                    </tr>
+                    <tr>
+                        <td>Equipo: "Costa Rica"</td>
+                        <td>Ranking FIFA: 52</td>
+                    </tr>
+                    <tr>
+                        <td>Equipo local vs visitante</td>
+                        <td>Diferencia de ranking (visitante - local)</td>
+                    </tr>
+                    <tr>
+                        <td>Histórico de goles</td>
+                        <td>Promedio de goles anotados últimos 10 partidos</td>
+                    </tr>
+                    <tr>
+                        <td>Tipo de partido</td>
+                        <td>Es eliminatoria: 1 (sí) o 0 (no)</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="slide-number">8 / 15</div>
+        </div>
+
+        <!-- Slide 9: Train/Test split -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>División entrenamiento y prueba</h2>
+            
+            <div class="warning-box" style="margin: 30px 0;">
+                <p style="font-size: 1.3em; text-align: center;"><strong>Pregunta crucial:</strong> Si usamos TODOS los datos para entrenar, ¿cómo sabemos si el modelo realmente funciona en casos nuevos?</p>
+            </div>
+
+            <h3>La solución: dividir los datos</h3>
+            <div class="diagram-box" style="margin: 30px 0; padding: 40px;">
+                <div style="margin-bottom: 30px;">
+                    <div class="flow-step" style="background: #3498db; width: 100%; margin: 0;">Todos los datos (100%)</div>
+                </div>
+                <div class="arrow" style="font-size: 3em;">↓</div>
+                <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+                    <div style="flex: 0.8;">
+                        <div class="flow-step" style="background: #2ecc71; width: 100%; margin: 0;">Entrenamiento (80%)</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">El modelo APRENDE de estos datos</p>
+                    </div>
+                    <div style="flex: 0.2;">
+                        <div class="flow-step" style="background: #e74c3c; width: 100%; margin: 0;">Prueba (20%)</div>
+                        <p style="margin-top: 10px; font-size: 0.9em;">Evaluamos el modelo aquí</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <div class="success-box">
+                        <h3 style="margin-top: 0;">Conjunto de entrenamiento</h3>
+                        <ul>
+                            <li>Representa el 70-80% de los datos</li>
+                            <li>El modelo ve estos datos durante entrenamiento</li>
+                            <li>Aprende patrones y relaciones</li>
+                            <li>Ajusta sus parámetros internos</li>
+                        </ul>
+                        <p><strong>Analogía:</strong> Como estudiar con ejercicios antes del examen</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="warning-box">
+                        <h3 style="margin-top: 0;">Conjunto de prueba</h3>
+                        <ul>
+                            <li>Representa el 20-30% de los datos</li>
+                            <li>El modelo NUNCA ve estos datos durante entrenamiento</li>
+                            <li>Los usamos para evaluar el desempeño real</li>
+                            <li>Simula casos completamente nuevos</li>
+                        </ul>
+                        <p><strong>Analogía:</strong> El examen final con preguntas nuevas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 30px;">
+                <p><strong>En nuestro proyecto:</strong> Tenemos 41 partidos históricos. Usaremos aproximadamente 33 para entrenar (80%) y 8 para probar (20%). Después de evaluar el modelo, lo usaremos para predecir los 4 partidos futuros de las eliminatorias.</p>
+            </div>
+            
+            <div class="slide-number">9 / 15</div>
+        </div>
+
+        <!-- Slide 10: Overfitting -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Overfitting y underfitting</h2>
+            
+            <div class="quote-box" style="margin: 30px 0;">
+                El desafío principal en ML: crear un modelo que aprenda patrones generales, no que memorice los datos específicos
+            </div>
+
+            <div class="three-column" style="margin-top: 40px;">
+                <div class="example-card">
+                    <h3 style="color: #e74c3c; margin-top: 0;">Underfitting</h3>
+                    <div class="ml-icon" style="color: #e74c3c;">📉</div>
+                    <div class="warning-box" style="text-align: left;">
+                        <p><strong>Problema:</strong> El modelo es demasiado simple</p>
+                        <ul>
+                            <li>No captura patrones importantes</li>
+                            <li>Bajo desempeño en entrenamiento</li>
+                            <li>Bajo desempeño en prueba</li>
+                        </ul>
+                        <p><strong>Analogía:</strong> Estudiante que no estudió lo suficiente</p>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <h3 style="color: #2ecc71; margin-top: 0;">Buen ajuste</h3>
+                    <div class="ml-icon" style="color: #2ecc71;">✓</div>
+                    <div class="success-box" style="text-align: left;">
+                        <p><strong>Ideal:</strong> El modelo aprende patrones generales</p>
+                        <ul>
+                            <li>Captura relaciones importantes</li>
+                            <li>Buen desempeño en entrenamiento</li>
+                            <li>Buen desempeño en prueba</li>
+                        </ul>
+                        <p><strong>Analogía:</strong> Estudiante que entendió los conceptos</p>
+                    </div>
+                </div>
+                <div class="example-card">
+                    <h3 style="color: #9b59b6; margin-top: 0;">Overfitting</h3>
+                    <div class="ml-icon" style="color: #9b59b6;">📈</div>
+                    <div class="info-box" style="text-align: left;">
+                        <p><strong>Problema:</strong> El modelo es demasiado complejo</p>
+                        <ul>
+                            <li>Memoriza los datos de entrenamiento</li>
+                            <li>Excelente desempeño en entrenamiento</li>
+                            <li>Bajo desempeño en prueba</li>
+                        </ul>
+                        <p><strong>Analogía:</strong> Estudiante que memorizó ejercicios sin entender</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Ejemplo visual</h3>
+            <div class="comparison-table" style="margin-top: 20px;">
+                <tr>
+                    <th>Situación</th>
+                    <th>Entrenamiento</th>
+                    <th>Prueba</th>
+                    <th>Diagnóstico</th>
+                </tr>
+                <tr>
+                    <td>Modelo A</td>
+                    <td>60% accuracy</td>
+                    <td>58% accuracy</td>
+                    <td style="color: #e74c3c; font-weight: bold;">Underfitting</td>
+                </tr>
+                <tr>
+                    <td>Modelo B</td>
+                    <td>85% accuracy</td>
+                    <td>82% accuracy</td>
+                    <td style="color: #2ecc71; font-weight: bold;">Buen ajuste</td>
+                </tr>
+                <tr>
+                    <td>Modelo C</td>
+                    <td>98% accuracy</td>
+                    <td>65% accuracy</td>
+                    <td style="color: #9b59b6; font-weight: bold;">Overfitting</td>
+                </tr>
+            </table>
+
+            <div class="warning-box" style="margin-top: 30px;">
+                <p><strong>Lección clave:</strong> Queremos que el desempeño en entrenamiento y prueba sean similares. Una gran diferencia indica overfitting.</p>
+            </div>
+            
+            <div class="slide-number">10 / 15</div>
+        </div>
+
+        <!-- Slide 11: Métricas de evaluación -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>¿Cómo evaluamos un modelo?</h2>
+            
+            <h3>Métricas para clasificación</h3>
+            
+            <div class="info-box" style="margin: 30px 0;">
+                <h3 style="margin-top: 0;">Accuracy (precisión general)</h3>
+                <p style="text-align: center; font-size: 1.4em; margin: 20px 0;">
+                    <strong>Accuracy = (Predicciones correctas) / (Total de predicciones)</strong>
+                </p>
+                <p style="text-align: center;">Ejemplo: Si predecimos 100 partidos y acertamos 70, accuracy = 70%</p>
+            </div>
+
+            <div class="two-column" style="margin-top: 30px;">
+                <div>
+                    <h3>Matriz de confusión</h3>
+                    <p>Muestra dónde el modelo acierta y dónde se equivoca:</p>
+                    <table class="comparison-table" style="margin-top: 20px;">
+                        <tr>
+                            <th></th>
+                            <th>Predicho: Victoria Local</th>
+                            <th>Predicho: Empate</th>
+                            <th>Predicho: Victoria Visitante</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Real: Victoria Local</strong></td>
+                            <td style="background: #d4edda; font-weight: bold;">15</td>
+                            <td style="background: #ffe6e6;">3</td>
+                            <td style="background: #ffe6e6;">2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real: Empate</strong></td>
+                            <td style="background: #ffe6e6;">2</td>
+                            <td style="background: #d4edda; font-weight: bold;">8</td>
+                            <td style="background: #ffe6e6;">2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real: Victoria Visitante</strong></td>
+                            <td style="background: #ffe6e6;">1</td>
+                            <td style="background: #ffe6e6;">2</td>
+                            <td style="background: #d4edda; font-weight: bold;">6</td>
+                        </tr>
+                    </table>
+                    <p style="margin-top: 15px;"><strong>En verde:</strong> Predicciones correctas</p>
+                    <p><strong>En rojo:</strong> Errores del modelo</p>
+                </div>
+                <div>
+                    <h3>¿Qué es un buen accuracy?</h3>
+                    <div class="success-box">
+                        <p><strong>Depende del problema:</strong></p>
+                        <ul>
+                            <li><strong>Diagnóstico médico:</strong> Necesitamos 95%+ (vidas en juego)</li>
+                            <li><strong>Detección de spam:</strong> 90%+ es aceptable</li>
+                            <li><strong>Predicción financiera:</strong> 60-70% puede ser rentable</li>
+                            <li><strong>Predicción deportiva:</strong> 55-65% es bueno (hay mucho azar)</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box">
+                        <p><strong>Comparar con el azar:</strong></p>
+                        <p>En nuestro proyecto, si adivináramos al azar entre 3 opciones (victoria local, empate, victoria visitante), tendríamos 33% de accuracy. Por lo tanto, cualquier modelo debe superar este 33% base.</p>
+                    </div>
+                    <div class="info-box">
+                        <p><strong>En fútbol:</strong> Debido a la alta variabilidad e imprevisibilidad del deporte, un accuracy de 60-70% se considera excelente.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">11 / 15</div>
+        </div>
+
+        <!-- Slide 12: Algoritmos comunes -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Algoritmos de ML comunes</h2>
+            
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <div class="example-card">
+                        <h3 style="margin-top: 0;">Regresión logística</h3>
+                        <div class="success-box" style="text-align: left;">
+                            <p><strong>Uso:</strong> Clasificación (a pesar del nombre)</p>
+                            <p><strong>Cómo funciona:</strong> Calcula probabilidades de cada clase usando una función matemática</p>
+                            <p><strong>Ventajas:</strong></p>
+                            <ul>
+                                <li>Simple y rápido</li>
+                                <li>Interpretable</li>
+                                <li>Funciona bien con pocas muestras</li>
+                            </ul>
+                            <p><strong>Usaremos este en nuestro proyecto</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3 style="margin-top: 0;">Árboles de decisión</h3>
+                        <div class="info-box" style="text-align: left;">
+                            <p><strong>Uso:</strong> Clasificación y regresión</p>
+                            <p><strong>Cómo funciona:</strong> Hace preguntas sucesivas como un diagrama de flujo</p>
+                            <p><strong>Ventajas:</strong></p>
+                            <ul>
+                                <li>Muy interpretable</li>
+                                <li>No necesita normalización</li>
+                                <li>Maneja datos categóricos bien</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="example-card">
+                        <h3 style="margin-top: 0;">Random Forest</h3>
+                        <div class="success-box" style="text-align: left;">
+                            <p><strong>Uso:</strong> Clasificación y regresión</p>
+                            <p><strong>Cómo funciona:</strong> Combina muchos árboles de decisión</p>
+                            <p><strong>Ventajas:</strong></p>
+                            <ul>
+                                <li>Muy preciso</li>
+                                <li>Robusto contra overfitting</li>
+                                <li>Maneja muchas variables</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <h3 style="margin-top: 0;">Redes neuronales</h3>
+                        <div class="warning-box" style="text-align: left;">
+                            <p><strong>Uso:</strong> Problemas complejos (imágenes, texto)</p>
+                            <p><strong>Cómo funciona:</strong> Imita neuronas del cerebro</p>
+                            <p><strong>Ventajas:</strong></p>
+                            <ul>
+                                <li>Muy poderoso para datos complejos</li>
+                                <li>Aprende características automáticamente</li>
+                            </ul>
+                            <p><strong>Desventajas:</strong></p>
+                            <ul>
+                                <li>Necesita MUCHOS datos</li>
+                                <li>Costoso computacionalmente</li>
+                                <li>Difícil de interpretar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 30px;">
+                <p><strong>¿Cómo elegir?</strong> Depende de:</p>
+                <ul>
+                    <li>Cantidad de datos disponibles</li>
+                    <li>Complejidad del problema</li>
+                    <li>Necesidad de interpretabilidad</li>
+                    <li>Recursos computacionales</li>
+                    <li>Tiempo disponible</li>
+                </ul>
+                <p><strong>Regla práctica:</strong> Empieza simple (regresión logística) y complejiza solo si es necesario</p>
+            </div>
+            
+            <div class="slide-number">12 / 15</div>
+        </div>
+
+        <!-- Slide 13: Limitaciones -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Limitaciones del machine learning</h2>
+            
+            <div class="warning-box" style="margin: 30px 0;">
+                <p style="font-size: 1.3em; text-align: center;"><strong>ML no es magia.</strong> Tiene limitaciones importantes que debemos entender.</p>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3>Limitaciones técnicas</h3>
+                    <div class="warning-box">
+                        <p><strong>1. Calidad de datos</strong></p>
+                        <ul>
+                            <li>Basura entra, basura sale</li>
+                            <li>Datos sesgados producen modelos sesgados</li>
+                            <li>Datos insuficientes limitan el aprendizaje</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box">
+                        <p><strong>2. Correlación vs causalidad</strong></p>
+                        <ul>
+                            <li>ML encuentra correlaciones, no causas</li>
+                            <li>Puede encontrar patrones espurios</li>
+                            <li>Ejemplo: helado y ahogamientos (correlacionan por el verano)</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box">
+                        <p><strong>3. Extrapolación</strong></p>
+                        <ul>
+                            <li>Modelos fallan fuera del rango de entrenamiento</li>
+                            <li>No pueden predecir situaciones totalmente nuevas</li>
+                            <li>Ejemplo: modelo entrenado pre-pandemia falla en pandemia</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>En nuestro proyecto de fútbol</h3>
+                    <div class="info-box">
+                        <p><strong>Variables que NO podemos capturar:</strong></p>
+                        <ul>
+                            <li><strong>Estado físico:</strong> Lesiones de jugadores clave</li>
+                            <li><strong>Motivación:</strong> Presión psicológica del momento</li>
+                            <li><strong>Táctica específica:</strong> Plan de juego del entrenador</li>
+                            <li><strong>Clima:</strong> Lluvia, calor extremo el día del partido</li>
+                            <li><strong>Errores arbitrales:</strong> Decisiones polémicas que cambian el partido</li>
+                            <li><strong>Suerte:</strong> Gol de rebote en el minuto 90</li>
+                        </ul>
+                    </div>
+                    <div class="success-box">
+                        <p><strong>Por eso:</strong></p>
+                        <ul>
+                            <li>Un accuracy de 60% en fútbol es realista</li>
+                            <li>Nunca esperemos 95%+ de precisión</li>
+                            <li>El modelo da probabilidades, no certezas</li>
+                            <li>Siempre habrá sorpresas e incertidumbre</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 30px;">
+                "Todos los modelos están equivocados, pero algunos son útiles"
+                <p style="text-align: right; margin-top: 10px; font-size: 0.8em;">— George Box, estadístico</p>
+            </div>
+            
+            <div class="slide-number">13 / 15</div>
+        </div>
+
+        <!-- Slide 14: Ética y responsabilidad -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Ética y responsabilidad en ML</h2>
+            
+            <div class="warning-box" style="margin: 30px 0;">
+                <p style="font-size: 1.3em; text-align: center;">Con gran poder viene gran responsabilidad. ML puede tener impactos significativos en la sociedad.</p>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div>
+                    <h3>Problemas éticos comunes</h3>
+                    
+                    <div class="warning-box">
+                        <p><strong>1. Sesgo algorítmico</strong></p>
+                        <ul>
+                            <li>Modelos aprenden sesgos de los datos históricos</li>
+                            <li>Ejemplo: IA de contratación discrimina contra mujeres</li>
+                            <li>Perpetúa desigualdades existentes</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>2. Privacidad</strong></p>
+                        <ul>
+                            <li>Modelos pueden revelar información sensible</li>
+                            <li>Riesgo de identificar individuos en datos "anónimos"</li>
+                            <li>Uso no autorizado de datos personales</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>3. Transparencia</strong></p>
+                        <ul>
+                            <li>Modelos complejos son "cajas negras"</li>
+                            <li>Difícil explicar decisiones automáticas</li>
+                            <li>Problema en medicina, justicia, finanzas</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <p><strong>4. Responsabilidad</strong></p>
+                        <ul>
+                            <li>¿Quién es responsable si el modelo falla?</li>
+                            <li>¿El programador? ¿La empresa? ¿El algoritmo?</li>
+                            <li>Importante en vehículos autónomos, medicina</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>Principios para ML responsable</h3>
+                    
+                    <div class="success-box">
+                        <p><strong>1. Fairness (justicia)</strong></p>
+                        <ul>
+                            <li>Evaluar sesgos en datos y modelos</li>
+                            <li>Asegurar equidad entre grupos</li>
+                            <li>Diversidad en equipos de desarrollo</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>2. Accountability (rendición de cuentas)</strong></p>
+                        <ul>
+                            <li>Documentar decisiones de diseño</li>
+                            <li>Auditorías externas de modelos</li>
+                            <li>Mecanismos de apelación</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>3. Transparency (transparencia)</strong></p>
+                        <ul>
+                            <li>Explicar cómo funciona el modelo</li>
+                            <li>Comunicar limitaciones</li>
+                            <li>Mostrar datos de entrenamiento</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>4. Privacy (privacidad)</strong></p>
+                        <ul>
+                            <li>Minimizar datos personales</li>
+                            <li>Consentimiento informado</li>
+                            <li>Técnicas de anonimización</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>En nuestro proyecto:</strong></p>
+                        <p>Como es predicción deportiva, el impacto ético es bajo. Pero es importante practicar estos principios:</p>
+                        <ul>
+                            <li>Ser honestos sobre limitaciones</li>
+                            <li>No sobrevender el modelo</li>
+                            <li>Explicar cómo funciona</li>
+                            <li>Reconocer incertidumbre</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-number">14 / 15</div>
+        </div>
+
+        <!-- Slide 15: Resumen y próximos pasos -->
+        <div class="slide">
+            <div class="universidad-header">Universidad Nacional de Costa Rica</div>
+            <h2>Resumen y próximos pasos</h2>
+            
+            <h3>Conceptos clave que aprendimos</h3>
+            
+            <div class="two-column" style="margin-top: 30px;">
+                <div>
+                    <div class="success-box">
+                        <p><strong>1. ¿Qué es ML?</strong></p>
+                        <ul>
+                            <li>Sistemas que aprenden de datos sin programación explícita</li>
+                            <li>Tres tipos: supervisado, no supervisado, refuerzo</li>
+                            <li>Hoy usamos supervisado para clasificación</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>2. El proceso de ML</strong></p>
+                        <ul>
+                            <li>70% preparación de datos, 30% modelado</li>
+                            <li>Ingeniería de características es crucial</li>
+                            <li>Dividir en entrenamiento y prueba</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>3. Evaluación</strong></p>
+                        <ul>
+                            <li>Accuracy y matriz de confusión</li>
+                            <li>Cuidado con overfitting</li>
+                            <li>Comparar con baseline aleatorio</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <div class="success-box">
+                        <p><strong>4. Limitaciones</strong></p>
+                        <ul>
+                            <li>Calidad de datos es fundamental</li>
+                            <li>Correlación no implica causalidad</li>
+                            <li>No puede predecir situaciones totalmente nuevas</li>
+                            <li>Siempre hay incertidumbre</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <p><strong>5. Responsabilidad</strong></p>
+                        <ul>
+                            <li>Considerar implicaciones éticas</li>
+                            <li>Ser transparentes sobre limitaciones</li>
+                            <li>Evaluar sesgos potenciales</li>
+                            <li>Usar ML para el bien</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">Ahora: aplicación práctica</h3>
+            
+            <div class="info-box" style="margin: 30px 0;">
+                <p style="font-size: 1.3em;"><strong>Proyecto:</strong> Predicción de eliminatorias CONCACAF - Mundial 2026</p>
+                <p style="margin-top: 20px;">Vamos a aplicar TODO lo que aprendimos en un caso real:</p>
+                <div class="two-column" style="margin-top: 20px;">
+                    <ul>
+                        <li>Exploraremos 41 partidos históricos</li>
+                        <li>Crearemos características inteligentes</li>
+                        <li>Entrenaremos modelo de regresión logística</li>
+                        <li>Evaluaremos con datos de prueba</li>
+                    </ul>
+                    <ul>
+                        <li>Predeciremos 4 partidos futuros</li>
+                        <li>Simularemos escenarios de clasificación</li>
+                        <li>Analizaremos críticamente los resultados</li>
+                        <li>Discutiremos limitaciones del modelo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 30px;">
+                "La mejor forma de aprender ML es haciéndolo. Vamos a ver cómo todo esto se aplica en un proyecto real"
+            </div>
+
+            <div class="success-box" style="margin-top: 30px; text-align: center;">
+                <p style="font-size: 1.4em; font-weight: bold; margin-bottom: 10px;">¿Listos para predecir si Costa Rica va al Mundial 2026?</p>
+                <p style="font-size: 1.2em;">Pasemos al notebook de R Markdown</p>
+            </div>
+            
+            <div class="slide-number">15 / 15</div>
+        </div>
+
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← Anterior</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">Siguiente →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            if (direction === 1 && currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else if (direction === -1 && currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                changeSlide(1);
+            } else if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
